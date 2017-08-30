@@ -13,9 +13,14 @@ module.exports = {//模块输出
         path:OUTPUT_FILE,//输出路径
         publicPath:'/',
         filename: '[name].js?t=[hash:5]',
+        libraryTarget : 'var'
     },
     resolve: {
-        extensions: ['.js', '.vue', '.jsx', '.less', '.scss', '.css']
+        extensions: ['.js', '.vue', '.jsx', '.less', '.scss', '.css'],
+        alias: {
+            //  也可以不写
+            jquery: '../jquery-1.12.3.min.js',
+        }
     },
     externals:['jQuery'],
     module: {

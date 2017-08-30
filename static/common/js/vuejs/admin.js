@@ -1,5 +1,5 @@
 import Vue from 'vue/dist/vue'
-import Jquery from 'jQuery'
+import $ from 'jquery'
 // import VueAjax from 'vue-resource/dist/vue-resource'
 // import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-default/index.css'
