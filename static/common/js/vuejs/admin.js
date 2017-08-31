@@ -1,4 +1,4 @@
-import Vue from 'vue/dist/vue'
+import Vue from 'vue'
 import $ from 'jquery'
 // import VueAjax from 'vue-resource/dist/vue-resource'
 // import ElementUI from 'element-ui'

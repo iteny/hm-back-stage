@@ -1,25 +1,65 @@
 //定义常量路径
 const   PATH = require('path'),
         WEBPACK = require('webpack'),
+        COMPRESS_RUN = false, //是否压缩合并,true为开启压缩，false不压缩
         ENTRY_FILE = PATH.resolve(__dirname,'../vuejs/admin.js'),//入口文件路径
         OUTPUT_FILE = PATH.resolve(__dirname, '../dist'),//输出文件路径
         ExtractTextPlugin = require("extract-text-webpack-plugin"),
-        HtmlWebpackPlugin = require("html-webpack-plugin");
+        HtmlWebpackPlugin = require("html-webpack-plugin"),
+        PLUGINS = [
+            new WEBPACK.LoaderOptionsPlugin({
+                test:/\.vue$/,//把.vue组件里的css分离出来
+                options: {
+                    vue: {
+                        loaders: {
+                            css: ExtractTextPlugin.extract({
+                                fallback:'vue-style-loader',
+                                use:[{
+                                    loader:'css-loader',
+                                    options:{
+                                        minimize: true //css压缩
+                                    }
+                                }]
+                            })
+                        },
+                    },
+                }
+            }),
+
+            // new WEBPACK.optimize.CommonsChunkPlugin({name: 'common', filename: 'common.js' }), //是否打包公共文件，需要开启入口下面的common
+            new ExtractTextPlugin('vue.css?t=[hash:5]')//css分离
+        ];
+if (COMPRESS_RUN){ //判断是否压缩文件
+    PLUGINS.push(
+        new WEBPACK.optimize.UglifyJsPlugin({
+            mangle: {
+                except: ['$super', '$', 'exports', 'require', 'module', '_']
+            },
+            compress: {
+                warnings: false //压缩时忽略警告
+            },
+            output: {
+                comments: false, //清除注释
+            }
+        })
+    )
+}
 module.exports = {//模块输出
     entry:{
         page:[ENTRY_FILE],//定义入口文件
+        // common:['vue']//打包公共包
     },
     output:{
         path:OUTPUT_FILE,//输出路径
         publicPath:'/',
-        filename: '[name].js?t=[hash:5]',
+        filename: 'hm-back-stage.js?t=[hash:5]',
         libraryTarget : 'var'
     },
     resolve: {
         extensions: ['.js', '.vue', '.jsx', '.less', '.scss', '.css'],
-        alias: {
-            //  也可以不写
+        alias: {//设置加载文件的路径别名
             jquery: '../jquery-1.12.3.min.js',
+            vue: 'vue/dist/vue',
         }
     },
     externals:['jQuery'],
@@ -86,30 +126,5 @@ module.exports = {//模块输出
             }]
         }]
     },
-    plugins: [
-        new WEBPACK.optimize.UglifyJsPlugin({
-            test: /(\.js|\.vue)$/,
-            compress: {
-                warnings: false
-            },
-            comments: false
-        }),
-        new WEBPACK.LoaderOptionsPlugin({
-            test:/\.vue$/,//把.vue组件里的css分离出来
-            options: {
-                vue: {
-                    loaders: {
-                        css: ExtractTextPlugin.extract({
-                          fallback:'vue-style-loader',
-                          use:'css-loader'
-                        })
-                    },
-                },
-            }
-        }),
-        new WEBPACK.optimize.CommonsChunkPlugin({name: 'common', filename: 'common.js' }),
-        new ExtractTextPlugin('vue.css?t=[hash:5]')//css分离
-    ],
-
-
+    plugins: PLUGINS //加载插件
 }
