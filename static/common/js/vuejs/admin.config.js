@@ -58,7 +58,7 @@ module.exports = {//模块输出
     resolve: {
         extensions: ['.js', '.vue', '.jsx', '.less', '.scss', '.css'],
         alias: {//设置加载文件的路径别名
-            jquery: '../jquery-1.12.3.min.js',
+            jquery: '../jquery/jquery-1.12.3.min.js',
             vue: 'vue/dist/vue',
         }
     },
