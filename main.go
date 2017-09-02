@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"hm-back-stage/common"
 	"hm-back-stage/ctrl/admin"
@@ -23,9 +24,22 @@ type server struct {
 	WriteTimeout time.Duration
 }
 
+// var infile *string = flag.String("i", "infile", "File contains values for sorting")
+// var outfile *string = flag.String("o", "outfile", "File to receive sorted values")
+// var algorithm *string = flag.String("a", "qsort", "Sort algorithm")
+
 //entry function
 func main() {
+	flag.Set("alsologtostderr", "true")
+	flag.Set("log_dir", "./log")
+	// ds := flag.BoolVar(glog.logging.alsoToStderr, name, value, usage)
+	// dd := flag.String("log_dir", "./log", "log file")
+	flag.Parse()
+	common.Log.Info("1111")
+	common.Log.Warning("1111")
+	common.Log.Error("1111")
 	//check system info
+	// glog.Error("asdfsdf")
 	memre, _ := mem.VirtualMemory()
 	fmt.Printf("Total: %v, Free:%v, UsedPercent:%f%%\n", memre.Total, memre.Free, memre.UsedPercent)
 	server := &server{Addr: "80", ReadTimeout: 10, WriteTimeout: 10}
