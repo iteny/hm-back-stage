@@ -8,7 +8,6 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"runtime"
 	"strings"
 )
 
@@ -26,6 +25,7 @@ func init() {
 
 //Index back-stage home page
 func (c *LoginCtrl) Index(w http.ResponseWriter, r *http.Request) {
+	c.LogCtrl.Info("1111")
 	// execDirAbsPath, _ := os.Getwd()
 	// log.Println("执行程序所在目录的绝对路径　　　　　　　:", execDirAbsPath)
 	//
@@ -44,10 +44,6 @@ func (c *LoginCtrl) Index(w http.ResponseWriter, r *http.Request) {
 	// os.Chdir(execDirRelativePath) //进入目录
 	// enteredDirAbsPath, _ := os.Getwd()
 	// log.Println("所进入目录的绝对路径　　　　　　　　　　:", enteredDirAbsPath)
-	ptr, file, line, ok := runtime.Caller(0)
-	fmt.Println(file, line)
-	fmt.Println(ptr)
-	fmt.Println(ok)
 	// file, _ := exec.LookPath(os.Args[0])
 	// ApplicationPath, _ := filepath.Abs(file)
 	// ApplicationDir, _ := filepath.Split(ApplicationPath)

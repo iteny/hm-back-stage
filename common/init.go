@@ -27,6 +27,7 @@ var Sess = sessions.NewCookieStore([]byte("something-very-secret"))
 //BaseCtrl is base-object.
 type BaseCtrl struct {
 	CfgCtrl
+	LogCtrl
 }
 
 //CfgCtrl is local configugre object.
@@ -100,7 +101,7 @@ func (c *LogCtrl) Info(s interface{}) {
 			if !ok {
 				fmt.Print(FmtColor.Green("\n[PATH:] "), "not found file path!", "\n[LINE:] ", "not found file path!")
 			} else {
-				fmt.Print(FmtColor.Green("[PATH:] "), file, FmtColor.Green("\n[LINE:] "), line, FmtColor.Green("\n[INFO:] "), s)
+				fmt.Print(FmtColor.Green("\n[PATH:] "), file, FmtColor.Green("\n[LINE:] "), line, FmtColor.Green("\n[INFO:] "), s)
 			}
 		}
 	}

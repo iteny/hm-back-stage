@@ -2,18 +2,16 @@ package middle
 
 import (
 	"context"
-	"fmt"
 	"hm-back-stage/common"
-	"log"
 	"net/http"
 )
 
 func ArticleCtx(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		log.Println(r.Method, ";", r.RequestURI)
+		// log.Println(r.Method, ";", r.RequestURI)
 		switch r.RequestURI {
 		case "/intendant/login":
-			fmt.Println("草拟吗")
+			// fmt.Println("草拟吗")
 		default:
 			session, _ := common.Sess.Get(r, "hm-back-stage")
 			userId := session.Values["uid"]
