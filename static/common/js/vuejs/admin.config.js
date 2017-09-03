@@ -47,13 +47,13 @@ if (COMPRESS_RUN){ //判断是否压缩文件
 module.exports = {//模块输出
     entry:{
         page:[ENTRY_FILE],//定义入口文件
-        // common:['vue']//打包公共包
+        // common:['jquery']//打包公共包
     },
     output:{
         path:OUTPUT_FILE,//输出路径
         publicPath:'/',
         filename: 'hm-back-stage.js?t=[hash:5]',
-        libraryTarget : 'var'
+        // libraryTarget : 'var'
     },
     resolve: {
         extensions: ['.js', '.vue', '.jsx', '.less', '.scss', '.css'],
@@ -65,15 +65,6 @@ module.exports = {//模块输出
     externals:['jQuery'],
     module: {
         rules: [{
-            test: require.resolve('jQuery'),
-            use: [{
-                  loader: 'expose-loader',
-                  options: 'jQuery'
-            },{
-                  loader: 'expose-loader',
-                  options: '$'
-            }]
-        },{
             test: /\.html$/,
             use: [{
                 loader: 'html-loader',

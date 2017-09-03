@@ -1,0 +1,12 @@
+body{
+    font: 14px Helvetica Neue,Helvetica,PingFang SC,\5FAE\8F6F\96C5\9ED1,Tahoma,Arial,sans-serif;
+    margin: 0;
+    padding: 0;
+}
+input,.layui-input{color: #666;border: 1px solid #393D49;}
+input:focus{border: 1px solid red;background-color:transparent;color: white;}
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+color: #666;}
+input:-moz-placeholder, textarea:-moz-placeholder {color:#666;}
+input::-moz-placeholder, textarea::-moz-placeholder {color:#666;}
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {color:#666;font-size:16px;}

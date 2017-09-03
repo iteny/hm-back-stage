@@ -30,14 +30,14 @@ type server struct {
 
 //entry function
 func main() {
+	//set glog config
 	flag.Set("alsologtostderr", "true")
 	flag.Set("log_dir", "./log")
-	// ds := flag.BoolVar(glog.logging.alsoToStderr, name, value, usage)
-	// dd := flag.String("log_dir", "./log", "log file")
 	flag.Parse()
-	common.Log.Info("1111")
-	common.Log.Warning("1111")
-	common.Log.Error("1111")
+
+	// common.Log().Info("1111")
+	// common.Log().Warning("1111")
+	// common.Log().Error("1111")
 	//check system info
 	// glog.Error("asdfsdf")
 	memre, _ := mem.VirtualMemory()
