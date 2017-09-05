@@ -9521,17 +9521,17 @@ if (false) {(function () {
     methods: {
         submitForm(formName) {
             //自定义验证规则
-            form.verify({
-                title: function (value) {
-                    if (value.length < 5) {
-                        return '标题至少得5个字符啊';
-                    }
-                },
-                pass: [/(.+){6,12}$/, '密码必须6到12位'],
-                content: function (value) {
-                    layedit.sync(editIndex);
-                }
-            });
+            // form.verify({
+            //     title: function(value){
+            //       if(value.length < 5){
+            //         return '标题至少得5个字符啊';
+            //       }
+            //     }
+            //     ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+            //     ,content: function(value){
+            //       layedit.sync(editIndex);
+            //     }
+            // });
             //监听提交
             form.on('submit(demo1)', function (data) {
                 layer.alert(JSON.stringify(data.field), {
@@ -9680,15 +9680,25 @@ if (false) {(function () {
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     props: {
+        value: [String, Number],
         domtype: { //类型text,password,textarea之类的
             type: String,
             default: "text"
+        },
+        name: { //form提交用到的name
+            type: String,
+            default: ''
         }
     },
     data() {
         return {
-            text: "asdfsadf"
+            inputValue: this.value
         };
+    },
+    watch: {
+        'inputValue'(val, oldValue) {
+            console.log(val);
+        }
     }
 });
 
@@ -9699,31 +9709,73 @@ if (false) {(function () {
 "use strict";
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return (_vm.domtype === 'text') ? _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.inputValue),
+      expression: "inputValue"
+    }],
     staticClass: "layui-input",
     attrs: {
-      "name": "title",
+      "name": _vm.name,
       "lay-verify": "title",
       "autocomplete": "off",
-      "placeholder": "请输入账号",
-      "value": "text"
+      "placeholder": "请输入账号"
+    },
+    domProps: {
+      "value": (_vm.inputValue)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.inputValue = $event.target.value
+      }
     }
   }) : (_vm.domtype === 'password') ? _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.inputValue),
+      expression: "inputValue"
+    }],
     staticClass: "layui-input",
     attrs: {
-      "name": "title",
+      "name": _vm.name,
       "lay-verify": "title",
       "autocomplete": "off",
-      "placeholder": "请输入账号",
-      "value": "password"
+      "placeholder": "请输入账号"
+    },
+    domProps: {
+      "value": (_vm.inputValue)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.inputValue = $event.target.value
+      }
     }
   }) : (_vm.domtype === 'textarea') ? _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.inputValue),
+      expression: "inputValue"
+    }],
     staticClass: "layui-input",
     attrs: {
-      "name": "title",
+      "name": _vm.name,
       "lay-verify": "title",
       "autocomplete": "off",
-      "placeholder": "请输入账号",
-      "value": "textarea"
+      "placeholder": "请输入账号"
+    },
+    domProps: {
+      "value": (_vm.inputValue)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.inputValue = $event.target.value
+      }
     }
   }) : _c('input')
 }
