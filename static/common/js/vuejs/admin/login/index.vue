@@ -51,7 +51,7 @@ body{
                     <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入密码" class="layui-input">
                 </div>
             </div>
-
+            <slot></slot>
             <button @click="submitForm('hmForm')" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
 
 
