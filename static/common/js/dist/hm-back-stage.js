@@ -9520,6 +9520,7 @@ if (false) {(function () {
 /* harmony default export */ __webpack_exports__["a"] = ({
     methods: {
         submitForm(formName) {
+
             //自定义验证规则
             // form.verify({
             //     title: function(value){
@@ -9677,10 +9678,16 @@ if (false) {(function () {
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    props: {
+    props: { //相当于html标签自定义属性
+        domid: [String],
         value: [String, Number],
+        verify: [String, Number],
         domtype: { //类型text,password,textarea之类的
             type: String,
             default: "text"
@@ -9688,6 +9695,21 @@ if (false) {(function () {
         name: { //form提交用到的name
             type: String,
             default: ''
+        }
+    },
+    beforeCreat() {//组件实例刚创建，组件属性计算之前，如data属性等。
+
+    },
+    created() {//组件实例创建完成，属性已绑定,但DOM还未生成,$el属性还不存在。
+    },
+    beforeMount() {//模板编译挂载之前
+
+    },
+    mounted() {
+        //模板编译挂载之后
+        if (this.domtype === 'edit') {
+            var editIndex = layedit.build(this.domid);
+            // return;
         }
     },
     data() {
@@ -9717,8 +9739,9 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     }],
     staticClass: "layui-input",
     attrs: {
+      "type": "text",
       "name": _vm.name,
-      "lay-verify": "title",
+      "lay-verify": _vm.verify,
       "autocomplete": "off",
       "placeholder": "请输入账号"
     },
@@ -9740,8 +9763,9 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     }],
     staticClass: "layui-input",
     attrs: {
+      "type": "password",
       "name": _vm.name,
-      "lay-verify": "title",
+      "lay-verify": _vm.verify,
       "autocomplete": "off",
       "placeholder": "请输入账号"
     },
@@ -9754,17 +9778,17 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
         _vm.inputValue = $event.target.value
       }
     }
-  }) : (_vm.domtype === 'textarea') ? _c('input', {
+  }) : (_vm.domtype === 'textarea') ? _c('textarea', {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: (_vm.inputValue),
       expression: "inputValue"
     }],
-    staticClass: "layui-input",
+    staticClass: "layui-textarea",
     attrs: {
       "name": _vm.name,
-      "lay-verify": "title",
+      "lay-verify": _vm.verify,
       "autocomplete": "off",
       "placeholder": "请输入账号"
     },
@@ -9776,6 +9800,13 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
         if ($event.target.composing) { return; }
         _vm.inputValue = $event.target.value
       }
+    }
+  }) : (_vm.domtype === 'edit') ? _c('textarea', {
+    staticClass: "layui-textarea layui-hide",
+    attrs: {
+      "name": "content",
+      "lay-verify": "content",
+      "id": _vm.domid
     }
   }) : _c('input')
 }
