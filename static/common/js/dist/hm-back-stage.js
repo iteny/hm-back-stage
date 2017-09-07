@@ -10192,11 +10192,20 @@ if (false) {(function () {
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     props: {
-        submit: [String, Number]
+        submit: [String, Number],
+        url: {
+            type: String,
+            default: ''
+        }
     },
+    // data(){
+    //     return{
+    //         submitUrl:this.url,
+    //     }
+    // },
     methods: {
-        submitForm(formName) {
-            hm.submit(this.submit);
+        submitForm() {
+            hm.submit(this.submit, this.url);
             //监听提交
             // alert(this.submit);
             // form.on('submit('+this.submit+')', function(data){
@@ -10223,7 +10232,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     },
     on: {
       "click": function($event) {
-        _vm.submitForm('hmForm')
+        _vm.submitForm()
       }
     }
   }, [_vm._t("default")], 2)

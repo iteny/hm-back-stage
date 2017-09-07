@@ -50,21 +50,21 @@
 <body>
 <div id="app">
     <div id="login">
-        <hm-form url="/intendant">
+        <hm-form>
             <h1>Hmcms管理登录</h1>
             <hm-form-item>
                 <hm-form-label>账号:</hm-form-label>
                 <hm-input-block>
-                    <hm-input domtype="text" name="one" hint="请输入账号" verify="title"></hm-input>
+                    <hm-input domtype="text" name="username" hint="请输入账号" verify="title"></hm-input>
                 </hm-input-block>
             </hm-form-item>
             <hm-form-item>
                 <hm-form-label>密码:</hm-form-label>
                 <hm-input-block>
-                    <hm-input domtype="password" name="one" hint="请输入密码" verify="title"></hm-input>
+                    <hm-input domtype="password" name="password" hint="请输入密码" verify="title"></hm-input>
                 </hm-input-block>
             </hm-form-item>
-            <hm-form-button submit="login">登录</hm-form-button>
+            <hm-form-button submit="login" url="/intendant">登录</hm-form-button>
         </hm-form>
     </div>
     <!-- <hm-login>
