@@ -1,10 +1,7 @@
 <template>
-    <!-- <template v-if="domtype !== 'textarea'">
-
-    </template> -->
-    <input v-if="domtype === 'text'" type="text" :name="name" :lay-verify="verify" autocomplete="off" placeholder="请输入账号" class="layui-input" v-model="inputValue">
-    <input v-else-if="domtype === 'password'" type="password" :name="name" :lay-verify="verify" autocomplete="off" placeholder="请输入账号" class="layui-input" v-model="inputValue">
-    <textarea v-else-if="domtype === 'textarea'" :name="name" :lay-verify="verify" autocomplete="off" placeholder="请输入账号" class="layui-textarea" v-model="inputValue"></textarea>
+    <input v-if="domtype === 'text'" type="text" :name="name" :lay-verify="verify" autocomplete="off" :placeholder="hint" class="layui-input" v-model="inputValue">
+    <input v-else-if="domtype === 'password'" type="password" :name="name" :lay-verify="verify" autocomplete="off" :placeholder="hint" class="layui-input" v-model="inputValue">
+    <textarea v-else-if="domtype === 'textarea'" :name="name" :lay-verify="verify" autocomplete="off" :placeholder="hint" class="layui-textarea" v-model="inputValue"></textarea>
     <textarea v-else-if="domtype === 'edit'" class="layui-textarea layui-hide" name="content" lay-verify="content" :id="domid"></textarea>
     <input v-else>
 </template>
@@ -12,13 +9,14 @@
 export default{
     props:{//相当于html标签自定义属性
         domid:[String],
-        value: [String, Number],
-        verify: [String, Number],
-        domtype: {//类型text,password,textarea之类的
+        value: [String, Number],//通常不使用
+        hint:[String,Number],//对应html的placeholder，输入提示或暗示
+        verify: [String, Number],//验证规则为自定义的字符串，例如：验证A|验证B|验证C
+        domtype: {//html的type,类型text,password,textarea之类的
 	        type: String,
 	        default: "text"
 	    },
-        name: {//form提交用到的name
+        name: {//html的name
 	        type: String,
 	        default: ''
 	    },
@@ -34,6 +32,7 @@ export default{
     mounted(){//模板编译挂载之后
         if(this.domtype === 'edit'){
             var editIndex = layedit.build(this.domid);
+            layedit.sync(editIndex)
             // return;
         }
     },

@@ -4,7 +4,11 @@ var layer = layui.layer,
     laydate = layui.laydate;
 
 var hm = {
-    submit:function(){
+    /**
+     * form提交处理
+     * @param submitName 给提交设定一个名字，防止冲突
+     */
+    submit:function(submitName){
         //自定义验证规则
         // form.verify({
         //     title: function(value){
@@ -18,7 +22,7 @@ var hm = {
         //     }
         // });
         //监听提交
-        form.on('submit(demo1)', function(data){
+        form.on('submit('+submitName+')', function(data){
             layer.alert(JSON.stringify(data.field), {
               title: '最终的提交信息'
             })

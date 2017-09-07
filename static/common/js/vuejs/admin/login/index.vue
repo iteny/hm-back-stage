@@ -62,7 +62,7 @@ body{
 export default {
     methods: {
         submitForm(formName) {
-            
+            hm.submit()
             //自定义验证规则
             // form.verify({
             //     title: function(value){
@@ -76,12 +76,12 @@ export default {
             //     }
             // });
             //监听提交
-            form.on('submit(demo1)', function(data){
-                layer.alert(JSON.stringify(data.field), {
-                  title: '最终的提交信息'
-                })
-                return false;
-            });
+            // form.on('submit(demo1)', function(data){
+            //     layer.alert(JSON.stringify(data.field), {
+            //       title: '最终的提交信息'
+            //     })
+            //     return false;
+            // });
         }
 
     }
