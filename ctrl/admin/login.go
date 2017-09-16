@@ -3,7 +3,6 @@ package admin
 import (
 	"fmt"
 	"hm-back-stage/common"
-	"html/template"
 	"net/http"
 	"os"
 	"os/exec"
@@ -25,12 +24,14 @@ func init() {
 
 //Index back-stage home page
 func (c *LoginCtrl) Index(w http.ResponseWriter, r *http.Request) {
-	c.Log().Info("1111")
-
-	tl, err := template.ParseFiles("./view/admin/login/index.html")
-	c.Log().ErrorCheck(err)
-	err = tl.Execute(w, nil)
-	c.Log().ErrorCheck(err)
+	// c.Log().Info("1111")
+	// fmt.Println("nima")
+	// fmt.Print("200")
+	// tl, _ := template.ParseFiles("./view/admin/login/index.html")
+	// // c.Log().ErrorCheck(err)
+	// tl.Execute(w, nil)
+	c.Template(w, r, nil, "./view/admin/login/index.html")
+	// c.Log().ErrorCheck(err)
 }
 
 func getCurrentPath() string {

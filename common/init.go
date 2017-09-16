@@ -2,7 +2,11 @@ package common
 
 import (
 	"fmt"
+	"html/template"
+	"io"
 	"log"
+	"net"
+	"net/http"
 	"time"
 
 	"github.com/go-ini/ini"
@@ -41,6 +45,29 @@ func init() {
 	Cfg.Ini, err = ini.Load("./ini/hmcms.ini")
 	if err != nil {
 		fmt.Print(err)
+	}
+}
+func (c *BaseCtrl) Template(w io.Writer, r *http.Request, data interface{}, filenames ...string) {
+	ip, _, _ := net.SplitHostPort(r.RemoteAddr)
+	if ip == "::1" {
+		ip = "127.0.0.1"
+	}
+	ExcuteTime := c.TimeString(r, "ExcuteTime")
+	defer Log().Debug().Str("[Method]", r.Method).Str("[Addr]", r.RequestURI).Str("[Ip]", ip).Str("[Status]", "200").Str("[ExcuteTime]", ExcuteTime).Msg("Contect")
+	t, err := template.ParseFiles(filenames...)
+	c.Log().CheckErr("Template Error", err)
+	err = t.Execute(w, data)
+	c.Log().CheckErr("Template Error", err)
+}
+func (c *BaseCtrl) TimeString(r *http.Request, contextName string) string {
+	contextValue := r.Context().Value("ExcuteTime")
+	if contextValue != nil {
+		timetype := time.Unix(r.Context().Value("ExcuteTime").(int64), 0)
+		now := time.Now()
+		duration := now.Sub(timetype)
+		return duration.String()
+	} else {
+		return "0ms"
 	}
 }
 

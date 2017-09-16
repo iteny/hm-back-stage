@@ -1,8 +1,6 @@
 package main
 
 import (
-	"flag"
-	"fmt"
 	"hm-back-stage/common"
 	"hm-back-stage/ctrl/admin"
 	"hm-back-stage/middle"
@@ -15,7 +13,6 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
-	"github.com/shirou/gopsutil/mem"
 )
 
 type server struct {
@@ -31,17 +28,19 @@ type server struct {
 //entry function
 func main() {
 	//set glog config
-	flag.Set("alsologtostderr", "true")
-	flag.Set("log_dir", "./log")
-	flag.Parse()
+	// flag.Set("alsologtostderr", "true")
+	// flag.Set("log_dir", "./log")
+	// flag.Parse()
 
 	// common.Log().Info("1111")
 	// common.Log().Warning("1111")
 	// common.Log().Error("1111")
 	//check system info
 	// glog.Error("asdfsdf")
-	memre, _ := mem.VirtualMemory()
-	fmt.Printf("Total: %v, Free:%v, UsedPercent:%f%%\n", memre.Total, memre.Free, memre.UsedPercent)
+	// memre, _ := mem.VirtualMemory()
+	// // runtime.GOMAXPROCS(8)
+	// fmt.Printf("Total: %v, Free:%v, UsedPercent:%f%%\n", memre.Total, memre.Free, memre.UsedPercent)
+	// common.Log()
 	server := &server{Addr: "80", ReadTimeout: 10, WriteTimeout: 10}
 	if servPort := common.Cfg.Value("servSet", "port"); servPort != "" {
 		server.Addr = servPort
@@ -56,12 +55,15 @@ func main() {
 	r.Use(middleware.RequestID)
 	r.Use(middleware.RealIP)
 	// r.Use(middleware.Logger)
-	r.Use(middleware.Recoverer)
+	// r.Use(middleware.Recoverer)
 	// Set a timeout value on the request context (ctx), that will signal
 	// through ctx.Done() that the request has timed out and further
 	// processing should be stopped.
-	r.Use(middleware.Timeout(60 * time.Second))
+	r.Use(middleware.Timeout(1 * time.Second))
 	//mount website back-stage routes
+	// r.Get("/goroutine", common.Pr.ListenGoroutine)
+	// r.Get("/heap", common.Pr.ListenHeap)
+	r.Mount("/debug", middleware.Profiler())
 	r.Mount("/intendant", adminRoutes())
 	//Easily serve static files
 	workDir, _ := os.Getwd()
@@ -76,6 +78,7 @@ func main() {
 		MaxHeaderBytes: 1 << 20,
 	}
 	log.Fatal(s.ListenAndServe())
+
 }
 
 //website back-stage routes
