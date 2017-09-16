@@ -1,6 +1,9 @@
 package common
 
 import (
+	"crypto/md5"
+	"crypto/sha1"
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"io"
@@ -29,6 +32,7 @@ var Sess = sessions.NewCookieStore([]byte("something-very-secret"))
 //BaseCtrl is base-object.
 type BaseCtrl struct {
 	CfgCtrl
+	CacheCtrl
 	// LogCtrl
 }
 
@@ -109,4 +113,39 @@ func (c *CfgCtrl) Duration(section string, key string) (time.Duration, error) {
 func (c *CfgCtrl) MustDuration(section string, key string) time.Duration {
 	val := c.Ini.Section(section).Key(key).MustDuration()
 	return val
+}
+
+//响应json
+func (c *BaseCtrl) ResponseJson(status interface{}, info interface{}) string {
+	m := make(map[string]interface{})
+	m["status"] = status
+	m["info"] = info
+	mData, err := json.Marshal(m)
+	c.Log().CheckErr("Json Error", err)
+	return string(mData)
+}
+
+//return rows json
+func (c *BaseCtrl) RowsJson(rows interface{}) string {
+
+	mData, err := json.Marshal(rows)
+	c.Log().CheckErr("Json Error", err)
+	return string(mData)
+}
+func (c *BaseCtrl) Md5(s string) string {
+	hash := md5.New()
+	buf := []byte(s)
+	hash.Write(buf)
+	return fmt.Sprintf("%x", hash.Sum(nil))
+}
+func (c *BaseCtrl) Sha1(s string) string {
+	hash := sha1.New()
+	buf := []byte(s)
+	hash.Write(buf)
+	return fmt.Sprintf("%x", hash.Sum(nil))
+}
+
+//Sha1 Plus Md5
+func (c *BaseCtrl) Sha1PlusMd5(s string) string {
+	return c.Sha1(c.Md5(s))
 }

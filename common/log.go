@@ -2,6 +2,8 @@ package common
 
 import (
 	"os"
+	"runtime"
+	"strconv"
 
 	"github.com/rs/zerolog"
 )
@@ -48,7 +50,15 @@ func (c *LogCtrl) Debug() *zerolog.Event {
 //CheckErr check error info
 func (c *LogCtrl) CheckErr(msg string, err error) {
 	if err != nil {
-		logger.Error().Err(err).Msg(msg)
+		_, file, line, ok := runtime.Caller(2)
+		l := strconv.Itoa(line)
+		if ok {
+			s := make([]string, 2)
+			s[0] = file
+			s[1] = l
+			logger.Error().Strs("[PATH]", s).Err(err).Msg(msg)
+		}
+
 	}
 }
 

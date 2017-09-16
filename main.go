@@ -83,11 +83,13 @@ func main() {
 
 //website back-stage routes
 func adminRoutes() http.Handler {
+	login := admin.LoginCtrlObject()
+	index := admin.IndexCtrlObject()
 	r := chi.NewRouter()
 	r.Use(middle.ArticleCtx)
-	r.Get("/login", admin.Login.Index) //sign in page
-
-	r.Get("/", admin.Index.Index) //home page
+	r.Get("/login", login.Index) //sign in page
+	r.Post("/login", login.Login)
+	r.Get("/", index.Index) //home page
 
 	// r.Post("/login", admin.Login.Login) // sign in commit page
 	return r

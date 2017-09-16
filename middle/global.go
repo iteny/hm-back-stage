@@ -10,12 +10,6 @@ import (
 func ArticleCtx(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// log.Println(r.Method, ";", r.RequestURI)
-
-		// fmt.Println(r.Proto)
-		//
-		// common.Log().Debug().Str("[Method]", r.Method).Str("[Addr]", r.Host+r.RequestURI).Str("[Ip]", ip).Str("[Status]", "").Msg("Contect")
-		// defer common.Log().Debug().Str("[Method]", r.Method).Str("[Addr]", r.Host+r.RequestURI).Str("[Ip]", ip).Str("[Status]", "").Msg("Contect")
-		// fmt.Printf("%c[1;40;32m%s%c[0m", 0x1B, "testPrintColor", 0x1B)
 		switch r.RequestURI {
 		case "/intendant/login":
 			// fmt.Println("草拟吗")
