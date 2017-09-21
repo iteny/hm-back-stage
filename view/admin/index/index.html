@@ -32,13 +32,13 @@
                     <li role="separator" class="divider"></li>
                     <li><a href="#">Separated link</a></li>
                 </ul>
-                <button type="button" class="navbar-toggle collapsed hm-nav-hide-btn" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <button type="button" class="navbar-toggle collapsed hm-nav-hide-btn" data-toggle="collapse" data-target="#hm-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <button type="button" class="navbar-toggle collapsed hm-nav-hide-btn" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <button type="button" class="navbar-toggle collapsed hm-nav-hide-btn" data-toggle="collapse" data-target="#hm-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only">Toggle navigation111</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -49,7 +49,7 @@
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse" id="hm-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
                     <li><a href="#">Link</a></li>
@@ -79,6 +79,34 @@
 <script src="/static/common/js/admin/common.js"></script>
 <!-- <script src="/static/common/js/dist/hm-back-stage.js"></script> -->
 <script type="text/javascript">
+    function browserRedirect() {
+        var sUserAgent = navigator.userAgent.toLowerCase();
+        var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+        var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+        var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+        var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+        var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+        var bIsAndroid = sUserAgent.match(/android/i) == "android";
+        var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+        var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+        document.writeln("您的浏览设备为：");
+        if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+            document.writeln("phone");
+            $('#hm-navbar-collapse-1').addClass('hm-in');
+        } else {
+            document.writeln("pc");
+        }
+    }
+
+    browserRedirect();
+    $('#hm-navbar-collapse-1 li').on('click', function() {
+        $('#hm-navbar-collapse-1').collapse('hide')
+    });
+
+
+    // $('.hm-nav-hide-btn').on('click', function() {
+    //     $('#hm-navbar-collapse-1').addClass('add');
+    // });
     // Base.languageSet('en');
     //
     // if ($.cookie('language') == null) {

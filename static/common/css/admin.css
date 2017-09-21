@@ -1,26 +1,42 @@
 .hm-nav{/*导航内边距去除*/
-    padding-right: 0;
+    padding-right: 14px;
 }
 .hm-nav-hide-btn{/*隐藏按钮设置个高度*/
     min-height: 50px;
     margin-top: 0;
     margin-bottom: 0;
+    margin-right: 0;
 }
 .navbar-default .hm-nav-hide-btn{/*去除隐藏按钮边框*/
     border: 0;
     border-radius: 0;
 }
-.hm-nav .hm-dd-menu{
-    left:initial;right:0;border-radius: 0;margin: 0;
+.hm-nav .hm-dd-menu{/*下拉菜单设置*/
+    left:initial;right:0;border-radius: 0;margin: 0;top:51px;
+    border: 1px solid #D9DEE4;background-clip:inherit;
+    border-top: 0;border-right: 0;
+    border-bottom-left-radius:3px;
+    border-bottom-right-radius: 3px;
 }
-.hm-nav .glyphicon{
+.hm-nav .glyphicon{/*导航图标*/
     font-weight: bold;font-size: 8px;
 }
-.hm-nav .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+.hm-nav .navbar-toggle:focus, .navbar-default .navbar-toggle{padding: 0 20px;}
+.hm-nav .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {/*给小屏用户设置个点击背景色*/
     background-color: #D9DEE4;
 }
-.hm-nav .in .nav>li{
-    float: left;
-    display: inherit;
-    margin: 5px 10px;
+.hm-nav .nav>li{float: left;display: block;}
+.hm-nav .hm-in .nav{padding: 1px 10px;}
+.hm-nav .hm-in .nav>li{
+    /*float: left;*/
+
+    margin: 5px 5px;
+
+}
+.hm-nav .in .nav>li.active a{
+    background-color: #D9DEE4;
+    border-radius: 3px;
+}
+.hm-nav .in .nav>li:hover{
+    background-color: #D9DEE4;
 }
