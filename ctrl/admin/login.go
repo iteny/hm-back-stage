@@ -43,7 +43,8 @@ func (c *LoginCtrl) Login(w http.ResponseWriter, r *http.Request) {
 	fod, foundd := c.Cache().CacheGet(s)
 	if foundd {
 		if fod.(int) > 2 {
-			fmt.Fprint(w, c.ResponseJson(4, "密码错误3次，需要等待1分钟后再登录，谢谢！"))
+			// fmt.Fprint(w, c.ResponseJson(4, "密码错误3次，需要等待1分钟后再登录，谢谢！"))
+			c.ResponseJson(4, "密码错误3次，需要等待1分钟后再登录，谢谢！", w, r)
 			return
 		}
 	}
@@ -51,10 +52,12 @@ func (c *LoginCtrl) Login(w http.ResponseWriter, r *http.Request) {
 	ispass := govalidator.IsByteLength(password, 5, 15)
 	switch false {
 	case isuser:
-		fmt.Fprint(w, c.ResponseJson(4, "用户名的长度为5位到15位！"))
+		// fmt.Fprint(w, c.ResponseJson(4, "用户名的长度为5位到15位！"))
+		c.ResponseJson(4, "用户名的长度为5位到15位！", w, r)
 		return
 	case ispass:
-		fmt.Fprint(w, c.ResponseJson(4, "密码的长度为5位到15位！"))
+		// fmt.Fprint(w, c.ResponseJson(4, "密码的长度为5位到15位！"))
+		c.ResponseJson(4, "密码的长度为5位到15位！", w, r)
 		return
 	default:
 		// common.Log.Critical("1111")
@@ -74,7 +77,8 @@ func (c *LoginCtrl) Login(w http.ResponseWriter, r *http.Request) {
 				errored = fo.(int) + errored
 			}
 			c.Cache().CacheSetConfineTime(s, errored)
-			fmt.Fprint(w, c.ResponseJson(4, "用户名或密码错误！"))
+			// fmt.Fprint(w, c.ResponseJson(4, "用户名或密码错误！"))
+			c.ResponseJson(4, "用户名或密码错误！", w, r)
 		} else {
 			if userone.Id != 0 {
 				if userone.Status == 1 {
@@ -87,18 +91,21 @@ func (c *LoginCtrl) Login(w http.ResponseWriter, r *http.Request) {
 					tx := c.Sql().MustBegin()
 					tx.MustExec(sqls, userone.Username, time.Now().Unix(), ip, 1, "登录成功", ipinfo.Data.Area, ipinfo.Data.Country, r.UserAgent(), userone.Id)
 					tx.Commit()
-					session, _ := common.Sess.Get(r, "hmcms")
+					session, _ := common.Sess.Get(r, "hm-back-stage")
 					session.Values["uid"] = userone.Id
 					session.Values["username"] = userone.Username
 					session.Values["status"] = userone.Status
 					session.Save(r, w)
-					fmt.Fprint(w, c.ResponseJson(1, "登录成功，3秒后为你跳转！"))
+					// fmt.Fprint(w, c.ResponseJson(1, "登录成功，3秒后为你跳转！"))
+					c.ResponseJson(1, "登录成功，3秒后位你跳转！", w, r)
 					return
 				} else {
-					fmt.Fprint(w, c.ResponseJson(4, "该账号已被封停！"))
+					// fmt.Fprint(w, c.ResponseJson(4, "该账号已被封停！"))
+					c.ResponseJson(4, "该账号已被封停！", w, r)
 				}
 			} else {
-				fmt.Fprint(w, c.ResponseJson(4, "用户名或密码错误！"))
+				// fmt.Fprint(w, c.ResponseJson(4, "用户名或密码错误！"))
+				c.ResponseJson(4, "用户名或密码错误", w, r)
 			}
 		}
 		fmt.Printf("%v", userone.Id)

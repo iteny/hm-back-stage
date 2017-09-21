@@ -1,0 +1,26 @@
+.hm-nav{/*导航内边距去除*/
+    padding-right: 0;
+}
+.hm-nav-hide-btn{/*隐藏按钮设置个高度*/
+    min-height: 50px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.navbar-default .hm-nav-hide-btn{/*去除隐藏按钮边框*/
+    border: 0;
+    border-radius: 0;
+}
+.hm-nav .hm-dd-menu{
+    left:initial;right:0;border-radius: 0;margin: 0;
+}
+.hm-nav .glyphicon{
+    font-weight: bold;font-size: 8px;
+}
+.hm-nav .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    background-color: #D9DEE4;
+}
+.hm-nav .in .nav>li{
+    float: left;
+    display: inherit;
+    margin: 5px 10px;
+}

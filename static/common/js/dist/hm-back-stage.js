@@ -9497,40 +9497,6 @@ if (false) {(function () {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     methods: {
@@ -10196,6 +10162,10 @@ if (false) {(function () {
         url: {
             type: String,
             default: ''
+        },
+        redirect: {
+            type: String,
+            default: ''
         }
     },
     // data(){
@@ -10205,7 +10175,7 @@ if (false) {(function () {
     // },
     methods: {
         submitForm() {
-            hm.submit(this.submit, this.url);
+            hm.submit(this.submit, this.url, this.redirect);
             //监听提交
             // alert(this.submit);
             // form.on('submit('+this.submit+')', function(data){
@@ -10228,7 +10198,8 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     staticClass: "layui-btn",
     attrs: {
       "lay-submit": "",
-      "lay-filter": _vm.submit
+      "lay-filter": _vm.submit,
+      "redirect": _vm.redirect
     },
     on: {
       "click": function($event) {

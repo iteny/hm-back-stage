@@ -57,7 +57,7 @@ func (c *BaseCtrl) Template(w io.Writer, r *http.Request, data interface{}, file
 		ip = "127.0.0.1"
 	}
 	ExcuteTime := c.TimeString(r, "ExcuteTime")
-	defer Log().Debug().Str("[Method]", r.Method).Str("[Addr]", r.RequestURI).Str("[Ip]", ip).Str("[Status]", "200").Str("[ExcuteTime]", ExcuteTime).Msg("Contect")
+	defer Log().Debug().Str("[Method]", r.Method).Str("[Addr]", r.RequestURI).Str("[Ip]", ip).Str("[Status]", "200").Str("[ExcuteTime]", ExcuteTime).Msg("Get Template")
 	t, err := template.ParseFiles(filenames...)
 	c.Log().CheckErr("Template Error", err)
 	err = t.Execute(w, data)
@@ -116,13 +116,20 @@ func (c *CfgCtrl) MustDuration(section string, key string) time.Duration {
 }
 
 //响应json
-func (c *BaseCtrl) ResponseJson(status interface{}, info interface{}) string {
+func (c *BaseCtrl) ResponseJson(status interface{}, info interface{}, w io.Writer, r *http.Request) {
+	ip, _, _ := net.SplitHostPort(r.RemoteAddr)
+	if ip == "::1" {
+		ip = "127.0.0.1"
+	}
+	ExcuteTime := c.TimeString(r, "ExcuteTime")
+	defer Log().Debug().Str("[Method]", r.Method).Str("[Addr]", r.RequestURI).Str("[Ip]", ip).Str("[Status]", "200").Str("[ExcuteTime]", ExcuteTime).Msg("Response Json")
 	m := make(map[string]interface{})
 	m["status"] = status
 	m["info"] = info
 	mData, err := json.Marshal(m)
 	c.Log().CheckErr("Json Error", err)
-	return string(mData)
+	fmt.Fprint(w, string(mData))
+	// return string(mData)
 }
 
 //return rows json

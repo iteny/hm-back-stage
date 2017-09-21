@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,64 +11,74 @@
     <link rel="stylesheet" href="/static/common/js/dist/vue.css">
     <link rel="stylesheet" href="/static/common/css/admin-first.css">
     <style>
-    body{
-        background-image: url(/static/common/img/login_bg.jpg);
-        background-size: cover;
-        background-color: white;
-    }
-    #login{
-        position: absolute;
-        top: 0;
-        left: 0;
-        right:0;
-        bottom:0;
-        margin: auto;
-        width: 320px;
-        height: 210px;
-        background-color: rgba(0, 0, 0, 0.5);
-        border-radius: 3px;
-        padding: 20px;
-        z-index: 9999;
-    }
-    #login h1{
-        color: white;
-        text-align: center;
-        margin-bottom: 20px;
-        font-size: 24px;
-        font-weight: bold;
-    }
-    #login .layui-form-label{
-        color: white;
-        padding-left: 0;
-        width: 35px;
-    }
-    #login .layui-input-block{
-        margin-left: 50px;
-    }
-    #login .layui-btn{width: 100%;margin-top: 10px;background-color: #1E9FFF;}
+        body {
+            background-image: url(/static/common/img/login_bg.jpg);
+            background-size: cover;
+            background-color: white;
+        }
+
+        #login {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            width: 320px;
+            height: 210px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 3px;
+            padding: 20px;
+            z-index: 9999;
+        }
+
+        #login h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        #login .layui-form-label {
+            color: white;
+            padding-left: 0;
+            width: 35px;
+        }
+
+        #login .layui-input-block {
+            margin-left: 50px;
+        }
+
+        #login .layui-btn {
+            width: 100%;
+            margin-top: 10px;
+            background-color: #1E9FFF;
+        }
     </style>
 </head>
+
 <body>
-<div id="app">
-    <div id="login">
-        <hm-form>
-            <h1>Hmcms管理登录</h1>
-            <hm-form-item>
-                <hm-form-label>账号:</hm-form-label>
-                <hm-input-block>
-                    <hm-input domtype="text" name="username" hint="请输入账号" verify="title"></hm-input>
-                </hm-input-block>
-            </hm-form-item>
-            <hm-form-item>
-                <hm-form-label>密码:</hm-form-label>
-                <hm-input-block>
-                    <hm-input domtype="password" name="password" hint="请输入密码" verify="title"></hm-input>
-                </hm-input-block>
-            </hm-form-item>
-            <hm-form-button submit="login" url="/intendant/login">登录</hm-form-button>
-        </hm-form>
-    </div>
-    <!-- <hm-login>
+    <div id="app">
+        <div id="login">
+            <hm-form>
+                <h1>Hmcms管理登录</h1>
+                <hm-form-item>
+                    <hm-form-label>账号:</hm-form-label>
+                    <hm-input-block>
+                        <hm-input domtype="text" name="username" hint="请输入账号" verify="title"></hm-input>
+                    </hm-input-block>
+                </hm-form-item>
+                <hm-form-item>
+                    <hm-form-label>密码:</hm-form-label>
+                    <hm-input-block>
+                        <hm-input domtype="password" name="password" hint="请输入密码" verify="title"></hm-input>
+                    </hm-input-block>
+                </hm-form-item>
+                <hm-form-button submit="login" url="/intendant/login" redirect="/intendant">登录</hm-form-button>
+            </hm-form>
+        </div>
+        <!-- <hm-login>
 
         <hm-input domtype="text" name="one" verify="title"></hm-input>
         <hm-input domtype="password" name="two" verify="title"></hm-input>
@@ -75,14 +86,18 @@
         <hm-input domtype="edit" domid="exisd"></hm-input>
     </hm-login> -->
 
-</div>
+    </div>
 </body>
 <script src="/static/common/js/jquery/jquery-1.12.3.min.js"></script>
+<script src="/static/common/js/jquery/jquery.cookie.js"></script>
 <script src="/static/common/js/layui/layui.all.js"></script>
+<script src="/static/common/js/admin/global.js"></script>
+<script src="/static/common/js/admin/hmMenuTab.js"></script>
 <script src="/static/common/js/admin/common.js"></script>
 <script src="/static/common/js/dist/hm-back-stage.js"></script>
 <script>
-//一般直接写在一个js文件中
-// layer.msg('hello world');
+    //一般直接写在一个js文件中
+    // layer.msg('hello world');
 </script>
+
 </html>

@@ -1,11 +1,15 @@
 <template>
-    <button @click="submitForm()" class="layui-btn" lay-submit="" :lay-filter="submit"><slot></slot></button>
+    <button @click="submitForm()" class="layui-btn" lay-submit="" :lay-filter="submit" :redirect="redirect"><slot></slot></button>
 </template>
 <script>
 export default{
     props:{
         submit:[String,Number],
         url:{
+            type:String,
+            default:'',
+        },
+        redirect:{
             type:String,
             default:'',
         },
@@ -17,7 +21,7 @@ export default{
     // },
     methods: {
         submitForm() {
-            hm.submit(this.submit,this.url)
+            hm.submit(this.submit,this.url,this.redirect)
             //监听提交
             // alert(this.submit);
             // form.on('submit('+this.submit+')', function(data){

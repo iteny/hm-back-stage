@@ -14,6 +14,7 @@ var logger zerolog.Logger
 type LogCtrl struct {
 }
 
+//Log return a LogCtrl对象
 func Log() *LogCtrl {
 	return &LogCtrl{}
 }
@@ -32,15 +33,6 @@ func init() {
 	// logger.Info().Str("foo", "bar").Str("ss", "111").Msg("Hello world")
 }
 
-// func Log() {
-// 	zerolog.TimeFieldFormat = "[2006-01-02 15:04:05]"
-// 	logger := zerolog.New(os.Stderr).With().Timestamp().Logger()
-// 	zerolog.SetGlobalLevel(zerolog.DebugLevel)
-// 	logger = logger.Output(zerolog.ConsoleWriter{Out: os.Stderr})
-// 	logger.Debug().Msg("filtered out message")
-// 	logger.Info().Msg("routed message")
-// 	logger.Info().Str("foo", "bar").Str("ss", "111").Msg("Hello world")
-// }
 //Debug info
 func (c *LogCtrl) Debug() *zerolog.Event {
 	// _, file, line, ok := runtime.Caller(1)
@@ -49,8 +41,29 @@ func (c *LogCtrl) Debug() *zerolog.Event {
 
 //CheckErr check error info
 func (c *LogCtrl) CheckErr(msg string, err error) {
+	var skip int
+	if msg == "Template Error" || msg == "Response Json" {
+		skip = 2
+	} else {
+		skip = 1
+	}
 	if err != nil {
-		_, file, line, ok := runtime.Caller(2)
+		_, file, line, ok := runtime.Caller(skip)
+		l := strconv.Itoa(line)
+		if ok {
+			s := make([]string, 2)
+			s[0] = file
+			s[1] = l
+			logger.Error().Strs("[PATH]", s).Err(err).Msg(msg)
+		}
+
+	}
+}
+
+//CheckErrSkip check error info,Skip before to function
+func (c *LogCtrl) CheckErrSkip(msg string, skip int, err error) {
+	if err != nil {
+		_, file, line, ok := runtime.Caller(skip)
 		l := strconv.Itoa(line)
 		if ok {
 			s := make([]string, 2)

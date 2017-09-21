@@ -1,39 +1,5 @@
 <style>
-body{
-    background-image: url(/static/common/img/login_bg.jpg);
-    background-size: cover;
-    background-color: white;
-}
-#login{
-    position: absolute;
-    top: 0;
-    left: 0;
-    right:0;
-    bottom:0;
-    margin: auto;
-    width: 320px;
-    height: 210px;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 3px;
-    padding: 20px;
-    z-index: 9999;
-}
-#login h1{
-    color: white;
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-}
-#login .layui-form-label{
-    color: white;
-    padding-left: 0;
-    width: 30px;
-}
-#login .layui-input-block{
-    margin-left: 50px;
-}
-#login .layui-btn{width: 100%;margin-top: 10px;background-color: #1E9FFF;}
+
 </style>
 <template>
     <div id="login">
