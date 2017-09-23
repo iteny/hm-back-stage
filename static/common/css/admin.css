@@ -1,42 +1,300 @@
-.hm-nav{/*导航内边距去除*/
+/*顶部导航开始-----------------------------------------------------------------------*/
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#hm-top .navbar {
+    background-color: inherit;
+    background: linear-gradient(#fff, #EDEDED), black;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 0 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
+    border: 0;
+    border-bottom: 1px solid #D9DEE4;
+    z-index: 99999;
+}
+
+#hm-top .navbar-default .navbar-brand, #hm-top .navbar-default .navbar-nav>li>a, #hm-top .navbar-default .navbar-nav>.active>a, #hm-top .navbar-default .navbar-nav>.active>a:focus, #hm-top .navbar-default .navbar-nav>.active>a:hover {
+    color: #515356;
+}
+
+#hm-top .navbar-default .navbar-nav>.active>a, #hm-top .navbar-default .navbar-nav>.active>a:focus, #hm-top .navbar-default .navbar-nav>.active>a:hover {
+    background-color: #D9DEE4;
+}
+
+@media (min-width: 767px) {
+    #hm-top {
+        overflow: hidden;
+    }
+    #hm-top .navbar {
+        border-radius: 0;
+    }
+    #hm-top .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    #hm-top .navbar-right {
+        /*display: none;*/
+        float: right!important;
+        margin-right: -30px;
+    }
+}
+
+@media (max-width: 767px) {
+    #hm-top .navbar-right {
+        display: none;
+        float: right!important;
+        margin-right: -15px;
+    }
+}
+
+#hm-top .hm-nav {
+    /*导航内边距去除*/
     padding-right: 14px;
 }
-.hm-nav-hide-btn{/*隐藏按钮设置个高度*/
+
+@media (min-width: 768px) {
+    #hm-top .container {
+        width: 100%;
+    }
+}
+
+#hm-top .hm-nav-hide-btn {
+    /*隐藏按钮设置个高度*/
     min-height: 50px;
     margin-top: 0;
     margin-bottom: 0;
     margin-right: 0;
 }
-.navbar-default .hm-nav-hide-btn{/*去除隐藏按钮边框*/
+
+#hm-top .navbar-default .hm-nav-hide-btn {
+    /*去除隐藏按钮边框*/
     border: 0;
     border-radius: 0;
 }
-.hm-nav .hm-dd-menu{/*下拉菜单设置*/
-    left:initial;right:0;border-radius: 0;margin: 0;top:51px;
-    border: 1px solid #D9DEE4;background-clip:inherit;
-    border-top: 0;border-right: 0;
-    border-bottom-left-radius:3px;
+
+#hm-top .hm-dd-menu {
+    /*下拉菜单设置*/
+    left: initial;
+    right: 0;
+    border-radius: 0;
+    margin: 0;
+    top: 51px;
+    border: 1px solid #D9DEE4;
+    background-clip: inherit;
+    border-top: 0;
+    border-right: 0;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    position: fixed;
+    z-index: 9999;
+}
+
+#hm-top .hm-dd {
+    top: 1px;
+    border-radius: 0;
+    border: 1px solid #D9DEE4;
+    background-clip: inherit;
+    border-top: 0;
+    border-right: 0;
+    border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
 }
-.hm-nav .glyphicon{/*导航图标*/
-    font-weight: bold;font-size: 8px;
-}
-.hm-nav .navbar-toggle:focus, .navbar-default .navbar-toggle{padding: 0 20px;}
-.hm-nav .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {/*给小屏用户设置个点击背景色*/
-    background-color: #D9DEE4;
-}
-.hm-nav .nav>li{float: left;display: block;}
-.hm-nav .hm-in .nav{padding: 1px 10px;}
-.hm-nav .hm-in .nav>li{
-    /*float: left;*/
 
-    margin: 5px 5px;
+#hm-top .navbar-default .navbar-toggle .icon-bar {
+    background-color: #515356;
+}
 
+#hm-top .glyphicon {
+    /*导航图标*/
+    font-weight: bold;
+    font-size: 8px;
+    color: #515356;
 }
-.hm-nav .in .nav>li.active a{
+
+#hm-top .navbar-toggle:focus, .navbar-default .navbar-toggle {
+    padding: 0 20px;
+}
+
+#hm-top .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    /*给小屏用户设置个点击背景色*/
     background-color: #D9DEE4;
-    border-radius: 3px;
 }
-.hm-nav .in .nav>li:hover{
+
+#hm-top .navbar-default .navbar-nav>.open>a, #hm-top .navbar-default .navbar-nav>.open>a:focus, #hm-top .navbar-default .navbar-nav>.open>a:hover {
     background-color: #D9DEE4;
 }
+
+#hm-top .nav>li {
+    float: left;
+    display: block;
+}
+
+
+/*#hm-top .hm-in .nav {
+    padding: 1px 10px;
+}*/
+
+@media (max-width: 767px) {
+    #hm-top .nav {
+        padding: 1px 10px;
+    }
+    #hm-top .nav>li {
+        /*float: left;*/
+        margin: 5px 5px;
+        border-radius: 3px;
+    }
+    #hm-top .nav>li.active a {
+        background-color: #D9DEE4;
+        border-radius: 3px;
+    }
+    #hm-top .nav li:hover {
+        background-color: #D9DEE4;
+    }
+}
+
+#hm-top .nav li:hover {
+    background-color: #D9DEE4;
+}
+
+#hm-top .navbar-nav>li>a {
+    line-height: 30px;
+}
+
+#hm-top .nav>li>img {
+    max-width: none;
+}
+
+#hm-top .user-portrait img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+#hm-top img {
+    vertical-align: middle;
+}
+
+#hm-top img {
+    border: 0;
+}
+
+
+/*顶部导航结束-----------------------------------------------------------------------*/
+
+
+/*左侧分类开始-----------------------------------------------------------------------*/
+
+#main-container {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    position: absolute;
+    top: 51px;
+}
+
+#hm-left.col-md-3 {
+    background: #2A3F54;
+    height: 100%;
+    width: 230px;
+    padding: 0;
+    display: flex;
+}
+
+#hm-left .hm-dd-menu {
+    z-index: 99999;
+    position: fixed;
+    top: 51px;
+    left: 230px;
+    border-radius: 0;
+    margin: 0;
+    top: 51px;
+    border: 1px solid #D9DEE4;
+    background-clip: inherit;
+    border-top: 0;
+    border-right: 0;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+#hm-right {
+    background: green;
+    padding: 10px 20px 0;
+    margin-left: 230px;
+    width: auto;
+    height: 100%;
+    top: 51px;
+}
+
+@media (max-width: 767px) {
+    #hm-left.col-md-3 {
+        display: none;
+    }
+    #hm-right {
+        margin: 0;
+    }
+}
+
+
+/*用户资料*/
+
+.profile_pic {
+    width: 35%;
+    float: left;
+}
+
+.profile_info {
+    padding: 25px 10px 10px;
+    width: 65%;
+    float: left;
+}
+
+.profile_info span {
+    font-size: 13px;
+    line-height: 30px;
+    color: #fff;
+}
+
+.profile_info h2 {
+    font-size: 14px;
+    color: #ECF0F1;
+    margin: 0;
+    font-weight: 300;
+}
+
+.img-circle.profile_img {
+    width: 70%;
+    background: #fff;
+    margin-left: 30%;
+    z-index: 1000;
+    position: inherit;
+    margin-top: 20px;
+    border: 1px solid rgba(52, 73, 94, 0.44);
+    padding: 4px;
+}
+
+.open .img-circle.profile_img {
+    background: #34C749;
+}
+
+.img-circle {
+    border-radius: 50%;
+}
+
+img {
+    vertical-align: middle;
+}
+
+img {
+    border: 0;
+}
+
+
+/*左侧分类结束-----------------------------------------------------------------------*/
+
+
+/*右侧内容开始-----------------------------------------------------------------------*/
+
+
+/*右侧内容结束-----------------------------------------------------------------------*/

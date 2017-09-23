@@ -69,6 +69,8 @@ func main() {
 	workDir, _ := os.Getwd()
 	filesDir := filepath.Join(workDir, "static")
 	FileServer(r, "/static", http.Dir(filesDir))
+	uploadDir := filepath.Join(workDir, "upload")
+	FileServer(r, "/upload", http.Dir(uploadDir))
 	//http server
 	s := &http.Server{
 		Addr:           ":" + server.Addr,
