@@ -199,7 +199,7 @@ body {
     height: 100%;
     width: 230px;
     padding: 0;
-    display: flex;
+    /*display: flex;*/
 }
 
 #hm-left .hm-dd-menu {
@@ -238,6 +238,10 @@ body {
 
 
 /*用户资料*/
+
+#hm-left .profile {
+    height: 100px;
+}
 
 .profile_pic {
     width: 35%;
@@ -288,6 +292,75 @@ img {
 
 img {
     border: 0;
+}
+
+
+/*手风琴*/
+
+#hm-accordion .panel-heading {
+    border: 0;
+    background: 0;
+    text-indent: 25px;
+    padding: 0;
+}
+
+#hm-accordion .panel-title a {
+    height: 45px;
+    line-height: 45px;
+    display: block;
+    color: white;
+    text-decoration: none;
+    border: 0;
+}
+
+#hm-accordion .list-group, #hm-accordion .panel-body {
+    border: 0;
+}
+
+#hm-accordion .panel {
+    -webkit-box-shadow: 0 0 0 #fff;
+    box-shadow: 0 0 0 #fff;
+}
+
+#hm-accordion.panel-group .panel-heading+.panel-collapse>.list-group, #hm-accordion.panel-group .panel-heading+.panel-collapse>.panel-body {
+    border: 0;
+}
+
+#hm-accordion .panel-title.active a {
+    text-shadow: rgba(0, 0, 0, 0.25) 0 -1px 0;
+    background: linear-gradient(#334556, #2C4257), #2A3F54;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
+}
+
+#hm-accordion .panel-title a:hover {
+    text-shadow: rgba(0, 0, 0, 0.25) 0 -1px 0;
+    background: linear-gradient(#334556, #2C4257), #2A3F54;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
+}
+
+#hm-accordion.panel-group .panel {
+    border: 0;
+    border-radius: 0;
+    background: 0;
+}
+
+#hm-accordion ul, #hm-accordion li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#hm-accordion ul>li>a {
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    font-style: normal;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+#hm-accordion ul>li>a:hover {
+    background: red;
 }
 
 

@@ -98,107 +98,55 @@
                     <h2>John Doe</h2>
                 </div>
             </div>
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                <div class="menu_section active">
-                    <h3>General</h3>
-                    <ul class="nav side-menu" style="">
-                        <li class="active"><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu" style="display: block;">
-                                <li><a href="index.html">Dashboard</a></li>
-                                <li class="current-page"><a href="index2.html">Dashboard2</a></li>
-                                <li><a href="index3.html">Dashboard3</a></li>
-                            </ul>
-                        </li>
-                        <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li><a href="form.html">General Form</a></li>
-                                <li><a href="form_advanced.html">Advanced Components</a></li>
-                                <li><a href="form_validation.html">Form Validation</a></li>
-                                <li><a href="form_wizards.html">Form Wizard</a></li>
-                                <li><a href="form_upload.html">Form Upload</a></li>
-                                <li><a href="form_buttons.html">Form Buttons</a></li>
-                            </ul>
-                        </li>
-                        <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li><a href="general_elements.html">General Elements</a></li>
-                                <li><a href="media_gallery.html">Media Gallery</a></li>
-                                <li><a href="typography.html">Typography</a></li>
-                                <li><a href="icons.html">Icons</a></li>
-                                <li><a href="glyphicons.html">Glyphicons</a></li>
-                                <li><a href="widgets.html">Widgets</a></li>
-                                <li><a href="invoice.html">Invoice</a></li>
-                                <li><a href="inbox.html">Inbox</a></li>
-                                <li><a href="calendar.html">Calendar</a></li>
-                            </ul>
-                        </li>
-                        <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li><a href="tables.html">Tables</a></li>
-                                <li><a href="tables_dynamic.html">Table Dynamic</a></li>
-                            </ul>
-                        </li>
-                        <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li><a href="chartjs.html">Chart JS</a></li>
-                                <li><a href="chartjs2.html">Chart JS2</a></li>
-                                <li><a href="morisjs.html">Moris JS</a></li>
-                                <li><a href="echarts.html">ECharts</a></li>
-                                <li><a href="other_charts.html">Other Charts</a></li>
-                            </ul>
-                        </li>
-                        <li><a><i class="fa fa-clone"></i>Layouts <span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>
-                                <li><a href="fixed_footer.html">Fixed Footer</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+            <div id="sidebar-menu">
+                <div class="panel-group" id="hm-accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <a href="#panel1" class="panel-toggle" data-toggle="collapse" data-parent="#hm-accordion">
+                                    卡1
+                                </a>
+                            </div>
+                        </div>
+                        <div id="panel1" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <ul>
+                                    <li><a data-url="html/panel/personal.html"><i class="larry-icon" data-icon=""></i>  <span>个人信息</span></a></li>
+                                    <li><a data-url="html/panel/personal.html"><i class="larry-icon" data-icon=""></i>  <span>个人信息</span></a></li>
+                                    <li><a data-url="html/panel/personal.html"><i class="larry-icon" data-icon=""></i>  <span>个人信息</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <a href="#panel2" class="panel-toggle" data-toggle="collapse" data-parent="#hm-accordion">
+                                    卡2
+                                </a>
+                            </div>
+                        </div>
+                        <div id="panel2" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                卡2内容
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <a href="#panel3" class="panel-toggle" data-toggle="collapse" data-parent="#hm-accordion">
+                                    卡2
+                                </a>
+                            </div>
+                        </div>
+                        <div id="panel3" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                卡2内容
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="menu_section">
-                    <h3>Live On</h3>
-                    <ul class="nav side-menu">
-                        <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li><a href="e_commerce.html">E-commerce</a></li>
-                                <li><a href="projects.html">Projects</a></li>
-                                <li><a href="project_detail.html">Project Detail</a></li>
-                                <li><a href="contacts.html">Contacts</a></li>
-                                <li><a href="profile.html">Profile</a></li>
-                            </ul>
-                        </li>
-                        <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li><a href="page_403.html">403 Error</a></li>
-                                <li><a href="page_404.html">404 Error</a></li>
-                                <li><a href="page_500.html">500 Error</a></li>
-                                <li><a href="plain_page.html">Plain Page</a></li>
-                                <li><a href="login.html">Login Page</a></li>
-                                <li><a href="pricing_tables.html">Pricing Tables</a></li>
-                            </ul>
-                        </li>
-                        <li><a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li><a href="#level1_1">Level One</a>
-                                </li>
-                                <li><a>Level One<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li class="sub_menu"><a href="level2.html">Level Two</a>
-                                        </li>
-                                        <li><a href="#level2_1">Level Two</a>
-                                        </li>
-                                        <li><a href="#level2_2">Level Two</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a href="#level1_2">Level One</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
-                    </ul>
-                </div>
-
             </div>
         </div>
         <div id="hm-right" style="overflow-x:auto;overflow-y:auto;">
@@ -216,6 +164,18 @@
 <script src="/static/common/js/admin/common.js"></script>
 <!-- <script src="/static/common/js/dist/hm-back-stage.js"></script> -->
 <script type="text/javascript">
+    // $('#accordion').collapse('hide')
+
+    $('.panel-heading').collapse("hide");
+    $('.panel-toggle').eq(0).click();
+    $('.panel-title').eq(0).addClass('active');
+    $('.panel-title').on('click', function() {
+        $('.panel-title').removeClass('active');
+        $(this).addClass('active');
+    });
+
+
+
     // $('#hm-right').height(hg);
     function browserRedirect() {
         var sUserAgent = navigator.userAgent.toLowerCase();
@@ -247,6 +207,11 @@
     // Sidebar
     $(document).ready(function() {
         var $SIDEBAR_MENU = $('#sidebar-menu'),
+            $NAV_MENU = $('.nav_menu'),
+            $FOOTER = $('footer'),
+            $BODY = $('body'),
+            $LEFT_COL = $('.left_col'),
+            $RIGHT_COL = $('.right_col'),
             CURRENT_URL = window.location.href.split('?')[0],
             $MENU_TOGGLE = $('#menu_toggle'),
             $SIDEBAR_FOOTER = $('.sidebar-footer');
@@ -331,6 +296,45 @@
             });
         }
     });
+    /**
+     * Resize function without multiple trigger
+     *
+     * Usage:
+     * $(window).smartresize(function(){
+     *     // code here
+     * });
+     */
+    (function($, sr) {
+        // debouncing function from John Hann
+        // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
+        var debounce = function(func, threshold, execAsap) {
+            var timeout;
+
+            return function debounced() {
+                var obj = this,
+                    args = arguments;
+
+                function delayed() {
+                    if (!execAsap)
+                        func.apply(obj, args);
+                    timeout = null;
+                }
+
+                if (timeout)
+                    clearTimeout(timeout);
+                else if (execAsap)
+                    func.apply(obj, args);
+
+                timeout = setTimeout(delayed, threshold || 100);
+            };
+        };
+
+        // smartresize
+        jQuery.fn[sr] = function(fn) {
+            return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr);
+        };
+
+    })(jQuery, 'smartresize');
     // /Sidebar
 
     // $('.hm-nav-hide-btn').on('click', function() {
