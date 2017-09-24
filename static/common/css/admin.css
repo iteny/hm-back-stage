@@ -219,7 +219,7 @@ body {
 }
 
 #hm-right {
-    background: green;
+    background: #666;
     padding: 10px 20px 0;
     margin-left: 230px;
     width: auto;
@@ -332,7 +332,15 @@ img {
     box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
 }
 
-#hm-accordion .panel-title a:hover {
+#hm-accordion .panel-title.active {
+    border-right: 4px solid #1ABB9C;
+}
+
+#hm-accordion.panel-group .collapse.in .panel-body {
+    border-right: 4px solid #1ABB9C;
+}
+
+#hm-accordion.panel-group #hm-accordion .panel-title a:hover {
     text-shadow: rgba(0, 0, 0, 0.25) 0 -1px 0;
     background: linear-gradient(#334556, #2C4257), #2A3F54;
     box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
@@ -342,6 +350,15 @@ img {
     border: 0;
     border-radius: 0;
     background: 0;
+}
+
+#hm-accordion.panel-group .panel-body {
+    text-indent: 25px;
+    padding: 1px 0 0 0;
+}
+
+#hm-accordion.panel-group .panel+.panel {
+    margin-top: 1px;
 }
 
 #hm-accordion ul, #hm-accordion li {
@@ -360,7 +377,8 @@ img {
 }
 
 #hm-accordion ul>li>a:hover {
-    background: red;
+    background: #1ABB9C;
+    color: white;
 }
 
 
