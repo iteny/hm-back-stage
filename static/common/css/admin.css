@@ -5,6 +5,32 @@ body {
     padding: 0;
 }
 
+
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+
+ ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: #E0E0E0;
+}
+
+
+/*定义滚动条轨道 内阴影+圆角*/
+
+ ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.3);
+    background-color: #E0E0E0;
+}
+
+
+/*定义滑块 内阴影+圆角*/
+
+ ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, .3);
+    background-color: #807F80;
+}
+
 #hm-top .navbar {
     background-color: inherit;
     background: linear-gradient(#fff, #EDEDED), black;
@@ -20,6 +46,28 @@ body {
 
 #hm-top .navbar-default .navbar-nav>.active>a, #hm-top .navbar-default .navbar-nav>.active>a:focus, #hm-top .navbar-default .navbar-nav>.active>a:hover {
     background-color: #D9DEE4;
+}
+
+#hm-top #hm-brand {
+    width: 159px;
+}
+
+#hm-top #hm-brand a {
+    cursor: pointer;
+    display: block;
+}
+
+#hm-top #hm-brand .zoom {
+    float: right;
+}
+
+#hm-top #hm-brand .zoom>i {
+    font-size: 20px;
+    color: #5A738E;
+}
+
+#hm-top #hm-brand .zoom>i:hover {
+    color: #337ab7;
 }
 
 @media (min-width: 767px) {
@@ -132,7 +180,7 @@ body {
 
 
 /*#hm-top .hm-in .nav {
-    padding: 1px 10px;
+padding: 1px 10px;
 }*/
 
 @media (max-width: 767px) {
@@ -194,7 +242,7 @@ body {
     top: 51px;
 }
 
-#hm-left.col-md-3 {
+#main-container>#hm-left.col-md-3 {
     background: #2A3F54;
     height: 100%;
     width: 230px;
@@ -202,7 +250,7 @@ body {
     /*display: flex;*/
 }
 
-#hm-left .hm-dd-menu {
+#main-container>#hm-left .hm-dd-menu {
     z-index: 99999;
     position: fixed;
     top: 51px;
@@ -218,7 +266,7 @@ body {
     border-bottom-right-radius: 3px;
 }
 
-#hm-right {
+#main-container>#hm-right {
     background: #666;
     padding: 10px 20px 0;
     margin-left: 230px;
@@ -227,20 +275,119 @@ body {
     top: 51px;
 }
 
+#main-container.zoom>#hm-left {
+    width: 70px;
+}
+
+#main-container.zoom>#hm-left .profile_info {
+    display: none;
+}
+
+#main-container.zoom>#hm-left .profile_pic {
+    width: 99%;
+    text-indent: -8px;
+}
+
+#main-container.zoom>#hm-left .hm-dd-menu {
+    left: 70px;
+}
+
+#main-container.zoom>#hm-left #hm-home a {
+    text-indent: 10px;
+}
+
+#main-container.zoom>#hm-left #hm-home a i {
+    font-size: 25px !important;
+    width: 100% !important;
+    margin-bottom: 5px;
+}
+
+#main-container.zoom>#hm-left #hm-home a span {
+    width: 100%;
+    !important;
+    font-weight: 400;
+    font-size: 10px;
+    position: relative;
+    left: -5px;
+}
+
+#main-container.zoom>#hm-left .profile {
+    height: 70px;
+}
+
+#main-container.zoom>#hm-right {
+    margin-left: 70px;
+}
+
+
+/*#main-container.zoom>#hm-left .profile_info {
+    display: none;
+}
+
+#main-container.zoom>#hm-right {
+    margin-left: 70px;
+}
+
+#main-container.zoom>#hm-left .panel-body ul {
+    display: none;
+}
+
+#main-container.zoom>#hm-left .panel-title span.fa {
+    display: none;
+}
+
+#main-container.zoom>#hm-left .panel-title a {
+    text-align: center !important;
+    font-weight: 400;
+    font-size: 10px;
+    padding: 10px 5px;
+}
+
+#main-container.zoom>#hm-left .panel-title a i {
+    font-size: 25px !important;
+    text-align: center;
+    width: 100% !important;
+    margin-bottom: 5px;
+}*/
+
 @media (max-width: 767px) {
-    #hm-left.col-md-3 {
+    #main-container>#hm-left {
         display: none;
     }
-    #hm-right {
-        margin: 0;
+    #main-container.zoom>#hm-left {
+        width: 70px;
+        float: left;
+        display: inherit;
+    }
+    #main-container>#hm-right {
+        margin-left: 0;
+    }
+    #main-container.zoom>#hm-right {
+        margin-left: 70px;
     }
 }
 
 
+/*#main-container.zoom>#hm-left .profile_pic {
+        width: 70%;
+    }
+    #main-container.zoom>#hm-left .profile_info {
+        display: none;
+    }
+    #main-container.zoom>#hm-left .hm-dd-menu {
+        left: 70px;
+    }*/
+
+
+/*#main-container.zoom>#hm-left ul {
+        display: none;
+    }*/
+
+
 /*用户资料*/
 
-#hm-left .profile {
-    height: 100px;
+#main-container>#hm-left .profile {
+    height: 95px;
 }
 
 .profile_pic {
@@ -297,11 +444,39 @@ img {
 
 /*手风琴*/
 
+#sidebar-menu i {
+    font-size: 18px;
+}
+
+#hm-home {
+    margin-bottom: 1px;
+}
+
+#hm-home a {
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    margin: 0;
+    padding: 10px 0;
+    font-style: normal;
+    color: rgba(255, 255, 255, 0.75);
+    text-indent: 10px;
+}
+
+#hm-home a:hover {
+    color: white;
+    background: #1ABB9C;
+}
+
 #hm-accordion .panel-heading {
     border: 0;
     background: 0;
-    text-indent: 25px;
+    text-indent: 10px;
     padding: 0;
+}
+
+#hm-accordion .panel-title {
+    font-size: 14px;
 }
 
 #hm-accordion .panel-title a {
@@ -353,7 +528,7 @@ img {
 }
 
 #hm-accordion.panel-group .panel-body {
-    text-indent: 25px;
+    text-indent: 20px;
     padding: 1px 0 0 0;
 }
 
@@ -371,7 +546,7 @@ img {
     cursor: pointer;
     text-decoration: none;
     display: block;
-    padding: 10px;
+    padding: 10px 0;
     font-style: normal;
     color: rgba(255, 255, 255, 0.75);
 }
@@ -379,6 +554,16 @@ img {
 #hm-accordion ul>li>a:hover {
     background: #1ABB9C;
     color: white;
+}
+
+#hm-accordion span.fa {
+    float: right;
+    text-align: center;
+    margin-top: 15px;
+    margin-right: 15px;
+    font-size: 10px;
+    min-width: inherit;
+    color: #C4CFDA;
 }
 
 

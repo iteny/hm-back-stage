@@ -8,6 +8,7 @@
     <title>后台首页</title>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="/static/common/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/common/vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/common/css/admin.css">
     <!-- <link rel="stylesheet" href="/static/common/js/layui/css/layui.css">
     <link rel="stylesheet" href="/static/common/js/dist/vue.css"> -->
@@ -37,13 +38,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     </button>
-                    <button type="button" class="navbar-toggle collapsed hm-nav-hide-btn" data-toggle="collapse" data-target="#hm-navbar-collapse-1" aria-expanded="false">
+                    <!-- <button type="button" class="navbar-toggle collapsed hm-nav-hide-btn" data-toggle="collapse" data-target="#hm-navbar-collapse-1" aria-expanded="false">
                         <span class="sr-only">Toggle navigation111</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Brand</a>
+                    </button> -->
+                    <div id="hm-brand">
+                        <a class="navbar-brand" href="#">Brand</a>
+                        <a class="navbar-brand zoom" onclick="zoom()"><i class="glyphicon glyphicon-th-large"></i></a>
+                    </div>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="hm-navbar-collapse-1">
@@ -99,21 +103,24 @@
                 </div>
             </div>
             <div id="sidebar-menu">
+                <div id="hm-home">
+                    <a href="" style=""><i class="fa fa-home" style=""></i>&nbsp;&nbsp;&nbsp;<span style="">后台首页</span></a>
+                </div>
                 <div class="panel-group" id="hm-accordion">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="panel-title">
                                 <a href="#panel1" class="panel-toggle" data-toggle="collapse" data-parent="#hm-accordion">
-                                    卡1
+                                    <i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;控制面板<span class="fa fa-chevron-down"></span>
                                 </a>
                             </div>
                         </div>
                         <div id="panel1" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <ul>
-                                    <li><a data-url="html/panel/personal.html"><i class="larry-icon" data-icon=""></i>  <span>个人信息</span></a></li>
-                                    <li><a data-url="html/panel/personal.html"><i class="larry-icon" data-icon=""></i>  <span>个人信息</span></a></li>
-                                    <li><a data-url="html/panel/personal.html"><i class="larry-icon" data-icon=""></i>  <span>个人信息</span></a></li>
+                                    <li><a data-url="html/panel/personal.html"><i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;<span>个人信息</span></a></li>
+                                    <li><a data-url="html/panel/personal.html"><i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;<span>个人信息</span></a></li>
+                                    <li><a data-url="html/panel/personal.html"><i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;<span>个人信息</span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -122,16 +129,16 @@
                         <div class="panel-heading">
                             <div class="panel-title">
                                 <a href="#panel2" class="panel-toggle" data-toggle="collapse" data-parent="#hm-accordion">
-                                    卡2
+                                    <i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;控制面板<span class="fa fa-chevron-down"></span>
                                 </a>
                             </div>
                         </div>
                         <div id="panel2" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <ul>
-                                    <li><a data-url="html/panel/personal.html"><i class="larry-icon" data-icon=""></i>  <span>个人信息</span></a></li>
-                                    <li><a data-url="html/panel/personal.html"><i class="larry-icon" data-icon=""></i>  <span>个人信息</span></a></li>
-                                    <li><a data-url="html/panel/personal.html"><i class="larry-icon" data-icon=""></i>  <span>个人信息</span></a></li>
+                                    <li><a data-url="html/panel/personal.html"><i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;<span>个人信息</span></a></li>
+                                    <li><a data-url="html/panel/personal.html"><i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;<span>个人信息</span></a></li>
+                                    <li><a data-url="html/panel/personal.html"><i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;<span>个人信息</span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -140,16 +147,16 @@
                         <div class="panel-heading">
                             <div class="panel-title">
                                 <a href="#panel3" class="panel-toggle" data-toggle="collapse" data-parent="#hm-accordion">
-                                    卡2
+                                    <i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;控制面板<span class="fa fa-chevron-down"></span>
                                 </a>
                             </div>
                         </div>
                         <div id="panel3" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <ul>
-                                    <li><a data-url="html/panel/personal.html"><i class="larry-icon" data-icon=""></i>  <span>个人信息</span></a></li>
-                                    <li><a data-url="html/panel/personal.html"><i class="larry-icon" data-icon=""></i>  <span>个人信息</span></a></li>
-                                    <li><a data-url="html/panel/personal.html"><i class="larry-icon" data-icon=""></i>  <span>个人信息</span></a></li>
+                                    <li><a data-url="html/panel/personal.html"><i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;<span>个人信息</span></a></li>
+                                    <li><a data-url="html/panel/personal.html"><i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;<span>个人信息</span></a></li>
+                                    <li><a data-url="html/panel/personal.html"><i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;<span>个人信息</span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -173,13 +180,33 @@
 <!-- <script src="/static/common/js/dist/hm-back-stage.js"></script> -->
 <script type="text/javascript">
     // $('#accordion').collapse('hide')
-
+    $('.zoom').on('click', function() {
+        var that = $(this);
+        if (that.attr('data')) {
+            that.attr('data', '');
+            $('#main-container').removeClass('zoom');
+        } else {
+            that.attr('data', '1');
+            $('#main-container').addClass('zoom');
+        }
+    });
+    // function zoom() {
+    //
+    // }
+    //处理菜单栏
     $('.panel-heading').collapse("hide");
     $('.panel-toggle').eq(0).click();
     $('.panel-title').eq(0).addClass('active');
     $('.panel-title').on('click', function() {
+        var that = $(this);
         $('.panel-title').removeClass('active');
-        $(this).addClass('active');
+        $('span.fa').attr('class', 'fa fa-chevron-right');
+        if (that.find('a').hasClass('panel-toggle collapsed')) {
+            that.addClass('active');
+            that.find('span.fa').attr('class', 'fa fa-chevron-down');
+        } else {
+            that.find('span.fa').attr('class', 'fa fa-chevron-right');
+        }
     });
 
 
