@@ -82,14 +82,14 @@
         </nav>
     </div>
     <div id="main-container" class="container">
-        <div id="hm-left" class="col-md-3" style="overflow-x:auto;overflow-y:auto;">
+        <div id="hm-left" class="col-md-3" style="">
             <!-- 用户资料 -->
             <div class="profile">
                 <div class="profile_pic">
-                    <a href="#" class="dropdown-toggle user-portrait" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <a href="#" class="dropdown-toggle user-portrait" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="portrait">
                         <img src="/upload/admin/img/portrait.jpg" alt="..." class="img-circle profile_img">
                     </a>
-                    <ul class="dropdown-menu hm-dd-menu">
+                    <ul class="dropdown-menu hm-dd-menu" aria-labelledby="portrait">
                         <li><a href="#">Action</a></li>
                         <li><a href="#">Another action</a></li>
                         <li><a href="#">Something else here</a></li>
@@ -104,14 +104,14 @@
             </div>
             <div id="sidebar-menu">
                 <div id="hm-home">
-                    <a href="" style=""><i class="fa fa-home" style=""></i>&nbsp;&nbsp;&nbsp;<span style="">后台首页</span></a>
+                    <a href="#" style=""><i class="fa fa-home" style=""></i>&nbsp;&nbsp;&nbsp;<span style="">后台首页</span></a>
                 </div>
-                <div class="panel-group" id="hm-accordion">
+                <div class="panel-group" id="hm-accordion" style="display:none;">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="panel-title">
                                 <a href="#panel1" class="panel-toggle" data-toggle="collapse" data-parent="#hm-accordion">
-                                    <i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;控制面板<span class="fa fa-chevron-down"></span>
+                                    <i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;控制面板<span class="fa fa-chevron-right"></span>
                                 </a>
                             </div>
                         </div>
@@ -129,7 +129,7 @@
                         <div class="panel-heading">
                             <div class="panel-title">
                                 <a href="#panel2" class="panel-toggle" data-toggle="collapse" data-parent="#hm-accordion">
-                                    <i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;控制面板<span class="fa fa-chevron-down"></span>
+                                    <i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;控制面板<span class="fa fa-chevron-right"></span>
                                 </a>
                             </div>
                         </div>
@@ -147,7 +147,7 @@
                         <div class="panel-heading">
                             <div class="panel-title">
                                 <a href="#panel3" class="panel-toggle" data-toggle="collapse" data-parent="#hm-accordion">
-                                    <i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;控制面板<span class="fa fa-chevron-down"></span>
+                                    <i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;控制面板<span class="fa fa-chevron-right"></span>
                                 </a>
                             </div>
                         </div>
@@ -161,6 +161,22 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div id="hm-dropdown" class="dropdown">
+                    <ul>
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="false" aria-expanded="false" id="me"><i class="fa fa-home" ></i>&nbsp;&nbsp;&nbsp;<span>后台首页</span></a>
+                            <ul class="dropdown-menu hm-dd" aria-labelledby="me">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </li>
+                        <li></li>
+                        <li></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -183,19 +199,23 @@
     $('.zoom').on('click', function() {
         var that = $(this);
         if (that.attr('data')) {
+            that.find('#hm-left').animate();
             that.attr('data', '');
             $('#main-container').removeClass('zoom');
         } else {
+            that.find('#hm-left').animate();
             that.attr('data', '1');
             $('#main-container').addClass('zoom');
+
         }
     });
-    // function zoom() {
-    //
-    // }
     //处理菜单栏
     $('.panel-heading').collapse("hide");
     $('.panel-toggle').eq(0).click();
+    $('.panel-toggle').bind('panel_title', function() {
+        $(this).parent('.panel-title').find('span.fa').attr('class', 'fa fa-chevron-down');
+    });
+    $('.panel-toggle').eq(0).trigger("panel_title");
     $('.panel-title').eq(0).addClass('active');
     $('.panel-title').on('click', function() {
         var that = $(this);
@@ -222,7 +242,7 @@
         var bIsAndroid = sUserAgent.match(/android/i) == "android";
         var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
         var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
-        document.writeln("您的浏览设备为：");
+        // document.writeln("您的浏览设备为：");
         if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
             // document.writeln("phone");
             var hg = window.innerHeight + 10;
@@ -239,137 +259,9 @@
     $('#hm-navbar-collapse-1 li').on('click', function() {
         $('#hm-navbar-collapse-1').collapse('hide')
     });
-    // Sidebar
-    $(document).ready(function() {
-        var $SIDEBAR_MENU = $('#sidebar-menu'),
-            $NAV_MENU = $('.nav_menu'),
-            $FOOTER = $('footer'),
-            $BODY = $('body'),
-            $LEFT_COL = $('.left_col'),
-            $RIGHT_COL = $('.right_col'),
-            CURRENT_URL = window.location.href.split('?')[0],
-            $MENU_TOGGLE = $('#menu_toggle'),
-            $SIDEBAR_FOOTER = $('.sidebar-footer');
-        // TODO: This is some kind of easy fix, maybe we can improve this
-        var setContentHeight = function() {
-            // reset height
-            $RIGHT_COL.css('min-height', $(window).height());
 
-            var bodyHeight = $BODY.outerHeight(),
-                footerHeight = $BODY.hasClass('footer_fixed') ? 0 : $FOOTER.height(),
-                leftColHeight = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
-                contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
 
-            // normalize content
-            contentHeight -= $NAV_MENU.height() + footerHeight;
 
-            $RIGHT_COL.css('min-height', contentHeight);
-        };
-
-        $SIDEBAR_MENU.find('a').on('click', function(ev) {
-            var $li = $(this).parent();
-
-            if ($li.is('.active')) {
-                $li.removeClass('active active-sm');
-                $('ul:first', $li).slideUp(function() {
-                    setContentHeight();
-                });
-            } else {
-                // prevent closing menu if we are on child menu
-                if (!$li.parent().is('.child_menu')) {
-                    $SIDEBAR_MENU.find('li').removeClass('active active-sm');
-                    $SIDEBAR_MENU.find('li ul').slideUp();
-                }
-
-                $li.addClass('active');
-
-                $('ul:first', $li).slideDown(function() {
-                    setContentHeight();
-                });
-            }
-        });
-
-        // toggle small or large menu
-        $MENU_TOGGLE.on('click', function() {
-            if ($BODY.hasClass('nav-md')) {
-                $SIDEBAR_MENU.find('li.active ul').hide();
-                $SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
-            } else {
-                $SIDEBAR_MENU.find('li.active-sm ul').show();
-                $SIDEBAR_MENU.find('li.active-sm').addClass('active').removeClass('active-sm');
-            }
-
-            $BODY.toggleClass('nav-md nav-sm');
-
-            setContentHeight();
-        });
-
-        // check active menu
-        $SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').addClass('current-page');
-
-        $SIDEBAR_MENU.find('a').filter(function() {
-            return this.href == CURRENT_URL;
-        }).parent('li').addClass('current-page').parents('ul').slideDown(function() {
-            setContentHeight();
-        }).parent().addClass('active');
-
-        // recompute content when resizing
-        $(window).smartresize(function() {
-            setContentHeight();
-        });
-
-        setContentHeight();
-
-        // fixed sidebar
-        if ($.fn.mCustomScrollbar) {
-            $('.menu_fixed').mCustomScrollbar({
-                autoHideScrollbar: true,
-                theme: 'minimal',
-                mouseWheel: {
-                    preventDefault: true
-                }
-            });
-        }
-    });
-    /**
-     * Resize function without multiple trigger
-     *
-     * Usage:
-     * $(window).smartresize(function(){
-     *     // code here
-     * });
-     */
-    (function($, sr) {
-        // debouncing function from John Hann
-        // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
-        var debounce = function(func, threshold, execAsap) {
-            var timeout;
-
-            return function debounced() {
-                var obj = this,
-                    args = arguments;
-
-                function delayed() {
-                    if (!execAsap)
-                        func.apply(obj, args);
-                    timeout = null;
-                }
-
-                if (timeout)
-                    clearTimeout(timeout);
-                else if (execAsap)
-                    func.apply(obj, args);
-
-                timeout = setTimeout(delayed, threshold || 100);
-            };
-        };
-
-        // smartresize
-        jQuery.fn[sr] = function(fn) {
-            return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr);
-        };
-
-    })(jQuery, 'smartresize');
     // /Sidebar
 
     // $('.hm-nav-hide-btn').on('click', function() {

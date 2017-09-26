@@ -248,6 +248,9 @@ padding: 1px 10px;
     width: 230px;
     padding: 0;
     /*display: flex;*/
+    transition: width 0.7s linear 0s;
+    /* Safari */
+    -webkit-transition: width 0.7s linear 0s;
 }
 
 #main-container>#hm-left .hm-dd-menu {
@@ -266,6 +269,16 @@ padding: 1px 10px;
     border-bottom-right-radius: 3px;
 }
 
+#main-container>#hm-left #hm-dropdown .hm-dd {
+    position: relative;
+    left: 70px;
+    top: -57px;
+    z-index: 99999;
+    border-radius: 0;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
 #main-container>#hm-right {
     background: #666;
     padding: 10px 20px 0;
@@ -277,6 +290,9 @@ padding: 1px 10px;
 
 #main-container.zoom>#hm-left {
     width: 70px;
+    transition: width 0.7s linear 0s;
+    /* Safari */
+    -webkit-transition: width 0.7s linear 0s;
 }
 
 #main-container.zoom>#hm-left .profile_info {
@@ -285,30 +301,75 @@ padding: 1px 10px;
 
 #main-container.zoom>#hm-left .profile_pic {
     width: 99%;
-    text-indent: -8px;
+    text-indent: -10px;
 }
 
 #main-container.zoom>#hm-left .hm-dd-menu {
     left: 70px;
 }
 
+#main-container.zoom>#hm-left #hm-home {
+    height: 65px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
 #main-container.zoom>#hm-left #hm-home a {
     text-indent: 10px;
+    padding: 5px 0;
 }
 
 #main-container.zoom>#hm-left #hm-home a i {
     font-size: 25px !important;
     width: 100% !important;
-    margin-bottom: 5px;
+    /*margin-bottom: 3px;*/
 }
 
 #main-container.zoom>#hm-left #hm-home a span {
-    width: 100%;
-    !important;
+    width: 100%!important;
+    text-align: center;
     font-weight: 400;
     font-size: 10px;
-    position: relative;
-    left: -5px;
+    line-height: 12px;
+    height: 12px;
+}
+
+#main-container>#hm-left #hm-dropdown ul, #main-container>#hm-left #hm-dropdown ul li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 1px;
+}
+
+#main-container>#hm-left #hm-dropdown ul li.open {
+    border-right: 3px solid #1ABB9C;
+}
+
+#main-container>#hm-left #hm-dropdown a.dropdown-toggle {
+    text-indent: 10px;
+    padding: 5px 0;
+    text-decoration: none;
+    display: block;
+}
+
+#main-container>#hm-left #hm-dropdown li.open a.dropdown-toggle {
+    text-shadow: rgba(0, 0, 0, 0.25) 0 -1px 0;
+    background: linear-gradient(#334556, #2C4257), #2A3F54;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
+}
+
+#main-container>#hm-left #hm-dropdown a.dropdown-toggle i {
+    font-size: 25px;
+    width: 100%;
+    color: white;
+}
+
+#main-container>#hm-left #hm-dropdown a.dropdown-toggle span {
+    width: 100%;
+    font-weight: 400;
+    font-size: 10px;
+    text-align: center;
+    color: white;
 }
 
 #main-container.zoom>#hm-left .profile {
