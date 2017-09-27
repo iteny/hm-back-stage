@@ -9,11 +9,11 @@ var layer = layui.layer,
     form = layui.form,
     layedit = layui.layedit,
     laydate = layui.laydate;
+var lan;
 var BaseFunc = function() {
-    //默认设置
-    this.config = {
-        language: 'cn',
-    }
+
+
+    this.config = language();
 }
 /**
  * @description 设置语言，默认为cn
@@ -33,6 +33,7 @@ BaseFunc.languageSet = function(lg) {
  * @param time cookie设定个时间，不填则为3天
  */
 BaseFunc.languageRun = function(time) {
+    // console.log(BaseFunc.config);
     if ($.cookie('language') == null) {
         $.cookie('language', BaseFunc.language, {
             expires: time ? time : 3, //有限日期，可以是一个整数或一个日期(单位：天)。这个地方也要注意，如果不设置这个东西，浏览器关闭之后此cookie就失效了
@@ -42,8 +43,62 @@ BaseFunc.languageRun = function(time) {
         })
     }
 }
+
+// BaseFunc.prototype.config = [];
+function language() {
+    // var that;
+    var test;
+    // if (window.XMLHttpRequest) {
+    //     test = new XMLHttpRequest();
+    // } else if (window.ActiveXObject) {
+    //     test = new window.ActiveXObject();
+    // } else {
+    //     alert("请升级至最新版本的浏览器");
+    // }
+    // if (test != null) {
+    //     test.open("GET", "/static/common/js/admin/language.json", true);
+    //     test.send(null);
+    //     test.onreadystatechange = function() {
+    //         if (test.readyState == 4 && test.status == 200) {
+    //             var obj = JSON.parse(test.responseText);
+    //             // console.log(obj);
+    //             return obj;
+    //         }
+    //     };
+    //
+    // }
+    // return that;
+
+    $.ajax({
+        type: "GET",
+        url: "/static/common/js/admin/language.json",
+        dataType: "JSON",
+        async: false,
+        success: function(data) {
+            // console.log(data);
+            // 传入参数进行配置
+            // var bj = ;
+            // alert(bj);
+            // var str = eval('(' + data + ')');
+            // $.extend(true, that.language, str);
+            // return that;
+            test = data;
+            console.log(test);
+        }
+    });
+    return test;
+}
+// BaseFunc.prototype.sss = BaseFunc.readJsonFile(function(result) {
+//     console.log(result);
+//     return result;
+// });
+
+// BaseFunc.config = JSON.stringify(BaseFunc.readJsonFile());
+// BaseFunc.readJsonFile();
+
 BaseFunc.languageSet('en');
 BaseFunc.languageRun();
+
 /**
  * @description 弹出一个错误对话框
  * @author Nicholas Mars
@@ -80,3 +135,8 @@ BaseFunc.prototype.errorDialog = function(msg, time, title) {
 }
 //创建HmMenuTab对象
 var Base = new BaseFunc();
+// Base.readJsonFile();
+// Base.language();
+// console.log(varss);
+// console.log(language());
+console.log(Base.config);
