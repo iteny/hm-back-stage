@@ -139,4 +139,4 @@ var Base = new BaseFunc();
 // Base.language();
 // console.log(varss);
 // console.log(language());
-console.log(Base.config);
+console.log(Base.config.firstName);
