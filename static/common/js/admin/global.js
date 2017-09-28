@@ -85,37 +85,65 @@ BaseFunc.prototype.readJsonFile = function() {
  * @param msg   对话框的信息
  * @param title 对话框的标题
  */
-BaseFunc.prototype.noticeErr = function(msg, time, title) {
+BaseFunc.prototype.noticeErr = function(type, time, title) {
     PNotify.prototype.options.styling = "bootstrap3";
+    var icon;
+    switch (type) {
+        case "info": //普通消息
+            icon = "fa-info-circle";
+            break;
+        case "warn": //警告
+            icon = "fa-exclamation-circle";
+            type = "notice";
+            break;
+        case "error": //错误
+            icon = "fa-times-circle";
+            break;
+        case "success": //成功
+            icon = "fa-check-circle";
+            break;
+        default:
+            icon = "fa-info-circle";
+            break;
+    }
     new PNotify({
-        title: "消息提示", //标题
-        text: "safasdf", //内容
-        type: "info",
-        delay: 12000, //多少毫秒后消息被删除
+        title: '提示信息', //标题
+        text: "对不起，密码错误！111111111111sdfsdfdgdfsbghfs", //内容
+        animate: {
+            animate: false,
+            in_class: 'bounceInRight',
+            out_class: 'bounceOutleft'
+        },
+        // styling: "fontawesome", //选择样式,"brighttheme", "bootstrap3", "fontawesome"
+        addclass: "hm-custom", //增加class用以自定义样式
+        cornerclass: "dddd", //增加消息框边框样式
+        width: "300px", //宽度
+        // min_height: "16px", //最小高度
+        icon: 'fa ' + icon, //图标
+        type: type ? type : "info", //类型notice,info,success,error
+        shadow: true, //阴影
+        delay: 2000, //多少毫秒后消息被删除
         hide: true, //是否自动关闭
         mouse_reset: true, //鼠标悬浮的时候，时间重置
+        // remove: true,
+        // destroy: true,
 
-        history: {
-            history: true,
-            menu: true,
-            fixed: true,
-            maxonscreen: Infinity,
-            labels: {
-                redisplay: "历史消息",
-                all: "显示全部",
-                last: "最后一个"
-            }
+        // buttons: {
+        //     closer: true,
+        //     closer_hover: false,
+        //     sticker_hover: true,
+        //     //labels: {close: "Close", stick: "Stick"}
+        // },
+        nonblock: {
+            nonblock: false,
         },
-        buttons: {
-            closer: true,
-            closer_hover: false,
-            sticker_hover: true,
-            //labels: {close: "Close", stick: "Stick"}
-        },
+
+
 
 
 
     });
+    $('.hm-custom').attr('style', 'display:none;top:70px;width:300px;right:16px;');
     // var btn, lgtitle;
     // switch ($.cookie('language')) {
     //     case 'cn':
