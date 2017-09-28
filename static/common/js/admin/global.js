@@ -110,9 +110,9 @@ BaseFunc.prototype.noticeErr = function(type, time, title) {
         title: '提示信息', //标题
         text: "对不起，密码错误！111111111111sdfsdfdgdfsbghfs", //内容
         animate: {
-            animate: false,
+            animate: true,
             in_class: 'bounceInRight',
-            out_class: 'bounceOutleft'
+            out_class: 'bounceOut'
         },
         // styling: "fontawesome", //选择样式,"brighttheme", "bootstrap3", "fontawesome"
         addclass: "hm-custom", //增加class用以自定义样式
