@@ -50,10 +50,12 @@ BaseFunc.prototype.languageRun = function(time) {
 }
 
 // BaseFunc.prototype.config = [];
+// var dtd = $.Deferred();
 BaseFunc.prototype.readJsonFile = function() {
     var that = this;
     var lang;
     var langFile;
+    var defer = $.Deferred();
     switch ($.cookie('language')) {
         case 'cn':
             langFile = "cn";
@@ -65,22 +67,20 @@ BaseFunc.prototype.readJsonFile = function() {
             langFile = "cn";
             break;
     }
-    console.log(langFile);
-    setTimeout(function(){
-        $.ajax({
-            type: "GET",
-            url: "/static/common/js/admin/language/" + (langFile ? langFile : "cn") + ".js",
-            dataType: "JSON",
-            async: false,
-            success: function(data) {
-                console.log(data);
-                lang = data;
+    $.ajax({
+        type: "GET",
+        url: "/static/common/js/admin/language/" + langFile + ".js",
+        dataType: "JSON",
+        success: function(data) {
+            console.log(data);
+            defer.resolve(data)
+            // lang = data;
 
-            }
-        });
-    },1);
+        },
+    });
+    return defer.promise();
     // console.log(lang);
-    that.language = lang;
+    // that.language = lang;
 }
 
 /**
@@ -110,35 +110,39 @@ BaseFunc.prototype.noticeErr = function(type,msg,title, time) {
             icon = "fa-info-circle";
             break;
     }
-    new PNotify({
-        title: title ? title : 'asdf', //标题
-        text: msg ? msg : 'asdfs', //内容
-        animate: {
-            animate: true,
-            in_class: 'bounceInRight',
-            out_class: 'bounceOut'
-        },
-        // styling: "fontawesome", //选择样式,"brighttheme", "bootstrap3", "fontawesome"
-        addclass: "hm-custom", //增加class用以自定义样式
-        cornerclass: "dddd", //增加消息框边框样式
-        width: "300px", //宽度
-        // min_height: "16px", //最小高度
-        icon: 'fa ' + icon, //图标
-        type: type ? type : "info", //类型notice,info,success,error
-        shadow: true, //阴影
-        delay: time ? time : 3000, //多少毫秒后消息被删除
-        hide: true, //是否自动关闭
-        mouse_reset: true, //鼠标悬浮的时候，时间重置
-        nonblock: {
-            nonblock: false,
-        },
-    });
-    var noticeHeight = $('.ui-pnotify').innerHeight() / 2;
-    $('.ui-pnotify-sticker').attr('style', 'cursor: pointer; visibility: visible;height:'+noticeHeight+'px;line-height:'+(noticeHeight/2)+'px');
-    $('.ui-pnotify-closer').attr('style', 'cursor: pointer; visibility: visible;height:'+noticeHeight+'px;line-height:'+(noticeHeight/2)+'px');
-    $('.ui-pnotify-closer>span').html('关闭');
-    $('.ui-pnotify-sticker>span').html('暂停');
-    $('.hm-custom').attr('style', 'display:none;top:70px;width:300px;right:16px;');
+    setTimeout(function () {
+        new PNotify({
+            title: title ? title : that.language.noticeTitle, //标题
+            text: msg ? msg : that.language.noticeMsg, //内容
+            animate: {
+                animate: true,
+                in_class: 'bounceInRight',
+                out_class: 'bounceOut'
+            },
+            // styling: "fontawesome", //选择样式,"brighttheme", "bootstrap3", "fontawesome"
+            addclass: "hm-custom", //增加class用以自定义样式
+            cornerclass: "dddd", //增加消息框边框样式
+            width: "300px", //宽度
+            // min_height: "16px", //最小高度
+            icon: 'fa ' + icon, //图标
+            type: type ? type : "info", //类型notice,info,success,error
+            shadow: true, //阴影
+            delay: time ? time : 3000, //多少毫秒后消息被删除
+            hide: true, //是否自动关闭
+            mouse_reset: true, //鼠标悬浮的时候，时间重置
+            nonblock: {
+                nonblock: false,
+            },
+        });
+        var noticeHeight = $('.ui-pnotify').innerHeight() / 2;
+        $('.ui-pnotify-sticker').attr('style', 'cursor: pointer; visibility: visible;height:'+noticeHeight+'px;line-height:'+(noticeHeight/2)+'px');
+        $('.ui-pnotify-closer').attr('style', 'cursor: pointer; visibility: visible;height:'+noticeHeight+'px;line-height:'+(noticeHeight/2)+'px');
+        $('.ui-pnotify-closer>span').html(that.language.noticeClose ? that.language.noticeClose : "关闭");
+        $('.ui-pnotify-sticker>span').html(that.language.noticePause ? that.language.noticePause : "暂停");
+        $('.hm-custom').attr('style', 'display:none;top:70px;width:300px;right:16px;');
+    }, 100);
+
+
     // var btn, lgtitle;
     // switch ($.cookie('language')) {
     //     case 'cn':
@@ -170,9 +174,11 @@ BaseFunc.prototype.noticeErr = function(type,msg,title, time) {
 var Base = new BaseFunc();
 Base.languageSet('en');
 Base.languageRun();
-Base.readJsonFile();
-// Base.readJsonFile();
-// Base.language();
-// console.log(varss);
-// console.log(language());
-// console.log(Base.language);
+console.log(Base.config.language)
+$.when(Base.readJsonFile()).done(function(data){
+    Base.language = data;
+    return Base.language;
+});
+setTimeout(function () {
+    console.log(Base.language);
+}, 3000);
