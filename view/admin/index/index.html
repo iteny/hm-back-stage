@@ -49,7 +49,7 @@
                     </button> -->
                     <div id="hm-brand">
                         <a class="navbar-brand" href="#">Brand</a>
-                        <a class="navbar-brand zoom" onclick="zoom()"><i class="glyphicon glyphicon-th-large"></i></a>
+                        <a class="navbar-brand zoom"><i class="glyphicon glyphicon-th-large"></i></a>
                     </div>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -90,7 +90,7 @@
             <!-- /.container-fluid -->
         </nav>
     </div>
-    <div id="main-container" class="container">
+    <div id="main-container" class="container animated bounceOutLeft ">
         <div id="hm-left" class="col-md-3" style="">
             <!-- 用户资料 -->
             <div class="profile">
@@ -224,6 +224,17 @@
 <script src="/static/common/js/admin/common.js"></script>
 <!-- <script src="/static/common/js/dist/hm-back-stage.js"></script> -->
 <script type="text/javascript">
+    $.fn.extend({
+        animateCss: function(animationName) {
+            var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+            this.addClass('animated ' + animationName).one(animationEnd, function() {
+                $(this).removeClass('animated ' + animationName);
+            });
+            return this;
+        }
+    });
+    // $('#hm-left').addClass('animated bounceOutLeft');
+    $('#hm-left').animateCss('bounce');
     Base.noticeErr("info");
     Base.noticeErr("warn");
     Base.noticeErr("error");
@@ -232,7 +243,7 @@
     $('.zoom').on('click', function() {
         var that = $(this);
         if (that.attr('data')) {
-            that.find('#hm-left').animate();
+            // that.find('#hm-left').animate();
             that.attr('data', '');
             $('#main-container').removeClass('zoom');
         } else {
