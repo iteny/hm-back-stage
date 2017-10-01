@@ -10,6 +10,21 @@ import (
 func ArticleCtx(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// log.Println(r.Method, ";", r.RequestURI)
+		cookie, err := r.Cookie("back-language")
+		if err != nil {
+			common.Log().Debug().Str("[back-language-reload]", "cn").Str("[Error]", err.Error()).Msg("back-stage language set fail")
+			homeLanguage := &http.Cookie{
+				Name:     "back-language",
+				Value:    "cn",
+				Path:     "/",
+				HttpOnly: false,
+				MaxAge:   80000,
+			}
+			http.SetCookie(w, homeLanguage)
+		} else {
+			common.Log().Debug().Str("[back-language]", cookie.Value).Msg("back-stage language set success")
+		}
+
 		switch r.RequestURI {
 		case "/intendant/login":
 			// fmt.Println("草拟吗")

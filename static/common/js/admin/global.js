@@ -39,8 +39,8 @@ BaseFunc.prototype.languageSet = function(lg) {
  */
 BaseFunc.prototype.languageRun = function(time) {
     var that = this;
-    if ($.cookie('language') == null) {
-        $.cookie('language', that.config.language, {
+    if ($.cookie('back-language') == null) {
+        $.cookie('back-language', that.config.language, {
             expires: time ? time : 3, //有限日期，可以是一个整数或一个日期(单位：天)。这个地方也要注意，如果不设置这个东西，浏览器关闭之后此cookie就失效了
             // path: "/", //cookie值保存的路径，默认与创建页路径一致。
             // domin: , //cookie域名属性，默认与创建页域名一样。这个地方要相当注意，跨域的概念，如果要主域名二级域名有效则要设置".xxx.com"
@@ -56,7 +56,7 @@ BaseFunc.prototype.readJsonFile = function() {
     var lang;
     var langFile;
     var defer = $.Deferred();
-    switch ($.cookie('language')) {
+    switch ($.cookie('back-language')) {
         case 'cn':
             langFile = "cn";
             break;
@@ -67,31 +67,30 @@ BaseFunc.prototype.readJsonFile = function() {
             langFile = "cn";
             break;
     }
+    //加载语言文件
     $.ajax({
         type: "GET",
         url: "/static/common/js/admin/language/" + langFile + ".js",
         dataType: "JSON",
         success: function(data) {
-            console.log(data);
             defer.resolve(data)
-            // lang = data;
-
         },
     });
     return defer.promise();
-    // console.log(lang);
-    // that.language = lang;
 }
 
 /**
  * @description 弹出一个消息框
  * @author Nicholas Mars
- * @param msg   消息框的信息
- * @param title 消息框的标题
+ * @param type  消息框类型，只允许4种，info<warn<error<success，如果没有设置或错误设置，那么默认为info
+ * @param msg   消息框的信息,如果不设置自动调用语言文件里相应的内容
+ * @param title 消息框的标题,如果不设置自动调用语言文件里相应的内容
+ * @param time  消息框持续时间，如果不设置，默认为3秒
  */
-BaseFunc.prototype.noticeErr = function(type,msg,title, time) {
+BaseFunc.prototype.noticeErr = function(type, msg, title, time) {
     PNotify.prototype.options.styling = "bootstrap3";
-    var icon,that = this;
+    var icon, that = this;
+    //判断错误信息类型，更改背景和图标
     switch (type) {
         case "info": //普通消息
             icon = "fa-info-circle";
@@ -110,18 +109,19 @@ BaseFunc.prototype.noticeErr = function(type,msg,title, time) {
             icon = "fa-info-circle";
             break;
     }
-    setTimeout(function () {
+    //由于依赖语言文件加载为先，所以需要延迟0.1秒，否则读取不了语言文件
+    setTimeout(function() {
         new PNotify({
             title: title ? title : that.language.noticeTitle, //标题
             text: msg ? msg : that.language.noticeMsg, //内容
-            animate: {
+            animate: { //动画效果
                 animate: true,
                 in_class: 'bounceInRight',
                 out_class: 'bounceOut'
             },
             // styling: "fontawesome", //选择样式,"brighttheme", "bootstrap3", "fontawesome"
             addclass: "hm-custom", //增加class用以自定义样式
-            cornerclass: "dddd", //增加消息框边框样式
+            cornerclass: "hm-custom-content", //增加消息框边框样式
             width: "300px", //宽度
             // min_height: "16px", //最小高度
             icon: 'fa ' + icon, //图标
@@ -131,15 +131,18 @@ BaseFunc.prototype.noticeErr = function(type,msg,title, time) {
             hide: true, //是否自动关闭
             mouse_reset: true, //鼠标悬浮的时候，时间重置
             nonblock: {
-                nonblock: false,
+                nonblock: false, //无阻塞消息
             },
         });
-        var noticeHeight = $('.ui-pnotify').innerHeight() / 2;
-        $('.ui-pnotify-sticker').attr('style', 'cursor: pointer; visibility: visible;height:'+noticeHeight+'px;line-height:'+(noticeHeight/2)+'px');
-        $('.ui-pnotify-closer').attr('style', 'cursor: pointer; visibility: visible;height:'+noticeHeight+'px;line-height:'+(noticeHeight/2)+'px');
-        $('.ui-pnotify-closer>span').html(that.language.noticeClose ? that.language.noticeClose : "关闭");
-        $('.ui-pnotify-sticker>span').html(that.language.noticePause ? that.language.noticePause : "暂停");
-        $('.hm-custom').attr('style', 'display:none;top:70px;width:300px;right:16px;');
+        //设置关闭与暂停的高度
+        var noticeHeight = $('.hm-custom.ui-pnotify').innerHeight() / 2;
+        $('.hm-custom .ui-pnotify-sticker').attr('style', 'cursor: pointer; visibility: visible;height:' + noticeHeight + 'px;line-height:' + (noticeHeight / 2) + 'px');
+        $('.hm-custom .ui-pnotify-closer').attr('style', 'cursor: pointer; visibility: visible;height:' + noticeHeight + 'px;line-height:' + (noticeHeight / 2) + 'px');
+        //设置关闭与暂停多语言
+        $('.hm-custom .ui-pnotify-closer>span').html(that.language.noticeClose ? that.language.noticeClose : "关闭");
+        $('.hm-custom .ui-pnotify-sticker>span').html(that.language.noticePause ? that.language.noticePause : "暂停");
+        //自定义具体窗口高度的位置
+        $('.hm-custom.ui-pnotify').attr('style', 'display:none;top:70px;width:300px;right:16px;');
     }, 100);
 
 
@@ -170,15 +173,14 @@ BaseFunc.prototype.noticeErr = function(type,msg,title, time) {
     // });
     // return;
 }
+
 //创建HmMenuTab对象
 var Base = new BaseFunc();
-Base.languageSet('en');
-Base.languageRun();
-console.log(Base.config.language)
-$.when(Base.readJsonFile()).done(function(data){
+//加载语言文件
+$.when(Base.readJsonFile()).done(function(data) {
     Base.language = data;
     return Base.language;
 });
-setTimeout(function () {
-    console.log(Base.language);
-}, 3000);
+//如果后台没有设置语言，JS来设置
+Base.languageSet('en');
+Base.languageRun();
