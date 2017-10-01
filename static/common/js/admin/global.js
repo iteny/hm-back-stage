@@ -185,7 +185,7 @@ BaseFunc.prototype.noticeAnimateOut = function() {
         amout = "";
     for (var k in that.animateOut) {
         if (sj == k) {
-            amin = that.animateOut[k];
+            amout = that.animateOut[k];
         }
     }
     return amout;
@@ -256,35 +256,7 @@ BaseFunc.prototype.noticeErr = function(type, msg, title, time) {
         $('.hm-custom .ui-pnotify-sticker>span').html(that.language.noticePause ? that.language.noticePause : "暂停");
         //自定义具体窗口高度的位置
         $('.hm-custom.ui-pnotify').attr('style', 'display:none;top:70px;width:300px;right:16px;');
-    }, 100);
-
-
-    // var btn, lgtitle;
-    // switch ($.cookie('language')) {
-    //     case 'cn':
-    //         btn = ['我明白了'];
-    //         lgtitle = '提示信息';
-    //         break;
-    //     case 'en':
-    //         btn = ['I know'];
-    //         lgtitle = 'Notify Message';
-    //         break;
-    //     default:
-    //         btn = ['我明白了'];
-    //         lgtitle = '提示信息';
-    // }
-    // layer.alert(msg, {
-    //     title: title ? title : lgtitle,
-    //     icon: 2,
-    //     time: time ? time : 0,
-    //     resize: false,
-    //     zIndex: layer.zIndex,
-    //     anim: Math.ceil(Math.random() * 6),
-    //     offset: 't',
-    //     shade: 0.1,
-    //     btn: btn
-    // });
-    // return;
+    }, 300);
 }
 
 //创建HmMenuTab对象
@@ -297,4 +269,5 @@ $.when(Base.readJsonFile()).done(function(data) {
 //如果后台没有设置语言，JS来设置
 Base.languageSet('en');
 Base.languageRun();
-// Base.noticeAnimate();
+console.log(Base.noticeAnimateIn());
+console.log(Base.noticeAnimateOut());
