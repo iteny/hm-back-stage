@@ -11,12 +11,92 @@ var layer = layui.layer,
     laydate = layui.laydate;
 var lan;
 var BaseFunc = function() {
-
-
     this.config = {
         language: 'cn',
     };
     this.language = {};
+    //过渡动画
+    this.animateIn = {
+        1: 'bounce',
+        2: 'flash',
+        3: 'pulse',
+        4: 'rubberBand',
+        5: 'shake',
+        6: 'headShake',
+        7: 'swing',
+        8: 'tada',
+        9: 'wobble',
+        10: 'jello',
+        11: 'bounceIn',
+        12: 'bounceInDown',
+        13: 'bounceInLeft',
+        14: 'bounceInRight',
+        15: 'bounceInUp',
+        16: 'fadeIn',
+        17: 'fadeInDown',
+        18: 'fadeInDownBig',
+        19: 'fadeInLeft',
+        20: 'fadeInLeftBig',
+        21: 'fadeInRight',
+        22: 'fadeInRightBig',
+        23: 'fadeInUp',
+        24: 'fadeInUpBig',
+        25: 'flipInX',
+        26: 'flipInY',
+        27: 'flipOutX',
+        28: 'flipOutY',
+        29: 'lightSpeedIn',
+        30: 'rotateIn',
+        31: 'rotateInDownLeft',
+        32: 'rotateInDownRight',
+        33: 'rotateInUpLeft',
+        34: 'rotateInUpRight',
+        35: 'hinge',
+        36: 'jackInTheBox',
+        37: 'rollIn',
+        38: 'zoomIn',
+        39: 'zoomInDown',
+        40: 'zoomInLeft',
+        41: 'zoomInRight',
+        42: 'zoomInUp',
+        43: 'slideInDown',
+        44: 'slideInLeft',
+        45: 'slideInRight',
+        46: 'slideInUp',
+    };
+    //消失动画
+    this.animateOut = {
+        1: 'bounceOut',
+        2: 'bounceOutDown',
+        3: 'bounceOutLeft',
+        4: 'bounceOutRight',
+        5: 'bounceOutUp',
+        6: 'fadeOut',
+        7: 'fadeOutDown',
+        8: 'fadeOutDownBig',
+        9: 'fadeOutLeft',
+        10: 'fadeOutLeftBig',
+        11: 'fadeOutRight',
+        12: 'fadeOutRightBig',
+        13: 'fadeOutUp',
+        14: 'fadeOutUpBig',
+        15: 'lightSpeedOut',
+        16: 'rotateOut',
+        17: 'rotateOutDownLeft',
+        18: 'rotateOutDownRight',
+        19: 'rotateOutUpLeft',
+        20: 'rotateOutUpRight',
+        21: 'rollOut',
+        22: 'zoomOut',
+        23: 'zoomOutDown',
+        24: 'zoomOutLeft',
+        25: 'zoomOutRight',
+        26: 'zoomOutUp',
+        27: 'slideOutDown',
+        28: 'slideOutLeft',
+        29: 'slideOutRight',
+        30: 'slideOutUp',
+    };
 }
 /**
  * @description 设置语言，默认为cn
@@ -49,8 +129,10 @@ BaseFunc.prototype.languageRun = function(time) {
     }
 }
 
-// BaseFunc.prototype.config = [];
-// var dtd = $.Deferred();
+/**
+ * @description 加载语言文件
+ * @author Nicholas Mars
+ */
 BaseFunc.prototype.readJsonFile = function() {
     var that = this;
     var lang;
@@ -78,7 +160,36 @@ BaseFunc.prototype.readJsonFile = function() {
     });
     return defer.promise();
 }
-
+/**
+ * @description 随机过渡动画
+ * @author Nicholas Mars
+ */
+BaseFunc.prototype.noticeAnimateIn = function() {
+    var sj = Math.ceil(Math.random() * 46),
+        that = this,
+        amin = "";
+    for (var k in that.animateIn) {
+        if (sj == k) {
+            amin = that.animateIn[k];
+        }
+    }
+    return amin;
+}
+/**
+ * @description 随机消失动画
+ * @author Nicholas Mars
+ */
+BaseFunc.prototype.noticeAnimateOut = function() {
+    var sj = Math.ceil(Math.random() * 30),
+        that = this,
+        amout = "";
+    for (var k in that.animateOut) {
+        if (sj == k) {
+            amin = that.animateOut[k];
+        }
+    }
+    return amout;
+}
 /**
  * @description 弹出一个消息框
  * @author Nicholas Mars
@@ -89,7 +200,9 @@ BaseFunc.prototype.readJsonFile = function() {
  */
 BaseFunc.prototype.noticeErr = function(type, msg, title, time) {
     PNotify.prototype.options.styling = "bootstrap3";
-    var icon, that = this;
+    var icon, that = this,
+        amin = this.noticeAnimateIn(),
+        amout = this.noticeAnimateOut();
     //判断错误信息类型，更改背景和图标
     switch (type) {
         case "info": //普通消息
@@ -116,8 +229,8 @@ BaseFunc.prototype.noticeErr = function(type, msg, title, time) {
             text: msg ? msg : that.language.noticeMsg, //内容
             animate: { //动画效果
                 animate: true,
-                in_class: 'bounceInRight',
-                out_class: 'bounceOut'
+                in_class: amin ? amin : 'bounceInRight',
+                out_class: amout ? amout : 'bounceOut'
             },
             // styling: "fontawesome", //选择样式,"brighttheme", "bootstrap3", "fontawesome"
             addclass: "hm-custom", //增加class用以自定义样式
@@ -184,3 +297,4 @@ $.when(Base.readJsonFile()).done(function(data) {
 //如果后台没有设置语言，JS来设置
 Base.languageSet('en');
 Base.languageRun();
+// Base.noticeAnimate();
