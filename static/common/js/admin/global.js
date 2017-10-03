@@ -5,14 +5,20 @@
  * @author Nicholas Mars
  * @date 2017-09-18
  */
-var layer = layui.layer,
-    form = layui.form,
-    layedit = layui.layedit,
-    laydate = layui.laydate;
-var lan;
-var BaseFunc = function() {
+//给jQuery增加一个方法animateCss,用于给dom元素增加动画效果
+$.fn.extend({
+    animateCss: function(animationName) {
+        var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+        this.addClass('animated ' + animationName).one(animationEnd, function() {
+            $(this).removeClass('animated ' + animationName);
+        });
+        return this;
+    }
+});
+var HmObj = function() {
     this.config = {
-        language: 'cn',
+        language: 'cn', //js设置国际化
+        animateRandom: true, //是否开启动画随机，默认true开启，false关闭
     };
     this.language = {};
     //过渡动画
@@ -102,7 +108,7 @@ var BaseFunc = function() {
  * @description 设置语言，默认为cn
  * @param lg 什么语言，如果在下列选项中没有，那么将设置成cn
  */
-BaseFunc.prototype.languageSet = function(lg) {
+HmObj.prototype.languageSet = function(lg) {
     var that = this;
     if (lg == 'cn') {
         that.config.language = 'cn';
@@ -117,7 +123,7 @@ BaseFunc.prototype.languageSet = function(lg) {
  * @description 设置语言，默认为cn
  * @param time cookie设定个时间，不填则为3天
  */
-BaseFunc.prototype.languageRun = function(time) {
+HmObj.prototype.languageRun = function(time) {
     var that = this;
     if ($.cookie('back-language') == null) {
         $.cookie('back-language', that.config.language, {
@@ -130,41 +136,28 @@ BaseFunc.prototype.languageRun = function(time) {
 }
 
 /**
- * @description 加载语言文件
+ * @description 国际化
  * @author Nicholas Mars
  */
-BaseFunc.prototype.readJsonFile = function() {
+HmObj.prototype.readJsonFile = function() {
     var that = this;
-    var lang;
-    var langFile;
-    var defer = $.Deferred();
     switch ($.cookie('back-language')) {
         case 'cn':
-            langFile = "cn";
+            that.language = language.cn;
             break;
         case 'en':
-            langFile = "en";
+            that.language = language.en;
             break;
         default:
-            langFile = "cn";
+            that.language = language.cn;
             break;
     }
-    //加载语言文件
-    $.ajax({
-        type: "GET",
-        url: "/static/common/js/admin/language/" + langFile + ".js",
-        dataType: "JSON",
-        success: function(data) {
-            defer.resolve(data)
-        },
-    });
-    return defer.promise();
 }
 /**
  * @description 随机过渡动画
  * @author Nicholas Mars
  */
-BaseFunc.prototype.noticeAnimateIn = function() {
+HmObj.prototype.noticeAnimateIn = function() {
     var sj = Math.ceil(Math.random() * 46),
         that = this,
         amin = "";
@@ -179,7 +172,7 @@ BaseFunc.prototype.noticeAnimateIn = function() {
  * @description 随机消失动画
  * @author Nicholas Mars
  */
-BaseFunc.prototype.noticeAnimateOut = function() {
+HmObj.prototype.noticeAnimateOut = function() {
     var sj = Math.ceil(Math.random() * 30),
         that = this,
         amout = "";
@@ -191,6 +184,42 @@ BaseFunc.prototype.noticeAnimateOut = function() {
     return amout;
 }
 /**
+ * @description 判断浏览器设备类型
+ * @author Nicholas Mars
+ * @param status 如果不设置此参数，那么仅仅输出设备类型
+ * @param callback 回调函数，用于加入自己的一些行为
+ */
+HmObj.prototype.browserType = function(status, callback) {
+    var sUserAgent = navigator.userAgent.toLowerCase();
+    var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+    var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+    var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+    var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+    var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+    var bIsAndroid = sUserAgent.match(/android/i) == "android";
+    var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+    var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+    if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+        switch (status) {
+            case "index":
+                var hg = window.innerHeight + 10;
+                $('#main-container').height(hg);
+                break;
+            default:
+                console.log("phone");
+        }
+    } else {
+        switch (status) {
+            case "index":
+                var hg = window.innerHeight - 51;
+                $('#main-container').height(hg);
+                break;
+            default:
+                console.log("pc");
+        }
+    }
+}
+/**
  * @description 弹出一个消息框
  * @author Nicholas Mars
  * @param type  消息框类型，只允许4种，info<warn<error<success，如果没有设置或错误设置，那么默认为info
@@ -198,7 +227,7 @@ BaseFunc.prototype.noticeAnimateOut = function() {
  * @param title 消息框的标题,如果不设置自动调用语言文件里相应的内容
  * @param time  消息框持续时间，如果不设置，默认为3秒
  */
-BaseFunc.prototype.noticeErr = function(type, msg, title, time) {
+HmObj.prototype.notice = function(type, msg, title, time) {
     PNotify.prototype.options.styling = "bootstrap3";
     var icon, that = this,
         amin = this.noticeAnimateIn(),
@@ -223,51 +252,51 @@ BaseFunc.prototype.noticeErr = function(type, msg, title, time) {
             break;
     }
     //由于依赖语言文件加载为先，所以需要延迟0.1秒，否则读取不了语言文件
-    setTimeout(function() {
-        new PNotify({
-            title: title ? title : that.language.noticeTitle, //标题
-            text: msg ? msg : that.language.noticeMsg, //内容
-            animate: { //动画效果
-                animate: true,
-                in_class: amin ? amin : 'bounceInRight',
-                out_class: amout ? amout : 'bounceOut'
-            },
-            // styling: "fontawesome", //选择样式,"brighttheme", "bootstrap3", "fontawesome"
-            addclass: "hm-custom", //增加class用以自定义样式
-            cornerclass: "hm-custom-content", //增加消息框边框样式
-            width: "300px", //宽度
-            // min_height: "16px", //最小高度
-            icon: 'fa ' + icon, //图标
-            type: type ? type : "info", //类型notice,info,success,error
-            shadow: true, //阴影
-            delay: time ? time : 3000, //多少毫秒后消息被删除
-            hide: true, //是否自动关闭
-            mouse_reset: true, //鼠标悬浮的时候，时间重置
-            nonblock: {
-                nonblock: false, //无阻塞消息
-            },
-        });
-        //设置关闭与暂停的高度
-        var noticeHeight = $('.hm-custom.ui-pnotify').innerHeight() / 2;
-        $('.hm-custom .ui-pnotify-sticker').attr('style', 'cursor: pointer; visibility: visible;height:' + noticeHeight + 'px;line-height:' + (noticeHeight / 2) + 'px');
-        $('.hm-custom .ui-pnotify-closer').attr('style', 'cursor: pointer; visibility: visible;height:' + noticeHeight + 'px;line-height:' + (noticeHeight / 2) + 'px');
-        //设置关闭与暂停多语言
-        $('.hm-custom .ui-pnotify-closer>span').html(that.language.noticeClose ? that.language.noticeClose : "关闭");
-        $('.hm-custom .ui-pnotify-sticker>span').html(that.language.noticePause ? that.language.noticePause : "暂停");
-        //自定义具体窗口高度的位置
-        $('.hm-custom.ui-pnotify').attr('style', 'display:none;top:70px;width:300px;right:16px;');
-    }, 300);
+
+    new PNotify({
+        title: title ? title : that.language.noticeTitle, //标题
+        text: msg ? msg : that.language.noticeMsg, //内容
+        animate: { //动画效果
+            animate: true,
+            in_class: amin ? amin : 'bounceInRight',
+            out_class: amout ? amout : 'bounceOut'
+        },
+        // styling: "fontawesome", //选择样式,"brighttheme", "bootstrap3", "fontawesome"
+        addclass: "hm-custom", //增加class用以自定义样式
+        cornerclass: "hm-custom-content", //增加消息框边框样式
+        width: "300px", //宽度
+        // min_height: "16px", //最小高度
+        icon: 'fa ' + icon, //图标
+        type: type ? type : "info", //类型notice,info,success,error
+        shadow: true, //阴影
+        delay: time ? time : 3000, //多少毫秒后消息被删除
+        hide: true, //是否自动关闭
+        mouse_reset: true, //鼠标悬浮的时候，时间重置
+        nonblock: {
+            nonblock: false, //无阻塞消息
+        },
+    });
+    //设置关闭与暂停的高度
+    var noticeHeight = $('.hm-custom.ui-pnotify').innerHeight() / 2;
+    $('.hm-custom .ui-pnotify-sticker').attr('style', 'cursor: pointer; visibility: visible;height:' + noticeHeight + 'px;line-height:' + (noticeHeight / 2) + 'px');
+    $('.hm-custom .ui-pnotify-closer').attr('style', 'cursor: pointer; visibility: visible;height:' + noticeHeight + 'px;line-height:' + (noticeHeight / 2) + 'px');
+    //设置关闭与暂停多语言
+    $('.hm-custom .ui-pnotify-closer>span').html(that.language.noticeClose ? that.language.noticeClose : "关闭");
+    $('.hm-custom .ui-pnotify-sticker>span').html(that.language.noticePause ? that.language.noticePause : "暂停");
+    //自定义具体窗口高度的位置
+    $('.hm-custom.ui-pnotify').attr('style', 'display:none;top:70px;width:300px;right:16px;');
 }
 
 //创建HmMenuTab对象
-var Base = new BaseFunc();
-//加载语言文件
-$.when(Base.readJsonFile()).done(function(data) {
-    Base.language = data;
-    return Base.language;
-});
+var hm = new HmObj();
 //如果后台没有设置语言，JS来设置
-Base.languageSet('en');
-Base.languageRun();
-console.log(Base.noticeAnimateIn());
-console.log(Base.noticeAnimateOut());
+hm.languageSet('en');
+hm.languageRun();
+//启动国际化
+hm.readJsonFile();
+//进度条给予遮罩层
+$("#hm-shade").addClass('on');
+//给遮罩层一个消失动画
+$('#hm-shade').animateCss('fadeOutDown');
+console.log(hm.noticeAnimateIn());
+console.log(hm.noticeAnimateOut());

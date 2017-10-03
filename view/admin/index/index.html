@@ -223,32 +223,21 @@
 
 <!-- <script src="/static/common/js/jquery/jquery-1.12.3.min.js"></script> -->
 <script src="/static/common/js/jquery/jquery.cookie.js"></script>
-<script src="/static/common/js/layui/layui.all.js"></script>
+<!-- <script src="/static/common/js/layui/layui.all.js"></script> -->
+<script src="/static/common/js/admin/language/language.js"></script>
 <script src="/static/common/js/admin/global.js"></script>
 <script src="/static/common/js/admin/hmMenuTab.js"></script>
 <script src="/static/common/js/admin/common.js"></script>
 
 <!-- <script src="/static/common/js/dist/hm-back-stage.js"></script> -->
 <script type="text/javascript">
-    //遮罩层
-    $("#hm-shade").addClass('on');
-
-    $.fn.extend({
-        animateCss: function(animationName) {
-            var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-            this.addClass('animated ' + animationName).one(animationEnd, function() {
-                $(this).removeClass('animated ' + animationName);
-            });
-            return this;
-        }
-    });
     // $('#hm-left').addClass('animated bounceOutLeft');
-    $('#hm-shade').animateCss('fadeOutDown');
-    Base.languageSet("en");
-    Base.noticeErr("info");
-    Base.noticeErr("warn");
-    Base.noticeErr("error");
-    Base.noticeErr("success");
+
+    hm.languageSet('en');
+    hm.notice("info");
+    hm.notice("warn");
+    hm.notice("error");
+    hm.notice("success");
     // $('#accordion').collapse('hide')
     $('.zoom').on('click', function() {
         var that = $(this);
@@ -286,30 +275,9 @@
 
 
     // $('#hm-right').height(hg);
-    function browserRedirect() {
-        var sUserAgent = navigator.userAgent.toLowerCase();
-        var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
-        var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
-        var bIsMidp = sUserAgent.match(/midp/i) == "midp";
-        var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
-        var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
-        var bIsAndroid = sUserAgent.match(/android/i) == "android";
-        var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
-        var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
-        // document.writeln("您的浏览设备为：");
-        if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
-            // document.writeln("phone");
-            var hg = window.innerHeight + 10;
-            $('#main-container').height(hg);
-            // $('#hm-navbar-collapse-1').addClass('hm-in');
-        } else {
-            // document.writeln("pc");
-            var hg = window.innerHeight - 51;
-            $('#main-container').height(hg);
-        }
-    }
+    hm.browserType("index");
 
-    browserRedirect();
+    // browserRedirect();
     $('#hm-navbar-collapse-1 li').on('click', function() {
         $('#hm-navbar-collapse-1').collapse('hide')
     });
