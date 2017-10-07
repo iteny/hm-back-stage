@@ -74,7 +74,7 @@
                         <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                     </div>
                 </div> -->
-                <hm-form-input domtype="text" name="username"></hm-form-input>
+                <hm-form-input domtype="text" name="username" minlength="5" maxlength="15" isempty="1"></hm-form-input>
                 <hm-form-input domtype="password" name="password"></hm-form-input>
                 <!-- <hm-input-group>
                     <hm-input-addon>s</hm-input-addon>
@@ -122,47 +122,7 @@
 <script src="/static/common/js/dist/hm-back-stage.js"></script>
 <script>
     $("form").validate({
-        rules: {
-            firstname: "required",
-            lastname: "required",
-            username: {
-                required: true,
-                minlength: 2
-            },
-            password: {
-                required: true,
-                minlength: 5
-            },
-            confirm_password: {
-                required: true,
-                minlength: 5,
-                equalTo: "#password"
-            },
-            email: {
-                required: true,
-                email: true
-            },
-            agree: "required"
-        },
-        messages: {
-            firstname: "Please enter your firstname",
-            lastname: "Please enter your lastname",
-            username: {
-                required: "Please enter a username",
-                minlength: "Your username must consist of at least 2 characters"
-            },
-            password: {
-                required: "Please provide a password",
-                minlength: "Your password must be at least 5 characters long"
-            },
-            confirm_password: {
-                required: "Please provide a password",
-                minlength: "Your password must be at least 5 characters long",
-                equalTo: "Please enter the same password as above"
-            },
-            email: "Please enter a valid email address",
-            agree: "Please accept our policy"
-        },
+
         submitHandler: function(form) {
             alert("asdfsa");
         },

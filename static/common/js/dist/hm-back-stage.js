@@ -9894,7 +9894,11 @@ if (false) {(function () {
         name: { //html的name
             type: String,
             default: ''
-        }
+        },
+        isempty: [String],
+        minlength: [Number],
+        maxlength: [Number],
+        email: [String]
     },
     beforeCreat() {//组件实例刚创建，组件属性计算之前，如data属性等。
 
@@ -9955,7 +9959,11 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "type": "text",
       "name": _vm.name,
       "autocomplete": "off",
-      "placeholder": _vm.hint
+      "placeholder": _vm.hint,
+      "required": _vm.isempty,
+      "minlength": _vm.minlength,
+      "maxlength": _vm.maxlength,
+      "email": _vm.email
     },
     domProps: {
       "value": (_vm.inputValue)
@@ -9978,7 +9986,8 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "type": "password",
       "name": _vm.name,
       "autocomplete": "off",
-      "placeholder": _vm.hint
+      "placeholder": _vm.hint,
+      "required": ""
     },
     domProps: {
       "value": (_vm.inputValue)
@@ -10001,7 +10010,8 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "type": "password",
       "name": _vm.name,
       "autocomplete": "off",
-      "placeholder": _vm.hint
+      "placeholder": _vm.hint,
+      "required": ""
     },
     domProps: {
       "value": (_vm.inputValue)
@@ -10024,7 +10034,8 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "type": "text",
       "name": _vm.name,
       "autocomplete": "off",
-      "placeholder": _vm.hint
+      "placeholder": _vm.hint,
+      "required": ""
     },
     domProps: {
       "value": (_vm.inputValue)

@@ -2,10 +2,10 @@
 <div class="form-group has-feedback">
     <div class="col-sm-12">
         <slot></slot>
-        <input v-if="domtype === 'text'" type="text" :name="name" class="form-control" autocomplete="off" :placeholder="hint" v-model="inputValue">
-        <input v-else-if="domtype === 'password'" type="password" :name="name" class="form-control" autocomplete="off" :placeholder="hint" v-model="inputValue">
-        <textarea v-else-if="domtype === 'textarea'" type="password" :name="name" class="form-control" autocomplete="off" :placeholder="hint" v-model="inputValue"></textarea>
-        <input v-else type="text" :name="name" class="form-control" autocomplete="off" :placeholder="hint" v-model="inputValue">
+        <input v-if="domtype === 'text'" type="text" :name="name" class="form-control" autocomplete="off" :placeholder="hint" v-model="inputValue" :required="isempty" :minlength="minlength" :maxlength="maxlength" :email="email">
+        <input v-else-if="domtype === 'password'" type="password" :name="name" class="form-control" autocomplete="off" :placeholder="hint" v-model="inputValue" required>
+        <textarea v-else-if="domtype === 'textarea'" type="password" :name="name" class="form-control" autocomplete="off" :placeholder="hint" v-model="inputValue" required></textarea>
+        <input v-else type="text" :name="name" class="form-control" autocomplete="off" :placeholder="hint" v-model="inputValue" required>
         <span class="glyphicon glyphicon-star form-control-feedback" aria-hidden="true"></span>
     </div>
 </div>
@@ -25,6 +25,10 @@ export default {
             type: String,
             default: ''
         },
+        isempty: [String],
+        minlength: [Number],
+        maxlength: [Number],
+        email: [String],
     },
     beforeCreat() { //组件实例刚创建，组件属性计算之前，如data属性等。
 
