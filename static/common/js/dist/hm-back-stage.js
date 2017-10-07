@@ -177,11 +177,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__admin_login_index_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__admin_component_input_vue__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__admin_component_inputBlock_vue__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__admin_component_form_vue__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__admin_component_formItem_vue__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__admin_component_formLabel_vue__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__admin_component_formButton_vue__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__admin_component_formInput_vue__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__admin_component_form_vue__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__admin_component_formItem_vue__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__admin_component_inputAddon_vue__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__admin_component_formButton_vue__ = __webpack_require__(22);
 // import jcc from 'jquery'
 
 
@@ -205,18 +205,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //         template: input,
 // });
 new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
-  el: '#app',
-  delimiters: ['[[', ']]'],
-  components: {
-    'hm-login': __WEBPACK_IMPORTED_MODULE_1__admin_login_index_vue__["a" /* default */],
-    'hm-input': __WEBPACK_IMPORTED_MODULE_2__admin_component_input_vue__["a" /* default */],
-    'hm-input-block': __WEBPACK_IMPORTED_MODULE_3__admin_component_inputBlock_vue__["a" /* default */],
-    'hm-form': __WEBPACK_IMPORTED_MODULE_4__admin_component_form_vue__["a" /* default */],
-    'hm-form-item': __WEBPACK_IMPORTED_MODULE_5__admin_component_formItem_vue__["a" /* default */],
-    'hm-form-label': __WEBPACK_IMPORTED_MODULE_6__admin_component_formLabel_vue__["a" /* default */],
-    'hm-form-button': __WEBPACK_IMPORTED_MODULE_7__admin_component_formButton_vue__["a" /* default */]
-  }
-  // render: h => h(login)
+    el: '#hm-app',
+    delimiters: ['[[', ']]'],
+    components: {
+        'hm-login': __WEBPACK_IMPORTED_MODULE_1__admin_login_index_vue__["a" /* default */],
+        'hm-input': __WEBPACK_IMPORTED_MODULE_2__admin_component_input_vue__["a" /* default */],
+        'hm-input-addon': __WEBPACK_IMPORTED_MODULE_6__admin_component_inputAddon_vue__["a" /* default */],
+        'hm-form-input': __WEBPACK_IMPORTED_MODULE_3__admin_component_formInput_vue__["a" /* default */],
+        'hm-form': __WEBPACK_IMPORTED_MODULE_4__admin_component_form_vue__["a" /* default */],
+        'hm-form-item': __WEBPACK_IMPORTED_MODULE_5__admin_component_formItem_vue__["a" /* default */],
+
+        'hm-form-button': __WEBPACK_IMPORTED_MODULE_7__admin_component_formButton_vue__["a" /* default */]
+    }
+    // render: h => h(login)
 });
 
 /***/ }),
@@ -9665,6 +9666,7 @@ if (false) {(function () {
     props: { //相当于html标签自定义属性
         domid: [String],
         value: [String, Number], //通常不使用
+        title: [String, Number],
         hint: [String, Number], //对应html的placeholder，输入提示或暗示
         verify: [String, Number], //验证规则为自定义的字符串，例如：验证A|验证B|验证C
         domtype: { //html的type,类型text,password,textarea之类的
@@ -9684,22 +9686,31 @@ if (false) {(function () {
     beforeMount() {//模板编译挂载之前
 
     },
-    mounted() {
-        //模板编译挂载之后
-        if (this.domtype === 'edit') {
-            var editIndex = layedit.build(this.domid);
-            layedit.sync(editIndex);
-            // return;
-        }
+    mounted() {//模板编译挂载之后
+        // if (this.domtype === 'edit') {
+        //     var editIndex = layedit.build(this.domid);
+        //     layedit.sync(editIndex)
+        //     // return;
+        // }
     },
     data() {
         return {
             inputValue: this.value
+            // inputTitle: this.title,
         };
     },
     watch: {
         'inputValue'(val, oldValue) {
+            if (!validator.isEmail(val)) {
+                console.log("内容不是email");
+                // this.changeText("asdfsadf");
+            }
             console.log(val);
+        }
+    },
+    methods: {
+        changeText(text) {
+            this.title = text;
         }
     }
 });
@@ -9717,13 +9728,15 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       value: (_vm.inputValue),
       expression: "inputValue"
     }],
-    staticClass: "layui-input",
+    staticClass: "form-control hm-tip",
     attrs: {
       "type": "text",
+      "title": _vm.title,
       "name": _vm.name,
       "lay-verify": _vm.verify,
       "autocomplete": "off",
-      "placeholder": _vm.hint
+      "placeholder": _vm.hint,
+      "title": "asfsda"
     },
     domProps: {
       "value": (_vm.inputValue)
@@ -9741,7 +9754,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       value: (_vm.inputValue),
       expression: "inputValue"
     }],
-    staticClass: "layui-input",
+    staticClass: "form-control hm-tip",
     attrs: {
       "type": "password",
       "name": _vm.name,
@@ -9806,11 +9819,12 @@ if (false) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_13_0_4_vue_loader_lib_template_compiler_index_id_data_v_7a61887a_hasScoped_false_node_modules_vue_loader_13_0_4_vue_loader_lib_selector_type_template_index_0_inputBlock_vue__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_0_4_vue_loader_lib_selector_type_script_index_0_formInput_vue__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_0_4_vue_loader_lib_template_compiler_index_id_data_v_a7597794_hasScoped_false_node_modules_vue_loader_13_0_4_vue_loader_lib_selector_type_template_index_0_formInput_vue__ = __webpack_require__(14);
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = null
+
 /* template */
 
 /* styles */
@@ -9820,15 +9834,15 @@ var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
-  __vue_script__,
-  __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_13_0_4_vue_loader_lib_template_compiler_index_id_data_v_7a61887a_hasScoped_false_node_modules_vue_loader_13_0_4_vue_loader_lib_selector_type_template_index_0_inputBlock_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_0_4_vue_loader_lib_selector_type_script_index_0_formInput_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_0_4_vue_loader_lib_template_compiler_index_id_data_v_a7597794_hasScoped_false_node_modules_vue_loader_13_0_4_vue_loader_lib_selector_type_template_index_0_formInput_vue__["a" /* default */],
   __vue_styles__,
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "admin/component/inputBlock.vue"
+Component.options.__file = "admin/component/formInput.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] inputBlock.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] formInput.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -9837,9 +9851,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7a61887a", Component.options)
+    hotAPI.createRecord("data-v-a7597794", Component.options)
   } else {
-    hotAPI.reload("data-v-7a61887a", Component.options)
+    hotAPI.reload("data-v-a7597794", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -9854,10 +9868,179 @@ if (false) {(function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    props: { //相当于html标签自定义属性
+        domid: [String],
+        value: [String, Number], //通常不使用
+        hint: [String, Number], //对应html的placeholder，输入提示或暗示
+        verify: [String, Number], //验证规则为自定义的字符串，例如：验证A|验证B|验证C
+        domtype: { //html的type,类型text,password,textarea之类的
+            type: String,
+            default: "text"
+        },
+        name: { //html的name
+            type: String,
+            default: ''
+        }
+    },
+    beforeCreat() {//组件实例刚创建，组件属性计算之前，如data属性等。
+
+    },
+    created() {//组件实例创建完成，属性已绑定,但DOM还未生成,$el属性还不存在。
+    },
+    beforeMount() {//模板编译挂载之前
+
+    },
+    mounted() {//模板编译挂载之后
+        // if (this.domtype === 'edit') {
+        //     var editIndex = layedit.build(this.domid);
+        //     layedit.sync(editIndex)
+        //     // return;
+        // }
+    },
+    data() {
+        return {
+            inputValue: this.value
+            // inputTitle: this.title,
+        };
+    },
+    watch: {
+        'inputValue'(val, oldValue) {
+            // if (!validator.isEmail(val)) {
+            //     console.log("内容不是email");
+            //     // this.changeText("asdfsadf");
+            // }
+            console.log(val);
+        }
+    },
+    methods: {
+        changeText(text) {
+            this.title = text;
+        }
+    }
+});
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "layui-input-block"
-  }, [_vm._t("default")], 2)
+    staticClass: "form-group has-feedback"
+  }, [_c('div', {
+    staticClass: "col-sm-12"
+  }, [_vm._t("default"), _vm._v(" "), (_vm.domtype === 'text') ? _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.inputValue),
+      expression: "inputValue"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": _vm.name,
+      "autocomplete": "off",
+      "placeholder": _vm.hint
+    },
+    domProps: {
+      "value": (_vm.inputValue)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.inputValue = $event.target.value
+      }
+    }
+  }) : (_vm.domtype === 'password') ? _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.inputValue),
+      expression: "inputValue"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "password",
+      "name": _vm.name,
+      "autocomplete": "off",
+      "placeholder": _vm.hint
+    },
+    domProps: {
+      "value": (_vm.inputValue)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.inputValue = $event.target.value
+      }
+    }
+  }) : (_vm.domtype === 'textarea') ? _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.inputValue),
+      expression: "inputValue"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "password",
+      "name": _vm.name,
+      "autocomplete": "off",
+      "placeholder": _vm.hint
+    },
+    domProps: {
+      "value": (_vm.inputValue)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.inputValue = $event.target.value
+      }
+    }
+  }) : _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.inputValue),
+      expression: "inputValue"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": _vm.name,
+      "autocomplete": "off",
+      "placeholder": _vm.hint
+    },
+    domProps: {
+      "value": (_vm.inputValue)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.inputValue = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "glyphicon glyphicon-star form-control-feedback",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })], 2)])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -9866,17 +10049,17 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-7a61887a", esExports)
+     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-a7597794", esExports)
   }
 }
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_0_4_vue_loader_lib_selector_type_script_index_0_form_vue__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_0_4_vue_loader_lib_template_compiler_index_id_data_v_48abc9b8_hasScoped_false_node_modules_vue_loader_13_0_4_vue_loader_lib_selector_type_template_index_0_form_vue__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_0_4_vue_loader_lib_selector_type_script_index_0_form_vue__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_0_4_vue_loader_lib_template_compiler_index_id_data_v_48abc9b8_hasScoped_false_node_modules_vue_loader_13_0_4_vue_loader_lib_selector_type_template_index_0_form_vue__ = __webpack_require__(17);
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -9920,7 +10103,7 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9937,13 +10120,13 @@ if (false) {(function () {
 });
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('form', {
-    staticClass: "layui-form",
+    staticClass: "hm-form form-horizontal",
     attrs: {
       "action": _vm.url
     }
@@ -9961,11 +10144,11 @@ if (false) {
 }
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_13_0_4_vue_loader_lib_template_compiler_index_id_data_v_3565da52_hasScoped_false_node_modules_vue_loader_13_0_4_vue_loader_lib_selector_type_template_index_0_formItem_vue__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_13_0_4_vue_loader_lib_template_compiler_index_id_data_v_3565da52_hasScoped_false_node_modules_vue_loader_13_0_4_vue_loader_lib_selector_type_template_index_0_formItem_vue__ = __webpack_require__(19);
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -10009,7 +10192,7 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10030,11 +10213,11 @@ if (false) {
 }
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_13_0_4_vue_loader_lib_template_compiler_index_id_data_v_225bc660_hasScoped_false_node_modules_vue_loader_13_0_4_vue_loader_lib_selector_type_template_index_0_formLabel_vue__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_13_0_4_vue_loader_lib_template_compiler_index_id_data_v_837d7014_hasScoped_false_node_modules_vue_loader_13_0_4_vue_loader_lib_selector_type_template_index_0_inputAddon_vue__ = __webpack_require__(21);
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -10049,14 +10232,14 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __vue_script__,
-  __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_13_0_4_vue_loader_lib_template_compiler_index_id_data_v_225bc660_hasScoped_false_node_modules_vue_loader_13_0_4_vue_loader_lib_selector_type_template_index_0_formLabel_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_13_0_4_vue_loader_lib_template_compiler_index_id_data_v_837d7014_hasScoped_false_node_modules_vue_loader_13_0_4_vue_loader_lib_selector_type_template_index_0_inputAddon_vue__["a" /* default */],
   __vue_styles__,
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "admin/component/formLabel.vue"
+Component.options.__file = "admin/component/inputAddon.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] formLabel.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] inputAddon.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -10065,9 +10248,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-225bc660", Component.options)
+    hotAPI.createRecord("data-v-837d7014", Component.options)
   } else {
-    hotAPI.reload("data-v-225bc660", Component.options)
+    hotAPI.reload("data-v-837d7014", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -10078,13 +10261,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('label', {
-    staticClass: "layui-form-label"
+  return _c('span', {
+    staticClass: "input-group-addon"
   }, [_vm._t("default")], 2)
 }
 var staticRenderFns = []
@@ -10094,17 +10277,17 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-225bc660", esExports)
+     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-837d7014", esExports)
   }
 }
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_0_4_vue_loader_lib_selector_type_script_index_0_formButton_vue__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_0_4_vue_loader_lib_template_compiler_index_id_data_v_b924c714_hasScoped_false_node_modules_vue_loader_13_0_4_vue_loader_lib_selector_type_template_index_0_formButton_vue__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_0_4_vue_loader_lib_selector_type_script_index_0_formButton_vue__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_0_4_vue_loader_lib_template_compiler_index_id_data_v_b924c714_hasScoped_false_node_modules_vue_loader_13_0_4_vue_loader_lib_selector_type_template_index_0_formButton_vue__ = __webpack_require__(24);
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -10148,7 +10331,7 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10175,7 +10358,7 @@ if (false) {(function () {
     // },
     methods: {
         submitForm() {
-            hm.submit(this.submit, this.url, this.redirect);
+            // hm.submit(this.submit, this.url, this.redirect)
             //监听提交
             // alert(this.submit);
             // form.on('submit('+this.submit+')', function(data){
@@ -10189,22 +10372,18 @@ if (false) {(function () {
 });
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('button', {
-    staticClass: "layui-btn",
+    staticClass: "btn btn-primary",
     attrs: {
+      "type": "submit",
       "lay-submit": "",
       "lay-filter": _vm.submit,
       "redirect": _vm.redirect
-    },
-    on: {
-      "click": function($event) {
-        _vm.submitForm()
-      }
     }
   }, [_vm._t("default")], 2)
 }

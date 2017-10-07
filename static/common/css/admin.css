@@ -825,7 +825,21 @@ img {
 
 
 /*pace进度条结束*/
-
+/*input样式开始*/
+#hm-app .input-group{
+    margin-bottom: 10px;
+}
+#hm-app input.form-control{
+    -ms-box-shadow: 0 0 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+    -o-box-shadow: 0 0 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+    box-shadow: 0 0 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+    color: #777;
+    width: 100%
+}
+#hm-app .btn{
+    width: 100%;
+}
+/*input样式结束*/
 
 
 /*右侧内容开始-----------------------------------------------------------------------*/

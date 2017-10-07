@@ -6,10 +6,10 @@ import Vue from 'vue'
 // import 'element-ui/lib/theme-default/index.css'
 import login from './admin/login/index.vue'
 import input from './admin/component/input.vue'
-import block from './admin/component/inputBlock.vue'
+import formInput from './admin/component/formInput.vue'
 import form from './admin/component/form.vue'
 import item from './admin/component/formItem.vue'
-import label from './admin/component/formLabel.vue'
+import inputAddon from './admin/component/inputAddon.vue'
 import button from './admin/component/formButton.vue'
 
 // Vue.use(ElementUI)
@@ -21,16 +21,17 @@ import button from './admin/component/formButton.vue'
 //         template: input,
 // });
 new Vue({
-  el: '#app',
-  delimiters: ['[[', ']]'],
-  components: {
-    'hm-login':login,
-    'hm-input':input,
-    'hm-input-block':block,
-    'hm-form':form,
-    'hm-form-item':item,
-    'hm-form-label':label,
-    'hm-form-button':button,
-  },
-  // render: h => h(login)
+    el: '#hm-app',
+    delimiters: ['[[', ']]'],
+    components: {
+        'hm-login': login,
+        'hm-input': input,
+        'hm-input-addon': inputAddon,
+        'hm-form-input': formInput,
+        'hm-form': form,
+        'hm-form-item': item,
+
+        'hm-form-button': button,
+    },
+    // render: h => h(login)
 })

@@ -5,35 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-
-    <link rel="stylesheet" href="/static/common/js/layui/css/layui.css">
-    <link rel="stylesheet" href="/static/common/js/dist/vue.css">
-    <link rel="stylesheet" href="/static/common/css/admin-first.css">
+    <title>后台首页</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/static/common/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/common/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/common/vendor/pnotify/pnotify.custom.min.css" media="all" type="text/css" />
+    <link rel="stylesheet" href="/static/common/vendor/pace/pace.hm.css">
+    <link rel="stylesheet" href="/static/common/vendor/animate/animate.min.css">
+    <link rel="stylesheet" href="/static/common/vendor/dialog/sweetalert2.min.css">
+    <link rel="stylesheet" href="/static/common/vendor/tip/tippy.css">
+    <link rel="stylesheet" href="/static/common/css/admin.css">
     <style>
         body {
-            background-image: url(/static/common/img/login_bg.jpg);
-            background-size: cover;
-            background-color: white;
+            background: linear-gradient(#fff, #f0f0f0), #F0F0F0;
+            box-shadow: rgba(0, 0, 0, 0.25) 0 0 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
         }
 
         #login {
             position: absolute;
-            top: 0;
+            top: 50%;
             left: 0;
             right: 0;
-            bottom: 0;
+            bottom: 100%;
             margin: auto;
             width: 320px;
             height: 210px;
-            background-color: rgba(0, 0, 0, 0.5);
+            /*background-color: rgba(0, 0, 0, 0.5);*/
             border-radius: 3px;
             padding: 20px;
             z-index: 9999;
         }
 
         #login h1 {
-            color: white;
+            color: #777;
             text-align: center;
             margin-bottom: 20px;
             font-size: 24px;
@@ -59,22 +63,33 @@
 </head>
 
 <body>
-    <div id="app">
+    <div id="hm-shade"></div>
+    <div id="hm-app">
         <div id="login">
             <hm-form>
                 <h1>Hmcms管理登录</h1>
-                <hm-form-item>
-                    <hm-form-label>账号:</hm-form-label>
-                    <hm-input-block>
-                        <hm-input domtype="text" name="username" hint="请输入账号" verify="title"></hm-input>
-                    </hm-input-block>
-                </hm-form-item>
-                <hm-form-item>
-                    <hm-form-label>密码:</hm-form-label>
-                    <hm-input-block>
-                        <hm-input domtype="password" name="password" hint="请输入密码" verify="title"></hm-input>
-                    </hm-input-block>
-                </hm-form-item>
+                <!-- <div class="form-group has-feedback">
+                    <div class="col-sm-12">
+                        <input type="text" name="username" class="form-control">
+                        <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                    </div>
+                </div> -->
+                <hm-form-input domtype="text" name="username"></hm-form-input>
+                <hm-form-input domtype="password" name="password"></hm-form-input>
+                <!-- <hm-input-group>
+                    <hm-input-addon>s</hm-input-addon>
+                    <hm-input domtype="text" name="username" hint="请输入账号" verify="title"></hm-input>
+                </hm-input-group>
+                <hm-input-group>
+                    <hm-input-addon>ss</hm-input-addon>
+                    <hm-input domtype="password" name="password" hint="请输入账号" verify="title"></hm-input>
+                </hm-input-group> -->
+                <!-- <hm-form-item>
+                        <hm-form-label>密码:</hm-form-label>
+                        <hm-input-block>
+                            <hm-input domtype="password" name="password" hint="请输入密码" verify="title"></hm-input>
+                        </hm-input-block>
+                    </hm-form-item> -->
                 <hm-form-button submit="login" url="/intendant/login" redirect="/intendant">登录</hm-form-button>
             </hm-form>
         </div>
@@ -88,16 +103,89 @@
 
     </div>
 </body>
-<script src="/static/common/js/jquery/jquery-1.12.3.min.js"></script>
+<script src="/static/common/vendor/pace/pace.min.js"></script>
+<script src="/static/common/vendor/jquery/jquery-2.2.4.min.js"></script>
+<script src="/static/common/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/common/vendor/pnotify/pnotify.custom.min.js"></script>
+<script src="/static/common/vendor/dialog/sweetalert2.min.js"></script>
+<!-- <script src="/static/common/vendor/validator/validator.min.js"></script> -->
+<script src="/static/common/vendor/tip/tippy.min.js"></script>
+<script src="/static/common/vendor/validate/jquery.validate.min.js"></script>
+
+<!-- <script src="/static/common/js/jquery/jquery-1.12.3.min.js"></script> -->
 <script src="/static/common/js/jquery/jquery.cookie.js"></script>
-<script src="/static/common/js/layui/layui.all.js"></script>
+<!-- <script src="/static/common/js/layui/layui.all.js"></script> -->
+<script src="/static/common/js/admin/language/language.js"></script>
 <script src="/static/common/js/admin/global.js"></script>
 <script src="/static/common/js/admin/hmMenuTab.js"></script>
 <script src="/static/common/js/admin/common.js"></script>
 <script src="/static/common/js/dist/hm-back-stage.js"></script>
 <script>
-    //一般直接写在一个js文件中
-    // layer.msg('hello world');
+    $("form").validate({
+        rules: {
+            firstname: "required",
+            lastname: "required",
+            username: {
+                required: true,
+                minlength: 2
+            },
+            password: {
+                required: true,
+                minlength: 5
+            },
+            confirm_password: {
+                required: true,
+                minlength: 5,
+                equalTo: "#password"
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            agree: "required"
+        },
+        messages: {
+            firstname: "Please enter your firstname",
+            lastname: "Please enter your lastname",
+            username: {
+                required: "Please enter a username",
+                minlength: "Your username must consist of at least 2 characters"
+            },
+            password: {
+                required: "Please provide a password",
+                minlength: "Your password must be at least 5 characters long"
+            },
+            confirm_password: {
+                required: "Please provide a password",
+                minlength: "Your password must be at least 5 characters long",
+                equalTo: "Please enter the same password as above"
+            },
+            email: "Please enter a valid email address",
+            agree: "Please accept our policy"
+        },
+        submitHandler: function(form) {
+            alert("asdfsa");
+        },
+        errorElement: "em",
+        errorPlacement: function(error, element) {
+            // Add the `help-block` class to the error element
+            error.addClass("help-block");
+
+            if (element.prop("type") === "checkbox") {
+                error.insertAfter(element.parent("label"));
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        highlight: function(element, errorClass, validClass) {
+            $(element).parents(".col-sm-12").find('.glyphicon').addClass('glyphicon-remove').removeClass('glyphicon-ok');
+            $(element).parents(".col-sm-12").addClass("has-error").removeClass("has-success");
+        },
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).parents(".col-sm-12").find('.glyphicon').addClass('glyphicon-ok').removeClass('glyphicon-remove');
+            $(element).parents(".col-sm-12").addClass("has-success").removeClass("has-error");
+        }
+    });
 </script>
 
 </html>

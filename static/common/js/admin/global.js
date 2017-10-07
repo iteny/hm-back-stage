@@ -286,7 +286,57 @@ HmObj.prototype.notice = function(type, msg, title, time) {
     //自定义具体窗口高度的位置
     $('.hm-custom.ui-pnotify').attr('style', 'display:none;top:70px;width:300px;right:16px;');
 }
-
+HmObj.prototype.dialog = function(type) {
+    //判断错误信息类型，更改背景和图标
+    switch (type) {
+        case "info": //普通消息
+            icon = "info";
+            break;
+        case "warn": //警告
+            icon = "warning";
+            type = "notice";
+            break;
+        case "error": //错误
+            icon = "error";
+            break;
+        case "success": //成功
+            icon = "success";
+            break;
+        default:
+            icon = "info";
+            break;
+    }
+    swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false,
+        allowOutsideClick: false
+    }).then(function() {
+        swal(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+        )
+    }, function(dismiss) {
+        // dismiss can be 'cancel', 'overlay',
+        // 'close', and 'timer'
+        if (dismiss === 'cancel') {
+            swal(
+                'Cancelled',
+                'Your imaginary file is safe :)',
+                'error'
+            )
+        }
+    });
+}
 //创建HmMenuTab对象
 var hm = new HmObj();
 //如果后台没有设置语言，JS来设置
