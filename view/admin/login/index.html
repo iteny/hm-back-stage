@@ -66,30 +66,10 @@
     <div id="hm-shade"></div>
     <div id="hm-app">
         <div id="login">
-            <hm-form action="/intendant/login">
+            <hm-form action="/intendant/login" redirect="/intendant">
                 <h1>Hmcms管理登录</h1>
-                <!-- <div class="form-group has-feedback">
-                    <div class="col-sm-12">
-                        <input type="text" name="username" class="form-control">
-                        <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-                    </div>
-                </div> -->
                 <hm-form-input domtype="text" name="username"></hm-form-input>
-                <hm-form-input domtype="text" name="password"></hm-form-input>
-                <!-- <hm-input-group>
-                    <hm-input-addon>s</hm-input-addon>
-                    <hm-input domtype="text" name="username" hint="请输入账号" verify="title"></hm-input>
-                </hm-input-group>
-                <hm-input-group>
-                    <hm-input-addon>ss</hm-input-addon>
-                    <hm-input domtype="password" name="password" hint="请输入账号" verify="title"></hm-input>
-                </hm-input-group> -->
-                <!-- <hm-form-item>
-                        <hm-form-label>密码:</hm-form-label>
-                        <hm-input-block>
-                            <hm-input domtype="password" name="password" hint="请输入密码" verify="title"></hm-input>
-                        </hm-input-block>
-                    </hm-form-item> -->
+                <hm-form-input domtype="password" name="password"></hm-form-input>
                 <hm-form-button>登录</hm-form-button>
             </hm-form>
         </div>
@@ -194,6 +174,9 @@
                     Pace.stop();
                     // alert('111');
                     console.log('阿斯蒂芬');
+                    setTimeout(function() {
+                        window.location.href = that.attr('redirect')
+                    }, 3000);
                     // if (msg.status === 1) {
                     //     admin.success(msg.info, '#loginsubmit');
                     //     setTimeout(function() {

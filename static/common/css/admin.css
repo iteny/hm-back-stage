@@ -822,7 +822,11 @@ img {
     background-color: black;
     opacity: 0.5;
 }
-
+#hm-shade {
+  -vendor-animation-duration: 4s;
+  -vendor-animation-delay: 3s;
+  -vendor-animation-iteration-count: infinite;
+}
 
 /*pace进度条结束*/
 /*input样式开始*/
