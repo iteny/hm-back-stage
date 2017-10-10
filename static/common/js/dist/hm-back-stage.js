@@ -9960,10 +9960,8 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "name": _vm.name,
       "autocomplete": "off",
       "placeholder": _vm.hint,
-      "required": _vm.isempty,
-      "minlength": _vm.minlength,
-      "maxlength": _vm.maxlength,
-      "email": _vm.email
+      "data-parsley-required": "true",
+      "data-parsley-type": "email"
     },
     domProps: {
       "value": (_vm.inputValue)
@@ -9986,8 +9984,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "type": "password",
       "name": _vm.name,
       "autocomplete": "off",
-      "placeholder": _vm.hint,
-      "required": ""
+      "placeholder": _vm.hint
     },
     domProps: {
       "value": (_vm.inputValue)
@@ -10010,8 +10007,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "type": "password",
       "name": _vm.name,
       "autocomplete": "off",
-      "placeholder": _vm.hint,
-      "required": ""
+      "placeholder": _vm.hint
     },
     domProps: {
       "value": (_vm.inputValue)
@@ -10034,8 +10030,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "type": "text",
       "name": _vm.name,
       "autocomplete": "off",
-      "placeholder": _vm.hint,
-      "required": ""
+      "placeholder": _vm.hint
     },
     domProps: {
       "value": (_vm.inputValue)
@@ -10139,7 +10134,8 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
   return _c('form', {
     staticClass: "hm-form form-horizontal",
     attrs: {
-      "action": _vm.url
+      "action": _vm.url,
+      "data-parsley-validate": ""
     }
   }, [_vm._t("default")], 2)
 }
@@ -10368,17 +10364,19 @@ if (false) {(function () {
     //     }
     // },
     methods: {
-        submitForm() {
-            // hm.submit(this.submit, this.url, this.redirect)
-            //监听提交
-            // alert(this.submit);
-            // form.on('submit('+this.submit+')', function(data){
-            //     layer.alert(JSON.stringify(data.field), {
-            //       title: '最终的提交信息'
-            //     })
-            //     return false;
-            // });
-        }
+        // submitForm() {
+        //     // console.log('执行submitForm');
+        //
+        //     // hm.submit(this.submit, this.url, this.redirect)
+        //     //监听提交
+        //     // alert(this.submit);
+        //     // form.on('submit('+this.submit+')', function(data){
+        //     //     layer.alert(JSON.stringify(data.field), {
+        //     //       title: '最终的提交信息'
+        //     //     })
+        //     //     return false;
+        //     // });
+        // }
     }
 });
 
@@ -10392,8 +10390,6 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     staticClass: "btn btn-primary",
     attrs: {
       "type": "submit",
-      "lay-submit": "",
-      "lay-filter": _vm.submit,
       "redirect": _vm.redirect
     }
   }, [_vm._t("default")], 2)

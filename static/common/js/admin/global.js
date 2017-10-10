@@ -347,6 +347,6 @@ hm.readJsonFile();
 //进度条给予遮罩层
 $("#hm-shade").addClass('on');
 //给遮罩层一个消失动画
-$('#hm-shade').animateCss('fadeOutDown');
+$('#hm-shade').animateCss('fadeOut');
 console.log(hm.noticeAnimateIn());
 console.log(hm.noticeAnimateOut());

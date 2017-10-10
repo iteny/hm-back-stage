@@ -66,7 +66,7 @@
     <div id="hm-shade"></div>
     <div id="hm-app">
         <div id="login">
-            <hm-form>
+            <hm-form action="/intendant/login">
                 <h1>Hmcms管理登录</h1>
                 <!-- <div class="form-group has-feedback">
                     <div class="col-sm-12">
@@ -74,8 +74,8 @@
                         <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                     </div>
                 </div> -->
-                <hm-form-input domtype="text" name="username" minlength="5" maxlength="15" isempty="1"></hm-form-input>
-                <hm-form-input domtype="password" name="password"></hm-form-input>
+                <hm-form-input domtype="text" name="username"></hm-form-input>
+                <hm-form-input domtype="text" name="password"></hm-form-input>
                 <!-- <hm-input-group>
                     <hm-input-addon>s</hm-input-addon>
                     <hm-input domtype="text" name="username" hint="请输入账号" verify="title"></hm-input>
@@ -90,7 +90,7 @@
                             <hm-input domtype="password" name="password" hint="请输入密码" verify="title"></hm-input>
                         </hm-input-block>
                     </hm-form-item> -->
-                <hm-form-button submit="login" url="/intendant/login" redirect="/intendant">登录</hm-form-button>
+                <hm-form-button>登录</hm-form-button>
             </hm-form>
         </div>
         <!-- <hm-login>
@@ -110,9 +110,8 @@
 <script src="/static/common/vendor/dialog/sweetalert2.min.js"></script>
 <!-- <script src="/static/common/vendor/validator/validator.min.js"></script> -->
 <script src="/static/common/vendor/tip/tippy.min.js"></script>
-<script src="/static/common/vendor/validate/jquery.validate.min.js"></script>
-
-<!-- <script src="/static/common/js/jquery/jquery-1.12.3.min.js"></script> -->
+<!-- <script src="/static/common/vendor/validate/jquery.validate.min.js"></script> -->
+<script src="/static/common/vendor/parsley/parsley.min.js"></script>
 <script src="/static/common/js/jquery/jquery.cookie.js"></script>
 <!-- <script src="/static/common/js/layui/layui.all.js"></script> -->
 <script src="/static/common/js/admin/language/language.js"></script>
@@ -121,31 +120,105 @@
 <script src="/static/common/js/admin/common.js"></script>
 <script src="/static/common/js/dist/hm-back-stage.js"></script>
 <script>
-    $("form").validate({
+    // $("form").validate({
+    //
+    //     submitHandler: function(form) {
+    //         alert("asdfsa");
+    //     },
+    //     errorElement: "em",
+    //     errorPlacement: function(error, element) {
+    //         // Add the `help-block` class to the error element
+    //         error.addClass("help-block");
+    //
+    //         if (element.prop("type") === "checkbox") {
+    //             error.insertAfter(element.parent("label"));
+    //         } else {
+    //             error.insertAfter(element);
+    //         }
+    //     },
+    //     highlight: function(element, errorClass, validClass) {
+    //         $(element).parents(".col-sm-12").find('.glyphicon').addClass('glyphicon-remove').removeClass('glyphicon-ok');
+    //         $(element).parents(".col-sm-12").addClass("has-error").removeClass("has-success");
+    //     },
+    //     unhighlight: function(element, errorClass, validClass) {
+    //         $(element).parents(".col-sm-12").find('.glyphicon').addClass('glyphicon-ok').removeClass('glyphicon-remove');
+    //         $(element).parents(".col-sm-12").addClass("has-success").removeClass("has-error");
+    //     }
+    // });
+    /* CSS自定义 */
+    // window.ParsleyConfig = $.extend(window.ParsleyConfig || {}, {
+    //     successClass: 'jv-form-success',
+    //     errorClass: 'jv-form-danger',
+    //     errorsWrapper: '<ul class="jv-form-error-msg"></ul>',
+    //     errorTemplate: '<li></li>'
+    // });
 
-        submitHandler: function(form) {
-            alert("asdfsa");
-        },
-        errorElement: "em",
-        errorPlacement: function(error, element) {
-            // Add the `help-block` class to the error element
-            error.addClass("help-block");
-
-            if (element.prop("type") === "checkbox") {
-                error.insertAfter(element.parent("label"));
-            } else {
-                error.insertAfter(element);
-            }
-        },
-        highlight: function(element, errorClass, validClass) {
-            $(element).parents(".col-sm-12").find('.glyphicon').addClass('glyphicon-remove').removeClass('glyphicon-ok');
-            $(element).parents(".col-sm-12").addClass("has-error").removeClass("has-success");
-        },
-        unhighlight: function(element, errorClass, validClass) {
-            $(element).parents(".col-sm-12").find('.glyphicon').addClass('glyphicon-ok').removeClass('glyphicon-remove');
-            $(element).parents(".col-sm-12").addClass("has-success").removeClass("has-error");
+    window.Parsley.on('field:error', function() { //验证失败显示图标
+        this.$element.parents(".col-sm-12").find('.glyphicon').addClass('glyphicon-remove').removeClass('glyphicon-ok');
+        // console.log(this.$element.parents(".col-sm-12").find('div.jt').length == 0);
+        if (this.$element.parents(".col-sm-12").find('div.jt').length == 0) {
+            this.$element.parents(".col-sm-12").find('.parsley-errors-list').append('<div class="jt"></div>');
         }
+
     });
+    window.Parsley.on('field:success', function() { //验证成功显示图标
+        this.$element.parents(".col-sm-12").find('.glyphicon').addClass('glyphicon-ok').removeClass('glyphicon-remove');
+    });
+
+    Parsley.on('form:submit', function() {
+        console.log('进去了');
+        var that = $('.hm-form');
+        var param = that.serialize();
+        console.log(param);
+
+        // console.log(that.serialize());
+        Pace.track(function() {
+
+
+            $.ajax({
+                type: 'post',
+                url: that.attr('action'),
+                data: param,
+                dataType: "json",
+                beforeSend: function() {
+                    // myload = layer.load(0, {
+                    //     time: 3 * 1000
+                    // });
+                    //进度条给予遮罩层
+                    $("#hm-shade").addClass('on');
+                    //给遮罩层一个消失动画
+                    $('#hm-shade').animateCss('fadeOut');
+                    Pace.restart();
+                },
+                success: function(msg) {
+                    Pace.stop();
+                    // alert('111');
+                    console.log('阿斯蒂芬');
+                    // if (msg.status === 1) {
+                    //     admin.success(msg.info, '#loginsubmit');
+                    //     setTimeout(function() {
+                    //         window.location.href = redirect
+                    //     }, 3000);
+                    // } else {
+                    //     layer.close(myload);
+                    //     admin.error(msg.info, '#loginsubmit');
+                    //     formLogin.attr('disabledSubmit', "");
+                    //     // refreshs();
+                    //     // $('.yanzheng_img').eq(0).click();
+                    //     // $('#verify').val('')
+                    // }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    // admin.error('网络连接异常！', '#loginsubmit');
+                    // formLogin.attr('disabledSubmit', "");
+                    // return false;
+                    Pace.stop();
+                }
+            });
+        });
+        return false; // Don't submit form for this demo
+    });
+    $('.hm-form').parsley();
 </script>
 
 </html>

@@ -1,5 +1,5 @@
 <template>
-<form class="hm-form form-horizontal" :action="url">
+<form class="hm-form form-horizontal" :action="url" data-parsley-validate>
     <slot></slot>
 </form>
 </template>

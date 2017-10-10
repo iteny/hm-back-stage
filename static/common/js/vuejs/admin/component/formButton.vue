@@ -1,5 +1,5 @@
 <template>
-<button type="submit" class="btn btn-primary" lay-submit="" :lay-filter="submit" :redirect="redirect"><slot></slot></button>
+<button type="submit" class="btn btn-primary" :redirect="redirect"><slot></slot></button>
 </template>
 <script>
 export default {
@@ -20,17 +20,19 @@ export default {
     //     }
     // },
     methods: {
-        submitForm() {
-            // hm.submit(this.submit, this.url, this.redirect)
-            //监听提交
-            // alert(this.submit);
-            // form.on('submit('+this.submit+')', function(data){
-            //     layer.alert(JSON.stringify(data.field), {
-            //       title: '最终的提交信息'
-            //     })
-            //     return false;
-            // });
-        }
+        // submitForm() {
+        //     // console.log('执行submitForm');
+        //
+        //     // hm.submit(this.submit, this.url, this.redirect)
+        //     //监听提交
+        //     // alert(this.submit);
+        //     // form.on('submit('+this.submit+')', function(data){
+        //     //     layer.alert(JSON.stringify(data.field), {
+        //     //       title: '最终的提交信息'
+        //     //     })
+        //     //     return false;
+        //     // });
+        // }
     },
 }
 </script>
