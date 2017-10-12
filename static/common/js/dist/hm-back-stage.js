@@ -9961,7 +9961,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "autocomplete": "off",
       "placeholder": _vm.hint,
       "data-parsley-required": "true",
-      "data-parsley-type": "email"
+      "data-parsley-username": "true"
     },
     domProps: {
       "value": (_vm.inputValue)
@@ -9984,7 +9984,9 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "type": "password",
       "name": _vm.name,
       "autocomplete": "off",
-      "placeholder": _vm.hint
+      "placeholder": _vm.hint,
+      "data-parsley-required": "true",
+      "data-parsley-minlength": "5"
     },
     domProps: {
       "value": (_vm.inputValue)
