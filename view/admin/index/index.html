@@ -118,11 +118,11 @@
                 <div id="hm-home">
                     <a href="#" style=""><i class="fa fa-home" style=""></i>&nbsp;&nbsp;&nbsp;<span style="">后台首页</span></a>
                 </div>
-                <div class="panel-group" id="hm-accordion" style="display:none;">
+                <div class="panel-group" id="hm_menu_second">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="panel-title">
-                                <a href="#panel1" class="panel-toggle" data-toggle="collapse" data-parent="#hm-accordion">
+                                <a href="#panel1" class="panel-toggle" data-toggle="collapse" data-parent="#hm_menu_second">
                                     <i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;控制面板<span class="fa fa-chevron-right"></span>
                                 </a>
                             </div>
@@ -140,7 +140,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="panel-title">
-                                <a href="#panel2" class="panel-toggle" data-toggle="collapse" data-parent="#hm-accordion">
+                                <a href="#panel2" class="panel-toggle" data-toggle="collapse" data-parent="#hm_menu_second">
                                     <i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;控制面板<span class="fa fa-chevron-right"></span>
                                 </a>
                             </div>
@@ -158,7 +158,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="panel-title">
-                                <a href="#panel3" class="panel-toggle" data-toggle="collapse" data-parent="#hm-accordion">
+                                <a href="#panel3" class="panel-toggle" data-toggle="collapse" data-parent="#hm_menu_second">
                                     <i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;控制面板<span class="fa fa-chevron-right"></span>
                                 </a>
                             </div>
@@ -174,7 +174,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="hm-dropdown" class="dropdown">
+                <div id="hm-dropdown" class="dropdown" style="display:none;">
                     <ul>
                         <li>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="false" aria-expanded="false" id="me"><i class="fa fa-home" ></i>&nbsp;&nbsp;&nbsp;<span>后台首页</span></a>
@@ -252,25 +252,7 @@
 
         }
     });
-    //处理菜单栏
-    $('.panel-heading').collapse("hide");
-    $('.panel-toggle').eq(0).click();
-    $('.panel-toggle').bind('panel_title', function() {
-        $(this).parent('.panel-title').find('span.fa').attr('class', 'fa fa-chevron-down');
-    });
-    $('.panel-toggle').eq(0).trigger("panel_title");
-    $('.panel-title').eq(0).addClass('active');
-    $('.panel-title').on('click', function() {
-        var that = $(this);
-        $('.panel-title').removeClass('active');
-        $('span.fa').attr('class', 'fa fa-chevron-right');
-        if (that.find('a').hasClass('panel-toggle collapsed')) {
-            that.addClass('active');
-            that.find('span.fa').attr('class', 'fa fa-chevron-down');
-        } else {
-            that.find('span.fa').attr('class', 'fa fa-chevron-right');
-        }
-    });
+
 
 
 

@@ -409,16 +409,13 @@ HmObj.prototype.menuSet = function(){
         var str='',count = data.length;
         for(var i = 0;i<count;i++){
             console.log(data[i]);
-            str+= '<li><a href="#">'+data[i]['name']+'</a></li>';
+            str+= '<li data-id="'+data[i]["id"]+'"><a href="#">'+data[i]['name']+'</a></li>';
         }
-        for(var item in data){
-            if (data[item]['id'] == 1){
-                console.log(data[item]['children']);
-            }
-        }
+        
         $('#hm_menu_top').html(str);
     }
 };
+
 /**
  * [larryCompleteMenu 菜单扩展处理程序]
  * @param  {[type]} data [description]

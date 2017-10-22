@@ -541,18 +541,18 @@ img {
     background: #1ABB9C;
 }
 
-#hm-accordion .panel-heading {
+#hm_menu_second .panel-heading {
     border: 0;
     background: 0;
     text-indent: 10px;
     padding: 0;
 }
 
-#hm-accordion .panel-title {
+#hm_menu_second .panel-title {
     font-size: 14px;
 }
 
-#hm-accordion .panel-title a {
+#hm_menu_second .panel-title a {
     height: 45px;
     line-height: 45px;
     display: block;
@@ -561,61 +561,61 @@ img {
     border: 0;
 }
 
-#hm-accordion .list-group, #hm-accordion .panel-body {
+#hm_menu_second .list-group, #hm_menu_second .panel-body {
     border: 0;
 }
 
-#hm-accordion .panel {
+#hm_menu_second .panel {
     -webkit-box-shadow: 0 0 0 #fff;
     box-shadow: 0 0 0 #fff;
 }
 
-#hm-accordion.panel-group .panel-heading+.panel-collapse>.list-group, #hm-accordion.panel-group .panel-heading+.panel-collapse>.panel-body {
+#hm_menu_second.panel-group .panel-heading+.panel-collapse>.list-group, #hm_menu_second.panel-group .panel-heading+.panel-collapse>.panel-body {
     border: 0;
 }
 
-#hm-accordion .panel-title.active a {
+#hm_menu_second .panel-title.active a {
     text-shadow: rgba(0, 0, 0, 0.25) 0 -1px 0;
     background: linear-gradient(#334556, #2C4257), #2A3F54;
     box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
 }
 
-#hm-accordion .panel-title.active {
+#hm_menu_second .panel-title.active {
     border-right: 4px solid #1ABB9C;
 }
 
-#hm-accordion.panel-group .collapse.in .panel-body {
+#hm_menu_second.panel-group .collapse.in .panel-body {
     border-right: 4px solid #1ABB9C;
 }
 
-#hm-accordion.panel-group #hm-accordion .panel-title a:hover {
+#hm_menu_second.panel-group #hm_menu_second .panel-title a:hover {
     text-shadow: rgba(0, 0, 0, 0.25) 0 -1px 0;
     background: linear-gradient(#334556, #2C4257), #2A3F54;
     box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
 }
 
-#hm-accordion.panel-group .panel {
+#hm_menu_second.panel-group .panel {
     border: 0;
     border-radius: 0;
     background: 0;
 }
 
-#hm-accordion.panel-group .panel-body {
+#hm_menu_second.panel-group .panel-body {
     text-indent: 20px;
     padding: 1px 0 0 0;
 }
 
-#hm-accordion.panel-group .panel+.panel {
+#hm_menu_second.panel-group .panel+.panel {
     margin-top: 1px;
 }
 
-#hm-accordion ul, #hm-accordion li {
+#hm_menu_second ul, #hm_menu_second li {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-#hm-accordion ul>li>a {
+#hm_menu_second ul>li>a {
     cursor: pointer;
     text-decoration: none;
     display: block;
@@ -624,12 +624,12 @@ img {
     color: rgba(255, 255, 255, 0.75);
 }
 
-#hm-accordion ul>li>a:hover {
+#hm_menu_second ul>li>a:hover {
     background: #1ABB9C;
     color: white;
 }
 
-#hm-accordion span.fa {
+#hm_menu_second span.fa {
     float: right;
     text-align: center;
     margin-top: 15px;
