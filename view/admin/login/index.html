@@ -68,8 +68,8 @@
         <div id="login">
             <hm-form action="/intendant/login" redirect="/intendant">
                 <h1>Hmcms管理登录</h1>
-                <hm-form-input domtype="text" name="username"></hm-form-input>
-                <hm-form-input domtype="password" name="password"></hm-form-input>
+                <hm-form-input domtype="text" name="username" isempty="true" minlength="5" maxlength="15"></hm-form-input>
+                <hm-form-input domtype="password" name="password" isempty="true" minlength="5" maxlength="15"></hm-form-input>
                 <hm-form-button>登录</hm-form-button>
             </hm-form>
         </div>

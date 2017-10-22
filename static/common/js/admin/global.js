@@ -20,7 +20,26 @@ var HmObj = function() {
         language: 'cn', //js设置国际化
         animateRandom: true, //是否开启动画随机，默认true开启，false关闭
     };
-    this.language = {};
+    this.menuCfg = {
+        top_menu: undefined, //顶部顶级菜单
+        data: undefined, //数据源
+        url: undefined, //数据源地址
+        type: 'GET', //读取方式
+        cached: true, //是否启用菜单数据项缓存，默认localStorage
+        spreadOne: false, //设置是否只展开一个二级菜单
+        topFilter: 'TopMenu', //顶级菜单过滤器
+        left_menu: undefined, //左侧二级导航
+        leftFilter: 'LarrySide', //左侧菜单过滤器
+        larry_elem: undefined, //tab选项卡容器
+        tabFilter: 'larryTab', //tab过滤器
+        maxTab: 50, //默认允许最大打开tab个数
+        tabSession: true, //是否开启已打开tab选项卡缓存
+        closed: true, // 选项卡是否包含删除按钮进而可关闭操作
+        contextMenu: false, //是否屏蔽页面右键，使用页面级自定义右键菜单
+        autoRefresh: false, //是否支持选项卡重新打开时自动刷新操作
+    };
+    this.menuData = {};//菜单数据
+    this.language = {};//语言数据
     //过渡动画
     this.animateIn = {
         1: 'bounce',
@@ -103,7 +122,7 @@ var HmObj = function() {
         29: 'slideOutRight',
         30: 'slideOutUp',
     };
-}
+};
 /**
  * @description 设置语言，默认为cn
  * @param lg 什么语言，如果在下列选项中没有，那么将设置成cn
@@ -118,7 +137,7 @@ HmObj.prototype.languageSet = function(lg) {
         that.config.language = 'cn';
     }
     return that;
-}
+};
 /**
  * @description 设置语言，默认为cn
  * @param time cookie设定个时间，不填则为3天
@@ -133,7 +152,7 @@ HmObj.prototype.languageRun = function(time) {
             // secure: true //一个布尔值，表示传输cookie值时，是否需要一个安全协议。
         })
     }
-}
+};
 
 /**
  * @description 国际化
@@ -152,7 +171,7 @@ HmObj.prototype.readJsonFile = function() {
             that.language = language.cn;
             break;
     }
-}
+};
 /**
  * @description 随机过渡动画
  * @author Nicholas Mars
@@ -167,7 +186,7 @@ HmObj.prototype.noticeAnimateIn = function() {
         }
     }
     return amin;
-}
+};
 /**
  * @description 随机消失动画
  * @author Nicholas Mars
@@ -182,7 +201,7 @@ HmObj.prototype.noticeAnimateOut = function() {
         }
     }
     return amout;
-}
+};
 /**
  * @description 判断浏览器设备类型
  * @author Nicholas Mars
@@ -218,7 +237,7 @@ HmObj.prototype.browserType = function(status, callback) {
                 console.log("pc");
         }
     }
-}
+};
 /**
  * @description 弹出一个消息框
  * @author Nicholas Mars
@@ -285,7 +304,7 @@ HmObj.prototype.notice = function(type, msg, title, time) {
     $('.hm-custom .ui-pnotify-sticker>span').html(that.language.noticePause ? that.language.noticePause : "暂停");
     //自定义具体窗口高度的位置
     $('.hm-custom.ui-pnotify').attr('style', 'display:none;top:70px;width:300px;right:16px;');
-}
+};
 HmObj.prototype.dialog = function(type) {
     //判断错误信息类型，更改背景和图标
     switch (type) {
@@ -336,7 +355,287 @@ HmObj.prototype.dialog = function(type) {
             )
         }
     });
+};
+HmObj.prototype.menuCfgReset = function(options) {
+    var that = this;
+    if (!options.hasOwnProperty('url')) {
+        that.notice('error','没有传入数据源:url参数，菜单项无法正常初始化！');
+    }
+    var allow = ['top_menu', 'left_menu', 'data', 'url', 'type', 'cached', 'spreadOne', 'topFilter', 'leftFilter'];
+    var option = that.configFilter(options, allow);
+    // 传入参数进行配置
+    $.extend(that.menuCfg, options);
+    return that;
+};
+// 获取菜单数据
+HmObj.prototype.getMenuData = function() {
+    var _that = this;
+    var _config = _that.menuCfg;
+    var data;
+    if (_config.url === undefined) {
+        that.notice('error','菜单错误: 请为菜单项配置数据源【Url】!');
+    }
+    if (typeof(_config.data) === 'object') {
+        _that.larryCompleteMenu(_config.data);
+        _that.init();
+    } else {
+        //若未传入data参数 通过url方式获取
+        $.ajax({
+            type: _config.type,
+            url: _config.url,
+            // async: false,
+            dataType: 'json',
+            success: function(result, status, xhr) {
+                // 取得数据
+                if(result == null){
+                    _that.notice('error','获取菜单数据失败');
+                }else{
+                    window.localStorage.setItem('hm_menu_data', JSON.stringify(result));
+                }
+            },
+            error: function(xhr, status, error) {
+                _that.notice('error','LarryMS Error: ' + error);
+            },
+            complete: function() {
+                // _that.init();
+            }
+        });
+    }
+
+};
+HmObj.prototype.menuSet = function(){
+    var data = JSON.parse(window.localStorage.getItem('hm_menu_data'));
+    if(data != null){
+        var str='',count = data.length;
+        for(var i = 0;i<count;i++){
+            console.log(data[i]);
+            str+= '<li><a href="#">'+data[i]['name']+'</a></li>';
+        }
+        for(var item in data){
+            if (data[item]['id'] == 1){
+                console.log(data[item]['children']);
+            }
+        }
+        $('#hm_menu_top').html(str);
+    }
+};
+/**
+ * [larryCompleteMenu 菜单扩展处理程序]
+ * @param  {[type]} data [description]
+ * @return {[type]}      [description]
+ */
+HmObj.prototype.larryCompleteMenu = function(data) {
+    var that = this;
+    var _config = that.menuCfg;
+    that.menuData = data;
+    // var $leftNav = that.elemCheck(_config.left_menu, 'left_menu');
+    // //左侧导航设置正确
+    // if ($leftNav !== 'error') {
+    //     // 顶级菜单容器过滤
+    //     var $topNav = that.elemCheck(_config.top_menu, 'top_menu');
+    //     // 开启了顶部菜单
+    //     if ($topNav !== 'undefined') {
+    //         var html = that.getHtml(data, 'on');
+    //         // 存入localStorage.larry_menu
+    //         window.localStorage.setItem('larry_menu', JSON.stringify(html));
+    //         LeftMenuElem = html.left;
+    //         // 生成初始化菜单数据
+    //         $topNav.html(html.top);
+    //         $leftNav.html(html.left[0]);
+    //         element.init();
+    //         that.config.top_menu = $topNav;
+    //         that.config.left_menu = $leftNav;
+    //     } else { // 未开启顶部菜单，只有左侧菜单暂时只支持2级导航
+    //         var html = that.getHtml(data, 'off');
+    //         window.localStorage.setItem('larry_menu', JSON.stringify(html));
+    //         LeftMenuElem = html;
+    //         $leftNav.html(html);
+    //         element.init();
+    //         _that.config.left_menu = $leftNav;
+    //     }
+    // }
+};
+/**
+ * www.larrycms.com
+ * [getHtml getHtml 功能函数]
+ * @param  {[type]} data      [description]
+ * @param  {[type]} topStatus [description]
+ * @return {[type]}           [description]
+ */
+HmObj.prototype.getHtml = function(data, topStatus) {
+    // 开启顶部导航
+    if (topStatus == 'on') {
+        var ulHtml = {
+            top: '',
+            left: []
+        };
+        // 第一层循环取出top_menu
+        for (var i = 0; i < data.length; i++) {
+            if (i == 0) {
+                ulHtml.top += '<li class="layui-nav-item layui-this">';
+            } else {
+                ulHtml.top += '<li class="layui-nav-item">';
+            }
+            ulHtml.top += '<a  data-group="' + i + '"">';
+            ulHtml.top += '<i class="larry-icon" data-icon="' + data[i].icon + '">' + data[i].icon + '</i>';
+            ulHtml.top += '<cite>' + data[i].title + '</cite>';
+            ulHtml.top += '</a>'
+            ulHtml.top += '</li>';
+            // 进入第二层左侧二级导航
+            if (data[i].children !== undefined && data[i].children !== null && data[i].children.length > 0) {
+                ulHtml.left[i] = '';
+                for (var j = 0; j < data[i].children.length; j++) {
+                    if (i == 0 && j == 0) {
+                        ulHtml.left[i] += '<li class="layui-nav-item layui-this">';
+                    } else if (j == 0 && (data[i].children[j].children !== undefined && data[i].children[j].children !== null && data[i].children[j].children.length > 0)) {
+                        ulHtml.left[i] += '<li class="layui-nav-item layui-nav-itemed">';
+                    } else if (j == 0 && !(data[i].children[j].children !== undefined && data[i].children[j].children !== null && data[i].children[j].children.length > 0)) {
+                        ulHtml.left[i] += '<li class="layui-nav-item layui-this">';
+                    } else if (data[i].children[j].spread && j != 0) {
+                        ulHtml.left[i] += '<li class="layui-nav-item layui-nav-itemed">';
+                    } else {
+                        ulHtml.left[i] += '<li class="layui-nav-item">';
+                    }
+                    // 有三级菜单
+                    if (data[i].children[j].children !== undefined && data[i].children[j].children !== null && data[i].children[j].children.length > 0) {
+                        ulHtml.left[i] += '<a>';
+                        if (data[i].children[j].icon !== undefined && data[i].children[j].icon !== '') {
+                            // 暂时只定义一种用法
+                            ulHtml.left[i] += '<i class="larry-icon" data-icon="' + data[i].children[j].icon + '">' + data[i].children[j].icon + '</i>';
+                        }
+                        ulHtml.left[i] += '<cite>' + data[i].children[j].title + '</cite>';
+                        ulHtml.left[i] += '</a>';
+                        ulHtml.left[i] += '<dl class="layui-nav-child">';
+                        // for循环取出第三级菜单
+                        for (var k = 0; k < data[i].children[j].children.length; k++) {
+                            if (j == 0 && k == 0) {
+                                ulHtml.left[i] += '<dd class="layui-this">';
+                            } else {
+                                ulHtml.left[i] += '<dd>';
+                            }
+                            ulHtml.left[i] += '<a data-url="' + data[i].children[j].children[k].url + '">';
+                            if (data[i].children[j].children[k].icon !== undefined && data[i].children[j].children[k].icon !== '') {
+                                // 暂时只定义一种用法
+                                ulHtml.left[i] += '<i class="larry-icon" data-icon="' + data[i].children[j].children[k].icon + '">' + data[i].children[j].children[k].icon + '</i>';
+                            }
+                            ulHtml.left[i] += '<cite>' + data[i].children[j].children[k].title + '</cite>';
+                            ulHtml.left[i] += '</a>';
+                            ulHtml.left[i] += '</dd>';
+                        }
+                        ulHtml.left[i] += '</dl>';
+                    } else { //无三级菜单
+                        var dataUrl = (data[i].children[j].url !== undefined && data[i].children[j].url !== '') ? 'data-url="' + data[i].children[j].url + '"' : '';
+                        ulHtml.left[i] += '<a ' + dataUrl + '>';
+                        if (data[i].children[j].icon !== undefined && data[i].children[j].icon !== '') {
+                            // 暂时只定义一种用法
+                            ulHtml.left[i] += '<i class="larry-icon" data-icon="' + data[i].children[j].icon + '">' + data[i].children[j].icon + '</i>';
+                        }
+                        ulHtml.left[i] += '<cite>' + data[i].children[j].title + '</cite>';
+                        ulHtml.left[i] += '</a>';
+                    }
+                    ulHtml.left[i] += '</li>';
+                }
+            }
+        }
+        return ulHtml;
+    } else {
+        // 只定义左侧导航且二级
+        var ulhtml = '';
+        for (var i = 0; i < data.length; i++) {
+
+            if (i == 0) {
+                ulHtml += '<li class="layui-nav-item layui-this">';
+            } else {
+                ulHtml += '<li class="layui-nav-item">';
+            }
+
+            if (data[i].children !== undefined && data[i].children !== null && data[i].children.length > 0) {
+                ulHtml += '<a>';
+                if (data[i].icon !== undefined && data[i].icon !== '') {
+                    ulHtml += '<i class="larry-icon" data-icon="' + data[i].icon + '">' + data[i].icon + '</i>';
+                }
+                ulHtml += '<cite>' + data[i].title + '</cite>';
+                ulHtml += '</a>';
+                ulHtml += '<dl class="layui-nav-child">';
+                for (var j = 0; j < data[i].children.length; j++) {
+                    ulHtml += '<dd>';
+                    ulHtml += '<a data-url="' + data[i].children[j].url + '">';
+                    if (data[i].children[j].icon !== undefined && data[i].children[j].icon !== '') {
+                        ulHtml += '<i class="larry-icon" data-icon="' + data[i].children[j].icon + '">' + data[i].children[j].icon + '</i>';
+                    }
+                    ulHtml += '<cite>' + data[i].children[j].title + '</cite>';
+                    ulHtml += '</a>';
+                    ulHtml += '</dd>';
+                }
+                ulHtml += '</dl>';
+            } else {
+                var dataUrl = (data[i].url !== undefined && data[i].url !== '') ? 'data-url="' + data[i].url + '"' : '';
+                ulHtml += '<a ' + dataUrl + '>';
+                ulHtml += '<i class="larry-icon" data-icon="' + data[i].icon + '">' + data[i].icon + '</i>';
+                ulHtml += '<cite>' + data[i].title + '</cite>';
+                ulHtml += '</a>';
+            }
+            ulHtml += '</li>';
+        }
+
+
+        return ulHtml;
+    }
 }
+/**
+ * 针对传入容器进行检查
+ * @param  elem 容器
+ * @param  elemName 系统容器名
+ * @return {[type]}
+ */
+HmObj.prototype.elemCheck = function(elem, elemName) {
+    var $container;
+    if (elemName != 'top_menu') {
+        if (typeof(elem) !== 'string' && typeof(elem) !== 'object') {
+            this.notice('error',elemName + '参数未定义或设置出错');
+            $container = 'error';
+            return $container;
+        }
+    } else {
+        if (typeof(elem) !== 'string' && typeof(elem) !== 'object') {
+            $container = 'undefined';
+            return $container;
+        }
+    }
+    // 若为字符串
+    if (typeof(elem) === 'string') {
+        $container = $('' + elem + '');
+    }
+    // 若为object
+    if (typeof(elem) === 'object') {
+        $container = elem;
+    }
+    if ($container.length === 0) {
+        common.larryCmsError(elemName + ': 您设置了 ' + elemName + '参数，但DOM文档中找不到定义的【 ' + elem + ' 】元素', common.larryCore.paramsTit);
+        $container = 'error';
+        return $container;
+    }
+    var filter = $container.attr('lay-filter');
+    if (filter === undefined || filter === '') {
+        common.larryCmsError('请为【' + elem + '】容器设置一个lay-filter过滤器', 'lay-filter设置提示');
+    }
+    return $container;
+}
+/**
+ * config传入参数过滤处理
+ * @param  {[type]}
+ * @param  {[type]}
+ * @return {[type]}
+ */
+HmObj.prototype.configFilter = function(obj, allow) {
+    var newO = {};
+    for (var o in obj) {
+        if ($.inArray(o, allow)) {
+            newO[o] = obj[o];
+        }
+    }
+    return newO;
+};
 //创建HmMenuTab对象
 var hm = new HmObj();
 //如果后台没有设置语言，JS来设置

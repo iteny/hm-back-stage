@@ -9960,8 +9960,9 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "name": _vm.name,
       "autocomplete": "off",
       "placeholder": _vm.hint,
-      "data-parsley-required": "true",
-      "data-parsley-username": "true"
+      "data-parsley-required": _vm.isempty,
+      "data-parsley-minlength": _vm.minlength,
+      "data-parsley-maxlength": _vm.maxlength
     },
     domProps: {
       "value": (_vm.inputValue)
@@ -9985,8 +9986,9 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "name": _vm.name,
       "autocomplete": "off",
       "placeholder": _vm.hint,
-      "data-parsley-required": "true",
-      "data-parsley-minlength": "5"
+      "data-parsley-required": _vm.isempty,
+      "data-parsley-minlength": _vm.minlength,
+      "data-parsley-maxlength": _vm.maxlength
     },
     domProps: {
       "value": (_vm.inputValue)

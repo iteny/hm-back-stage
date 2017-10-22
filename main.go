@@ -91,8 +91,9 @@ func adminRoutes() http.Handler {
 	r.Use(middle.ArticleCtx)
 	r.Get("/login", login.Index) //sign in page
 	r.Post("/login", login.Login)
-	r.Get("/", index.Index) //home page
 
+	r.Get("/", index.Index)          //home page
+	r.Get("/getMenu", index.GetMenu) //获取菜单
 	// r.Post("/login", admin.Login.Login) // sign in commit page
 	return r
 }

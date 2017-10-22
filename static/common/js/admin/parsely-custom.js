@@ -44,9 +44,6 @@ Parsley.on('form:submit', function() {
             data: param,
             dataType: "json",
             beforeSend: function() {
-                // myload = layer.load(0, {
-                //     time: 3 * 1000
-                // });
                 //进度条给予遮罩层
                 $("#hm-shade").addClass('on');
                 //给遮罩层一个消失动画
@@ -54,12 +51,17 @@ Parsley.on('form:submit', function() {
                 Pace.restart();
             },
             success: function(msg) {
-                Pace.stop();
-                // alert('111');
-                console.log('阿斯蒂芬');
-                setTimeout(function() {
-                    window.location.href = that.attr('redirect')
-                }, 3000);
+                if(msg.status === 1){
+                    hm.notice('success',msg.info);
+                    Pace.stop();
+                    setTimeout(function() {
+                        window.location.href = that.attr('redirect')
+                    }, 3000);
+                }else{
+                    hm.notice('error',msg.info);
+                    Pace.stop();
+                }
+
                 // if (msg.status === 1) {
                 //     admin.success(msg.info, '#loginsubmit');
                 //     setTimeout(function() {

@@ -2,8 +2,8 @@
 <div class="form-group has-feedback">
     <div class="col-sm-12">
         <slot></slot>
-        <input v-if="domtype === 'text'" type="text" :name="name" class="form-control" autocomplete="off" :placeholder="hint" v-model="inputValue" data-parsley-required="true" data-parsley-username="true">
-        <input v-else-if="domtype === 'password'" type="password" :name="name" class="form-control" autocomplete="off" :placeholder="hint" v-model="inputValue" data-parsley-required="true" data-parsley-minlength="5">
+        <input v-if="domtype === 'text'" type="text" :name="name" class="form-control" autocomplete="off" :placeholder="hint" v-model="inputValue" :data-parsley-required="isempty" :data-parsley-minlength="minlength" :data-parsley-maxlength="maxlength">
+        <input v-else-if="domtype === 'password'" type="password" :name="name" class="form-control" autocomplete="off" :placeholder="hint" v-model="inputValue" :data-parsley-required="isempty" :data-parsley-minlength="minlength" :data-parsley-maxlength="maxlength">
         <textarea v-else-if="domtype === 'textarea'" type="password" :name="name" class="form-control" autocomplete="off" :placeholder="hint" v-model="inputValue"></textarea>
         <input v-else type="text" :name="name" class="form-control" autocomplete="off" :placeholder="hint" v-model="inputValue">
         <span class="glyphicon glyphicon-star form-control-feedback" aria-hidden="true"></span>
