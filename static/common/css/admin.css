@@ -1034,7 +1034,7 @@ textarea.parsley-error {
     height: 100%;
     top: 51px;
 }
-#hm-right>#hmtabs{
+#hm-right>#hm-tabs{
     height: 40px;
     line-height: 40px;
     width: 100%;
@@ -1045,7 +1045,7 @@ textarea.parsley-error {
     padding-left: 60px;
     padding-right: 120px;
 }
-#hm-right>#hmtabs>li{
+#hm-right>#hm-tabs>li{
     height: 40px;
     line-height: 40px;
     list-style: none;
@@ -1056,7 +1056,7 @@ textarea.parsley-error {
     /*padding: 0 15px;*/
     /*padding-left: 10px;*/
 }
-#hm-right>#hmtabs>li {
+#hm-right>#hm-tabs>li {
   /*height: 35px;
   overflow: hidden;
   margin-top: 5px;*/
@@ -1078,14 +1078,14 @@ textarea.parsley-error {
     padding: 10px 20px 10px 15px;
     color: #666;
 }
-#hm-right>#hmtabs>li i{
+#hm-right>#hm-tabs>li i{
     position: absolute;
     right: 6px;
     z-index: 9999;
     padding: 3px;
     border-radius: 3px;
 }
-#hm-right>#hmtabs>li i:hover,#hm-right>#hmtabs>li.acitve i:hover{
+#hm-right>#hm-tabs>li i:hover,#hm-right>#hm-tabs>li.acitve i:hover{
 
     background: blue;
     color: white;

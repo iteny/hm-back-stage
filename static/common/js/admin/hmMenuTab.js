@@ -38,7 +38,7 @@ $('#hm_menu_top').on("click",'li',function(event){
                         second +=           '<ul>';
                         var tcount = sdata[i]['children'].length,tdata = sdata[i]['children'];
                         for(var t=0;t<tcount;t++){
-                            second += '<li><a data-url="html/panel/personal.html"><i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;<span>'+tdata[t]["name"]+'</span></a></li>';
+                            second += '<li><a class="hm-third-click" data-name="'+tdata[t]["name"]+'" data-id="'+tdata[t]["id"]+'" data-url="'+tdata[t]["url"]+'"><i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;<span>'+tdata[t]["name"]+'</span></a></li>';
                         }
                         second +=           '</ul>';
                         second +=       '</div>';
@@ -71,5 +71,28 @@ $('#hm_menu_second').on('click', '.panel-title', function() {
         that.find('span.fa').attr('class', 'fa fa-chevron-down');
     } else {
         that.find('span.fa').attr('class', 'fa fa-chevron-right');
+    }
+});
+//点击增加tab
+$('#hm_menu_second').on('click','.hm-third-click',function(){
+    var that = $(this),
+        id = that.attr('data-id'),
+        url = that.attr('data-url'),
+        name = that.attr('data-name'),
+        tab = '',content = '';
+    if($('#hm-tabs a[href="#hm-tab-'+id+'"]').length > 0){
+        $('#hm-tabs a[href="#hm-tab-'+id+'"]').tab('show');
+    }else{
+        //添加tab页签
+        tab += '<li role="presentation" class="active">';
+        tab += '<a href="#hm-tab-'+id+'" aria-controls="home" role="tab" data-toggle="tab">'+name+'&nbsp;&nbsp;<i class="fa fa-times" onclick="deleteTab('+id+')"></i></a>';
+        tab += '</li>';
+        $("#hm-tabs > li").removeClass("active");
+        $("#hm-tabs").append(tab);
+        //添加tab标签内容
+        content += '<div role="tabpanel" class="tab-pane active" id="hm-tab-'+id+'">';
+        content += id;
+        content += '</div>';
+        $("#hm-tabs-content").append(content);
     }
 });
