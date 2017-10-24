@@ -193,7 +193,28 @@
             </div>
         </div>
         <div id="hm-right" style="overflow-x:auto;overflow-y:auto;">
-            <div class="ccc fa-color-1">1</div>
+            <ul class="nav nav-tabs" id="hmtabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#one" aria-controls="home" role="tab" data-toggle="tab">首页&nbsp;&nbsp;<i class="fa fa-times" onclick="deleteTab(0)"></i></a>
+
+                </li>
+
+                <li role="presentation">
+                    <a href="#two" aria-controls="home" role="tab" data-toggle="tab">动向汇报&nbsp;&nbsp;<i class="fa fa-times" onclick="deleteTab(0)"></i></a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="one">
+                    111
+                    <iframe id="iframepage0" name="iframepage1" width="100%" frameborder="0" scrolling="no" src="/business/system/manage/welcome/list/page" height="311"></iframe>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="two">
+                    222
+                    <iframe id="iframepage4" name="iframepage5" width="100%" frameborder="0" scrolling="no" src="/business/workReport/manage/list/myPage" height="311"></iframe>
+                </div>
+            </div>
+            <!-- <div class="ccc fa-color-1">1</div>
             <div class="ccc fa-color-2">2</div>
             <div class="ccc fa-color-3">3</div>
             <div class="ccc fa-color-4">4</div>
@@ -212,7 +233,7 @@
             <div class="ccc fa-color-17">17</div>
             <div class="ccc fa-color-18">18</div>
             <div class="ccc fa-color-19">19</div>
-            <div class="ccc fa-color-20">20</div>
+            <div class="ccc fa-color-20">20</div> -->
         </div>
     </div>
 </body>

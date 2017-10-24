@@ -294,14 +294,7 @@ padding: 1px 10px;
     border-bottom-right-radius: 3px;
 }
 
-#main-container>#hm-right {
-    background: #fff;
-    padding: 10px 20px 0;
-    margin-left: 230px;
-    width: auto;
-    height: 100%;
-    top: 51px;
-}
+
 
 #main-container.zoom>#hm-left {
     width: 70px;
@@ -1029,5 +1022,71 @@ textarea.parsley-error {
     height: 40px;
     padding: 10px;
     margin-top: 10px;
+    color: white;
+}
+/*右侧内容区域*/
+
+#hm-right {
+    background: #fff;
+    /*padding: 10px 20px 0;*/
+    margin-left: 230px;
+    width: auto;
+    height: 100%;
+    top: 51px;
+}
+#hm-right>#hmtabs{
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    background: white;
+    border-bottom:1px solid #ededed;
+    padding: 0;
+    margin: 0;
+    padding-left: 60px;
+    padding-right: 120px;
+}
+#hm-right>#hmtabs>li{
+    height: 40px;
+    line-height: 40px;
+    list-style: none;
+    float: left;
+    /*display: block;*/
+    /*background: red;*/
+    margin-right: 10px;
+    /*padding: 0 15px;*/
+    /*padding-left: 10px;*/
+}
+#hm-right>#hmtabs>li {
+  /*height: 35px;
+  overflow: hidden;
+  margin-top: 5px;*/
+  /*background: #dedede;
+  background: rgba(0,0,0,0.05);
+  color: #777;*/
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    border: 0;
+    background: red;
+    color: white;
+}
+.nav-tabs>li>a {
+    margin-right: 0;
+    line-height: 1.42857143;
+    border: 0;
+    border-radius: 0;
+    padding: 10px 20px 10px 15px;
+    color: #666;
+}
+#hm-right>#hmtabs>li i{
+    position: absolute;
+    right: 6px;
+    z-index: 9999;
+    padding: 3px;
+    border-radius: 3px;
+}
+#hm-right>#hmtabs>li i:hover,#hm-right>#hmtabs>li.acitve i:hover{
+
+    background: blue;
     color: white;
 }
