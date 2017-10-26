@@ -32,17 +32,15 @@ body {
 }
 
 #hm-top .navbar {
-    background-color: inherit;
-    /*background-color: #F0F0F0;*/
-    background: linear-gradient(#fff, #f0f0f0), #F0F0F0;
-    box-shadow: rgba(0, 0, 0, 0.25) 0 0 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
+    background-color: #3498db;
+
     border: 0;
-    border-bottom: 1px solid #D9DEE4;
+    /*border-bottom: 1px solid #D9DEE4;*/
     z-index: 999;
 }
 
 #hm-top .navbar-default .navbar-brand, #hm-top .navbar-default .navbar-nav>li>a, #hm-top .navbar-default .navbar-nav>.active>a, #hm-top .navbar-default .navbar-nav>.active>a:focus, #hm-top .navbar-default .navbar-nav>.active>a:hover {
-    color: #515356;
+    color: #fff;
 }
 
 #hm-top .navbar-default .navbar-nav>li>a:hover, #hm-top .navbar-default .navbar-nav>li>a:hover>span.glyphicon {
@@ -50,7 +48,7 @@ body {
 }
 
 #hm-top .navbar-default .navbar-nav>.active>a, #hm-top .navbar-default .navbar-nav>.active>a:focus, #hm-top .navbar-default .navbar-nav>.active>a:hover {
-    background-color: #3498db;
+    background-color: rgba(0,0,0,0.1);
     color: white;
 }
 
@@ -66,16 +64,17 @@ body {
 #hm-top #hm-brand .zoom {
     float: right;
 }
-
 #hm-top #hm-brand .zoom>i {
     font-size: 20px;
-    color: #5A738E;
+    color: #fff;
 }
 
 #hm-top #hm-brand .zoom>i:hover {
-    color: #337ab7;
+    color: #1ABB9C;
 }
-
+#hm-top #hm-brand .on>i{
+    color: #1ABB9C;
+}
 @media (min-width: 767px) {
     #hm-top {
         overflow: hidden;
@@ -123,6 +122,7 @@ body {
 
 #hm-top .navbar-default .hm-nav-hide-btn {
     /*去除隐藏按钮边框*/
+    color: #fff;
     border: 0;
     border-radius: 0;
 }
@@ -156,14 +156,14 @@ body {
 }
 
 #hm-top .navbar-default .navbar-toggle .icon-bar {
-    background-color: #515356;
+    background-color: #fff;
 }
 
 #hm-top .glyphicon {
     /*导航图标*/
     font-weight: bold;
     font-size: 8px;
-    color: #515356;
+    color: #fff;
 }
 
 #hm-top .navbar-toggle:focus, .navbar-default .navbar-toggle {
@@ -172,7 +172,7 @@ body {
 
 #hm-top .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
     /*给小屏用户设置个点击背景色*/
-    background-color: #3498db;
+    background-color: rgba(0,0,0,0.1);
     color: #fff;
 }
 
@@ -185,7 +185,7 @@ body {
 }
 
 #hm-top .navbar-default .navbar-nav>.open>a, #hm-top .navbar-default .navbar-nav>.open>a:focus, #hm-top .navbar-default .navbar-nav>.open>a:hover {
-    background-color: #3498db;
+    background-color: rgba(0,0,0,0.1);
     color: #fff;
 }
 
@@ -258,7 +258,7 @@ padding: 1px 10px;
     padding-left: 0;
     padding-right: 0;
     position: absolute;
-    top: 51px;
+    top: 50px;
 }
 
 #main-container>#hm-left.col-md-3 {
@@ -1038,12 +1038,16 @@ textarea.parsley-error {
     height: 40px;
     line-height: 40px;
     width: 100%;
-    background: white;
-    border-bottom:1px solid #ededed;
+
+    background-color: inherit;
+    /* background-color: #F0F0F0; */
+    background: linear-gradient(#fff, #f0f0f0), #F0F0F0;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 0 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
+    border: 0;
+    /*border-top:1px solid #D9DEE4;*/
+    border-bottom:1px solid #D9DEE4;
     padding: 0;
     margin: 0;
-    padding-left: 60px;
-    padding-right: 120px;
 }
 #hm-right>#hm-tabs>li{
     height: 40px;
@@ -1052,7 +1056,7 @@ textarea.parsley-error {
     float: left;
     /*display: block;*/
     /*background: red;*/
-    margin-right: 10px;
+    /*margin-right: 10px;*/
     /*padding: 0 15px;*/
     /*padding-left: 10px;*/
 }
@@ -1065,23 +1069,30 @@ textarea.parsley-error {
   color: #777;*/
 }
 
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover,.nav-tabs>li>a:hover {
     border: 0;
-    background: red;
+    background: #1ABB9C;
     color: white;
+    z-index: 777;
 }
 .nav-tabs>li>a {
     margin-right: 0;
-    line-height: 1.42857143;
+    /*line-height: 1.42857143;*/
     border: 0;
     border-radius: 0;
     padding: 10px 20px 10px 15px;
     color: #666;
 }
+#hm-right>#hm-tabs{
+    /*position: absolute;
+    top: 0px;
+    left: 0px;*/
+}
+
 #hm-right>#hm-tabs>li i{
     position: absolute;
     right: 6px;
-    z-index: 9999;
+    z-index: 800;
     padding: 3px;
     border-radius: 3px;
 }
@@ -1089,4 +1100,17 @@ textarea.parsley-error {
 
     background: blue;
     color: white;
+}
+@media (min-width: 768px) {
+    #hm-right>#hm-tabs-content{
+        /*margin-top: 40px;*/
+    }
+}
+@media (max-width: 768px) {
+    #hm-right>#hm-tabs-content{
+        margin-top: 0;
+    }
+    #hm-right>#hm-tabs{
+        display: none;
+    }
 }

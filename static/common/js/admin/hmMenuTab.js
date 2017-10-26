@@ -91,8 +91,10 @@ $('#hm_menu_second').on('click','.hm-third-click',function(){
         $("#hm-tabs").append(tab);
         //添加tab标签内容
         content += '<div role="tabpanel" class="tab-pane active" id="hm-tab-'+id+'">';
-        content += id;
+        content += '<iframe class="hm-frame" id="rightFrame-'+id+'" name="rightFrame" frameborder="0" scrolling="auto" src="/intendant/login" style="height:100%; width: 100%;display:block;"></iframe>'
         content += '</div>';
+        $("#hm-tabs-content > div").removeClass("active");
         $("#hm-tabs-content").append(content);
+        hm.browserType("index");
     }
 });

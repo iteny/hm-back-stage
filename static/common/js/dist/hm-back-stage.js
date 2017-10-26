@@ -9896,8 +9896,8 @@ if (false) {(function () {
             default: ''
         },
         isempty: [String],
-        minlength: [Number],
-        maxlength: [Number],
+        minlen: [Number],
+        maxlen: [Number],
         email: [String]
     },
     beforeCreat() {//组件实例刚创建，组件属性计算之前，如data属性等。
@@ -9961,8 +9961,8 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "autocomplete": "off",
       "placeholder": _vm.hint,
       "data-parsley-required": _vm.isempty,
-      "data-parsley-minlength": _vm.minlength,
-      "data-parsley-maxlength": _vm.maxlength
+      "data-parsley-minlength": _vm.minlen,
+      "data-parsley-maxlength": _vm.maxlen
     },
     domProps: {
       "value": (_vm.inputValue)
@@ -9987,8 +9987,8 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       "autocomplete": "off",
       "placeholder": _vm.hint,
       "data-parsley-required": _vm.isempty,
-      "data-parsley-minlength": _vm.minlength,
-      "data-parsley-maxlength": _vm.maxlength
+      "data-parsley-minlength": _vm.minlen,
+      "data-parsley-maxlength": _vm.maxlen
     },
     domProps: {
       "value": (_vm.inputValue)

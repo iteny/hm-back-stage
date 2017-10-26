@@ -2,8 +2,8 @@
 <div class="form-group has-feedback">
     <div class="col-sm-12">
         <slot></slot>
-        <input v-if="domtype === 'text'" type="text" :name="name" class="form-control" autocomplete="off" :placeholder="hint" v-model="inputValue" :data-parsley-required="isempty" :data-parsley-minlength="minlength" :data-parsley-maxlength="maxlength">
-        <input v-else-if="domtype === 'password'" type="password" :name="name" class="form-control" autocomplete="off" :placeholder="hint" v-model="inputValue" :data-parsley-required="isempty" :data-parsley-minlength="minlength" :data-parsley-maxlength="maxlength">
+        <input v-if="domtype === 'text'" type="text" :name="name" class="form-control" autocomplete="off" :placeholder="hint" v-model="inputValue" :data-parsley-required="isempty" :data-parsley-minlength="minlen" :data-parsley-maxlength="maxlen">
+        <input v-else-if="domtype === 'password'" type="password" :name="name" class="form-control" autocomplete="off" :placeholder="hint" v-model="inputValue" :data-parsley-required="isempty" :data-parsley-minlength="minlen" :data-parsley-maxlength="maxlen">
         <textarea v-else-if="domtype === 'textarea'" type="password" :name="name" class="form-control" autocomplete="off" :placeholder="hint" v-model="inputValue"></textarea>
         <input v-else type="text" :name="name" class="form-control" autocomplete="off" :placeholder="hint" v-model="inputValue">
         <span class="glyphicon glyphicon-star form-control-feedback" aria-hidden="true"></span>
@@ -26,8 +26,8 @@ export default {
             default: ''
         },
         isempty: [String],
-        minlength: [Number],
-        maxlength: [Number],
+        minlen: [Number],
+        maxlen: [Number],
         email: [String],
     },
     beforeCreat() { //组件实例刚创建，组件属性计算之前，如data属性等。

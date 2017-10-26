@@ -222,7 +222,9 @@ HmObj.prototype.browserType = function(status, callback) {
         switch (status) {
             case "index":
                 var hg = window.innerHeight + 10;
+                var frame = window.innerHeight +8;
                 $('#main-container').height(hg);
+                $('.hm-frame').height(frame);
                 break;
             default:
                 console.log("phone");
@@ -231,7 +233,9 @@ HmObj.prototype.browserType = function(status, callback) {
         switch (status) {
             case "index":
                 var hg = window.innerHeight - 51;
+                var frame = window.innerHeight - 92;
                 $('#main-container').height(hg);
+                $('.hm-frame').height(frame);
                 break;
             default:
                 console.log("pc");
@@ -411,7 +415,7 @@ HmObj.prototype.menuSet = function(){
             console.log(data[i]);
             str+= '<li data-id="'+data[i]["id"]+'"><a href="#">'+data[i]['name']+'</a></li>';
         }
-        
+
         $('#hm_menu_top').html(str);
     }
 };
